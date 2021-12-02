@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  lolP.gg
 //
-//  Created by 강대민 on 2021/12/02.
+//  Created by 강대민 on 2021/11/17.
 //
 
 import UIKit
@@ -10,10 +10,16 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+//        타이틀 Color 모든 컨트롤러에 동일하게 적용하고 싶으면 앱델리게이트에 작성.
+//        let myColor = UIColor.tintColor
+//        let barAppearance = UINavigationBarAppearance()
+//        barAppearance.backgroundColor = myColor
+//
+//        let navigationBar = UINavigationBar.appearance()
+//        navigationBar.standardAppearance = barAppearance
+//        navigationBar.scrollEdgeAppearance = barAppearance
         return true
     }
 
@@ -29,8 +35,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+        
+        
     }
 
+    
+    
 
 }
 

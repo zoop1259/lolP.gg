@@ -13,6 +13,10 @@
 		C52177CF27590FAA00E1BA62 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C52177CD27590FAA00E1BA62 /* Main.storyboard */; };
 		C52177D127590FAC00E1BA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C52177D027590FAC00E1BA62 /* Assets.xcassets */; };
 		C52177D427590FAC00E1BA62 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C52177D227590FAC00E1BA62 /* LaunchScreen.storyboard */; };
+		C52177DC2759100600E1BA62 /* CommuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177DB2759100600E1BA62 /* CommuVC.swift */; };
+		C52177E02759101600E1BA62 /* CommuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177DD2759101600E1BA62 /* CommuTableViewController.swift */; };
+		C52177E12759101600E1BA62 /* LoginPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177DE2759101600E1BA62 /* LoginPopupViewController.swift */; };
+		C52177E22759101600E1BA62 /* CommuDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177DF2759101600E1BA62 /* CommuDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		C52177D027590FAC00E1BA62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C52177D327590FAC00E1BA62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C52177D527590FAC00E1BA62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C52177DB2759100600E1BA62 /* CommuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommuVC.swift; sourceTree = "<group>"; };
+		C52177DD2759101600E1BA62 /* CommuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommuTableViewController.swift; sourceTree = "<group>"; };
+		C52177DE2759101600E1BA62 /* LoginPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPopupViewController.swift; sourceTree = "<group>"; };
+		C52177DF2759101600E1BA62 /* CommuDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommuDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +71,10 @@
 				C52177D027590FAC00E1BA62 /* Assets.xcassets */,
 				C52177D227590FAC00E1BA62 /* LaunchScreen.storyboard */,
 				C52177D527590FAC00E1BA62 /* Info.plist */,
+				C52177DF2759101600E1BA62 /* CommuDetailViewController.swift */,
+				C52177DB2759100600E1BA62 /* CommuVC.swift */,
+				C52177DD2759101600E1BA62 /* CommuTableViewController.swift */,
+				C52177DE2759101600E1BA62 /* LoginPopupViewController.swift */,
 			);
 			path = lolP.gg;
 			sourceTree = "<group>";
@@ -138,8 +150,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C52177E22759101600E1BA62 /* CommuDetailViewController.swift in Sources */,
 				C52177CC27590FAA00E1BA62 /* ViewController.swift in Sources */,
 				C52177C827590FAA00E1BA62 /* AppDelegate.swift in Sources */,
+				C52177DC2759100600E1BA62 /* CommuVC.swift in Sources */,
+				C52177E12759101600E1BA62 /* LoginPopupViewController.swift in Sources */,
+				C52177E02759101600E1BA62 /* CommuTableViewController.swift in Sources */,
 				C52177CA27590FAA00E1BA62 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
