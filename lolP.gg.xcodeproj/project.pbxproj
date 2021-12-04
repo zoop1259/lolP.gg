@@ -54,7 +54,6 @@
 				18CC0195CF0A7F071097F3BB /* Pods-lolP.gg.debug.xcconfig */,
 				FFB4BB1CF4052A3A8D0572D3 /* Pods-lolP.gg.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -148,7 +147,6 @@
 			);
 			mainGroup = C52177BB27590FAA00E1BA62;
 			packageReferences = (
-				C52177E3275AC48C00E1BA62 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 			);
 			productRefGroup = C52177C527590FAA00E1BA62 /* Products */;
 			projectDirPath = "";
@@ -444,17 +442,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		C52177E3275AC48C00E1BA62 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = C52177BC27590FAA00E1BA62 /* Project object */;
 }
