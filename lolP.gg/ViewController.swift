@@ -1,4 +1,5 @@
 import UIKit
+import SwiftyJSON
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
@@ -16,18 +17,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             
             //이게 2번
             if let dataJson = data {
-                //print(dataJson)
-                //이렇게하면 바이트 값만 나오기 때문에 json형태로 파싱해야 한다.
                 do {
-                    //두번쨰 딕셔너리 문법이 나온다.
                     let json = try JSONSerialization.jsonObject(with: dataJson, options:[]) as! Dictionary<String, Any>
-                    //print(json)
                     //스위프트에선 Dictionary라고 한다.
-                    //json["articles"] >> articles라는 것을 찾아와.
                     let names = json["freeChampionIds"] as! Array<Dictionary<String, Any>>
-                    //print(articles)
-           
-                    //여기서 self가 빠지면 newsData의 위치를 모른다. 그렇기 떄문에 self를 사용한다.
+                    //여기서 self가 빠지면 위치를 모른다. 그렇기 떄문에 self를 사용한다.
                     self.champData = names
                 
                     //메인에서 일을하게 만들어야한다. 외워야 하는 문법
@@ -35,28 +29,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                         //이것이 4번 통보하는 법. reloadData
                         self.CollectionViewMain.reloadData()
                     }
-                    
-                    // 세번쨰 for문법이 나온다.
-                    /*이건 외워두는게 좋다.
-                    for (idx, value) in articles.enumerated() {
-                        
-                    }
-                     */
-//                    for (idx, value) in articles.enumerated() {
-//                        if let v = value as? Dictionary<String, Any> {
-//                            print("\(v["title"])")
-//                            v["description"]
-//                        }
-//                    }
-                    
                 }
                 catch {}
             }
         }
         task.resume()
     }
-    
-    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let champs = champData {
