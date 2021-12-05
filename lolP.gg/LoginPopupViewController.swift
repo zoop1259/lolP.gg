@@ -9,14 +9,13 @@ import Foundation
 import UIKit
 
 class LoginPopupViewController: UIViewController {
-    //
-    //
     
-
     @IBOutlet var popup: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        popup.layer.cornerRadius = 30
     }
     
 }

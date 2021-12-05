@@ -11,12 +11,11 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
 
    
     
-    let titleList = ["안녕", "오늘"]
+    let titleList = ["안녕", "오늘","정말","좋은","하루","야","그렇지","?","^^"]
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //셀의 높이를 정하자, 오토매틱디멘션을 쓰면 알아서 정해줌.
 //        self.commuTableView.rowHeight = UITableView.automaticDimension
         

@@ -12,14 +12,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-//        타이틀 Color 모든 컨트롤러에 동일하게 적용하고 싶으면 앱델리게이트에 작성.
-//        let myColor = UIColor.tintColor
-//        let barAppearance = UINavigationBarAppearance()
-//        barAppearance.backgroundColor = myColor
-//
-//        let navigationBar = UINavigationBar.appearance()
-//        navigationBar.standardAppearance = barAppearance
-//        navigationBar.scrollEdgeAppearance = barAppearance
+        //네비게이션 바 색변경.
+        let standard = UINavigationBarAppearance()
+        standard.configureWithOpaqueBackground()
+        standard.backgroundColor = .link
+        //standard.titlePositionAdjustment = UIOffset(horizontal: -30, vertical: 0)
+        standard.titleTextAttributes = [.foregroundColor: UIColor.white]
+        //좌측버튼
+        let button = UIBarButtonItemAppearance(style: .plain)
+        button.normal.titleTextAttributes = [.foregroundColor: UIColor.white]
+        standard.buttonAppearance = button
+        //우측버튼
+        let done = UIBarButtonItemAppearance(style: .done)
+        done.normal.titleTextAttributes = [.foregroundColor: UIColor.white]
+        standard.doneButtonAppearance = done
+        //화살표 색
+        let arrow = UINavigationBar.appearance()
+        arrow.tintColor = .white
+        
+        //이걸 쓰지않으면 스와이프시 반투명색(흰색)이 된다.
+        UINavigationBar.appearance().standardAppearance = standard
+        //xcode업데이트 후 이것을 설정해주지않으면 네비게이션바가 반투명색이 된다...
+        UINavigationBar.appearance().scrollEdgeAppearance = standard
+        
         return true
     }
 
@@ -38,9 +53,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
     }
+    
+    //팝업을 만들고 싶다.
+//    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+//        if viewController is LoginPopupViewController {
+//            /*
+//             let storyboard = UIStoryboard(name: "Popup", bundle: nil)
+//             let popupViewController = storyboard.instantiateViewController(withIdentifier: "Popup") as! PopupViewController
+//             popupViewController.modalPresentationStyle = .fullScreen
+//             tabBarController.present(popupViewController, animated: true, completion: nil)
+//             */
+//            if let popupView = tabBarController.storyboard?.instantiateViewController(withIdentifier: "popup") {
+//                tabBarController.present(popupView, animated: true)
+//                return false
+//            }
+//            return false
+//        }
+//        return true
+//    }
 
-    
-    
 
 }
 

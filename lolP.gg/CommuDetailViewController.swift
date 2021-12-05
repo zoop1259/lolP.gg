@@ -21,7 +21,6 @@ class CommuDetailViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         if let mai = tesc {
             //본문내용을 보여준다.
             self.detailLabel.text = mai

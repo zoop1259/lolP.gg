@@ -10,6 +10,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet var CollectionViewMain: UICollectionView!
 
     
+    
+    
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         return nameList.count
@@ -20,6 +24,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             return UICollectionViewCell()
         }
         
+        //        챔피언 이미지 밑에 챔피언명을 출력해야함.
+        cell.nameLabel.text = nameList[(indexPath as NSIndexPath).item]
 
         return cell
     }
@@ -37,10 +43,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+
     }
 
-
+//    @IBAction func profileButton(_ sender: Any) {
+//        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+//        let popupview = storyBoard.instantiateViewController(withIdentifier: "popupView")
+//        popupview.modalPresentationStyle = .overFullScreen
+//        present(popupview, animated: false, completion: nil)
+//
+//    }
+    
 }
 
 class ChampList: UICollectionViewCell {
@@ -48,3 +61,4 @@ class ChampList: UICollectionViewCell {
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
 }
+
