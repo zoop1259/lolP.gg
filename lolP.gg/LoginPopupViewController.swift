@@ -15,6 +15,7 @@ class LoginPopupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //모서리를 둥글게둥글게
         popup.layer.cornerRadius = 30
     }
     
