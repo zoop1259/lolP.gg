@@ -12,6 +12,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var searchButton: UIButton!
     @IBOutlet var searchIndicator: UIActivityIndicatorView!
+    
+    
+    
 
     var keyboardDismissTabGesture : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: nil)
     
@@ -25,19 +28,27 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
         //ui설정
         self.config()
+        
+
+//        getinfo()
     }
     
     //MARK: -- prepare method 데이터 넘겨주기.
+    //1. 메인 화면에 챔피언 이름과 사진을 받아와야함.
+    //2. 메인화면의 챔피언 이름과 사진을 디테일화면에 넘겨줘야함.
+    //3. 디테일 화면에서는 스킬정보를 받아와야함.
+    //4. 끗....
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("VC - prepare() called / segue.identifier : \(segue.identifier)")
     
-    
     }
     
-    
+    //MARK: -- Collection View delegate
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         return nameList.count
+        
+
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -45,9 +56,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             return UICollectionViewCell()
         }
         
-        //        챔피언 이미지 밑에 챔피언명을 출력해야함.
+//                챔피언 이미지 밑에 챔피언명을 출력해야함.
         cell.nameLabel.text = nameList[(indexPath as NSIndexPath).item]
 
+
+        
+        
         return cell
     }
     
@@ -70,6 +84,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     //버튼이 클릭되었을때?
     @IBAction func onSearchButtonClicked(_ sender: Any) {
         print("검색버튼 터치")
+        
+
+        
     }
     
     //MARK: - UISearchBar Delegate methods
@@ -101,6 +118,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             self.searchButton.isHidden = false
         }
     }
+    
+    //앱키자마자 키보드 뜨게하기.
+//    override func viewDidAppear(_ animated: Bool) {
+//        self.searchBar.becomeFirstResponder() // 포커싱주기
+//    }
+    
     
     //글자가 입력될 때
     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -135,6 +158,39 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             return true
         }
     }
+    
+    //키보드가 올라가는 사실은 아이폰이 알려준다. 그걸 notificationcenter로 받아오는것.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //키보드 올라가는 이벤트를 받는 처리
+        //키보드 노티 등록
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowHandle(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideHandle), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        //키보드 노티 해제
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+    }
+
+    @objc func keyboardWillShowHandle(notification: NSNotification) {
+        
+        //키보드 사이즈를 가져와서 그만큼 뷰를 밀어냄.
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if(keyboardSize.height < CollectionViewMain.frame.origin.y){
+                let distance = keyboardSize.height - CollectionViewMain.frame.origin.y
+                self.view.frame.origin.y = distance + CollectionViewMain.frame.height
+            }
+        }
+        
+    }
+    
+    @objc func keyboardWillHideHandle() {
+        
+    }
+    
 }
 
 class ChampList: UICollectionViewCell {
@@ -143,3 +199,46 @@ class ChampList: UICollectionViewCell {
     @IBOutlet weak var nameLabel: UILabel!
 }
 
+struct ChampInfo: Decodable {
+    
+    //이미지 크기는 48,48
+    //data에서 name, image에서 full
+    let data: String
+    let name: String
+    let id: String
+    
+    
+}
+
+func getinfo() {
+
+    var dic : [String: AnyObject]
+    var name : [String]
+
+    AF.request("https://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion/Aatrox.json").responseJSON { response in
+
+        if let value = response.value as? [String: AnyObject] {
+            print("\(value)")
+//            print((value["data"]?["Aatrox"]))
+//            for i in value {
+//                print ("\(i)")
+//            }
+//            for key in value.value {
+//                print("\(key)")
+//                if let key = value["data"] as? [String: AnyObject] {
+//                    print(\(key)id")
+//                }
+//            }
+            //param2.quiz["sport"].q1.question
+            //value.data[""].name
+            //"Aatrox
+        }
+    }
+}
+
+//    AF.request("http://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion.json").response { response in debugPrint(response)}
+//}
+        
+
+
+        
