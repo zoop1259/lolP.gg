@@ -30,7 +30,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         self.config()
         
 
-//        getinfo()
+        getinfo()
     }
     
     //MARK: -- prepare method 데이터 넘겨주기.
@@ -46,6 +46,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     //MARK: -- Collection View delegate
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
+        //return getinfo.nameArr.count
         return nameList.count
         
 
@@ -60,8 +61,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         cell.nameLabel.text = nameList[(indexPath as NSIndexPath).item]
 
 
-        
-        
         return cell
     }
     
@@ -73,6 +72,41 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //
 //        return CGSize(width: width, height: height)
 //    }
+    
+    func getinfo() {
+
+        var ageArr = [String]()
+        var nameArr = [String]()
+        var employedArr = [String]()
+        
+        AF.request("http://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion.json").responseJSON { response in
+
+            if let value = response.value as? [String: AnyObject] {
+                //모든값
+    //            print(value)
+                //type, format, version를 제외하고 data안에 있는 모든 값
+                if let datas = value["data"] as? [String : AnyObject] {
+                    //print(datas)
+                    
+                    for i in datas.keys {
+                        nameArr.append(i as! String)
+                    }
+                }
+                
+                print(nameArr)
+    //            for (key, value) in value {
+    //                print(key)
+    //            }
+                
+                //정렬인데.. 못써먹을듯.
+    //            let order = value.keys.sorted(by: <)
+    //            print(order)
+    //            let order = value.values.sorted(by: <)
+    //            print(order)
+    //            let order = value.sorted(by: <)
+            }
+        }
+    }
 
     fileprivate func config() {
         //스토리보드에 존재하는 라이브러리들은 VC로 직접 델리게이트를 설정해줄수있지만 제스처는 그렇지 않으므로 코드로 델리게이트 선언
@@ -210,35 +244,7 @@ struct ChampInfo: Decodable {
     
 }
 
-func getinfo() {
 
-    var dic : [String: AnyObject]
-    var name : [String]
-
-    AF.request("https://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion/Aatrox.json").responseJSON { response in
-
-        if let value = response.value as? [String: AnyObject] {
-            print("\(value)")
-//            print((value["data"]?["Aatrox"]))
-//            for i in value {
-//                print ("\(i)")
-//            }
-//            for key in value.value {
-//                print("\(key)")
-//                if let key = value["data"] as? [String: AnyObject] {
-//                    print(\(key)id")
-//                }
-//            }
-            //param2.quiz["sport"].q1.question
-            //value.data[""].name
-            //"Aatrox
-        }
-    }
-}
-
-//    AF.request("http://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion.json").response { response in debugPrint(response)}
-//}
-        
 
 
         
