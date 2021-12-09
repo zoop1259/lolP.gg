@@ -28,9 +28,31 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
         //ui설정
         self.config()
-        
-
-//        getinfo()
+        getinfo()
+    }
+    
+    var champsName :[String:Any]?
+    
+    
+    func getinfo() {
+        //이게 1번
+        let task = URLSession.shared.dataTask(with: URL(string: "http://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion.json")!) { data, response, error in
+            if let dataJson = data {
+                do {
+                let json = try JSONSerialization.jsonObject(with: dataJson, options: []) as! Dictionary<String, Any>
+                    let datas = json["data"] as! Dictionary<String, Any>
+                    print(datas)
+                    
+                    self.champsName = datas
+                    DispatchQueue.main.async {
+                        self.CollectionViewMain.reloadData()
+                        
+                    }
+                }
+                catch {}
+            }
+        }
+        task.resume()
     }
     
     //MARK: -- prepare method 데이터 넘겨주기.
@@ -38,30 +60,40 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     //2. 메인화면의 챔피언 이름과 사진을 디테일화면에 넘겨줘야함.
     //3. 디테일 화면에서는 스킬정보를 받아와야함.
     //4. 끗....
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("VC - prepare() called / segue.identifier : \(segue.identifier)")
-    
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        print("VC - prepare() called / segue.identifier : \(segue.identifier)")
+//
+//    }
     
     //MARK: -- Collection View delegate
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
-        return nameList.count
-        
-
+        if let news = champsName {
+            return news.count
+        }
+        else {
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = CollectionViewMain.dequeueReusableCell(withReuseIdentifier: "champList", for: indexPath) as? ChampList else {
-            return UICollectionViewCell()
+        let cell = CollectionViewMain.dequeueReusableCell(withReuseIdentifier: "champList", for: indexPath) as! ChampList
+
+        let idx = indexPath.item
+        if let news = champsName {
+            let row = news
+            if let r = row as? Dictionary<String, Any> {
+                //거기서 title을 가져와라.
+                if let title = r["name"] as? String {
+                cell.nameLabel.text = title
+                }
+            }
         }
-        
-//                챔피언 이미지 밑에 챔피언명을 출력해야함.
-        cell.nameLabel.text = nameList[(indexPath as NSIndexPath).item]
-
-
-        
-        
+//                guard let cell = CollectionViewMain.dequeueReusableCell(withReuseIdentifier: "champList", for: indexPath) as? ChampList else {
+//            return UICollectionViewCell()
+//        }
+//
+//               //챔피언 이미지 밑에 챔피언명을 출력해야함.
+//        cell.nameLabel.text = nameList[(indexPath as NSIndexPath).item]
         return cell
     }
     
@@ -210,31 +242,40 @@ struct ChampInfo: Decodable {
     
 }
 
-func getinfo() {
-
-    var dic : [String: AnyObject]
-    var name : [String]
-
-    AF.request("https://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion/Aatrox.json").responseJSON { response in
-
-        if let value = response.value as? [String: AnyObject] {
-            print("\(value)")
-//            print((value["data"]?["Aatrox"]))
-//            for i in value {
-//                print ("\(i)")
-//            }
-//            for key in value.value {
-//                print("\(key)")
-//                if let key = value["data"] as? [String: AnyObject] {
-//                    print(\(key)id")
-//                }
-//            }
-            //param2.quiz["sport"].q1.question
-            //value.data[""].name
-            //"Aatrox
-        }
-    }
-}
+//func getinfo() {
+//
+//    var dic : [String: AnyObject]
+//    var name : [String]
+//
+//    AF.request("https://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion/Aatrox.json").responseJSON { response in
+//
+//        //어떠한 클래스 타입인지..
+//        //데이타로 접근하고 밸류를 접근하고
+//
+//        if let value = response.value as? [String: AnyObject] {
+//
+// //           let types = type(of: value)
+//  //          print("\(value) of type \(types)")
+//            print("\(value["data"])")
+//
+//
+////            for i in value {
+////                print ("\(i)")
+////            }
+//            //밸류의 데이타는 또다른 어떤걸 갖
+////            데이타에
+////            for key in value.value {
+////                print("\(key)")
+////                if let key = value["data"] as? [String: AnyObject] {
+////                    print(\(key)id")
+////                }
+////            }
+//            //param2.quiz["sport"].q1.question
+//            //value.data[""].name
+//            //"Aatrox
+//        }
+//    }
+//}
 
 //    AF.request("http://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion.json").response { response in debugPrint(response)}
 //}
