@@ -6,7 +6,7 @@ import Toast_Swift
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UIGestureRecognizerDelegate {
     
     let nameList = ["가렌", "갈리오", "갱플랭크","갱플랭크","갱플랭크","갱플랭크"]
-    
+    var nameArr = [String]()
 
     @IBOutlet var CollectionViewMain: UICollectionView!
     @IBOutlet var searchBar: UISearchBar!
@@ -46,8 +46,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     //MARK: -- Collection View delegate
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        //return getinfo.nameArr.count
-        return nameList.count
+    
+            return nameArr.count
+        //return nameList.count
         
 
     }
@@ -58,7 +59,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         
 //                챔피언 이미지 밑에 챔피언명을 출력해야함.
-        cell.nameLabel.text = nameList[(indexPath as NSIndexPath).item]
+        cell.nameLabel.text = nameArr[(indexPath as NSIndexPath).item]
 
 
         return cell
@@ -75,9 +76,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     func getinfo() {
 
-        var ageArr = [String]()
-        var nameArr = [String]()
-        var employedArr = [String]()
+        var idArr = [String]()
+        var krnameArr = [String]()
+        var allArr = [String]()
         
         AF.request("http://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion.json").responseJSON { response in
 
@@ -87,13 +88,34 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 //type, format, version를 제외하고 data안에 있는 모든 값
                 if let datas = value["data"] as? [String : AnyObject] {
                     //print(datas)
-                    
-                    for i in datas.keys {
-                        nameArr.append(i as! String)
+                    //데이타 정렬
+                    let dataskey = datas.keys.sorted(by: <) // ahry brand camil....
+                    for i in dataskey {
+                        self.nameArr.append(i)
                     }
+                    
+                    
+                        
+//                    for j in datas {
+//                        idArr.append(j["id"] as! String)
+//                        krnameArr.append(j["name"] as! String)
+//                    }
+                    
+//                    if let namedata = datas["Aatrox"] as? [String : AnyObject] {
+//                        //print(namedata)
+//                    }
                 }
                 
-                print(nameArr)
+                
+                DispatchQueue.main.async {
+                    //이것이 4번 통보하는 법. reloadData
+                    self.CollectionViewMain.reloadData()
+                }
+                //print(self.nameArr)
+                //print(idArr)
+                //print(krnameArr)
+                
+                
     //            for (key, value) in value {
     //                print(key)
     //            }
