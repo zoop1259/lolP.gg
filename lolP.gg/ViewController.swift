@@ -7,13 +7,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     let nameList = ["가렌", "갈리오", "갱플랭크","갱플랭크","갱플랭크","갱플랭크"]
     var nameArr = [String]()
-
+    
     @IBOutlet var CollectionViewMain: UICollectionView!
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var searchButton: UIButton!
     @IBOutlet var searchIndicator: UIActivityIndicatorView!
-    
-    
     
 
     var keyboardDismissTabGesture : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: nil)
@@ -29,8 +27,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         //ui설정
         self.config()
         
-
-        getinfo()
+        getData()
     }
     
     //MARK: -- prepare method 데이터 넘겨주기.
@@ -45,12 +42,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     //MARK: -- Collection View delegate
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
     
             return nameArr.count
         //return nameList.count
         
-
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -60,7 +55,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
 //                챔피언 이미지 밑에 챔피언명을 출력해야함.
         cell.nameLabel.text = nameArr[(indexPath as NSIndexPath).item]
-
 
         return cell
     }
@@ -73,63 +67,45 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //
 //        return CGSize(width: width, height: height)
 //    }
-    
-    func getinfo() {
 
-        var idArr = [String]()
-        var krnameArr = [String]()
-        var allArr = [String]()
+    func getData() {
         
-        AF.request("http://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion.json").responseJSON { response in
-
-            if let value = response.value as? [String: AnyObject] {
-                //모든값
-    //            print(value)
-                //type, format, version를 제외하고 data안에 있는 모든 값
-                if let datas = value["data"] as? [String : AnyObject] {
-                    //print(datas)
-                    //데이타 정렬
-                    let dataskey = datas.keys.sorted(by: <) // ahry brand camil....
-                    for i in dataskey {
-                        self.nameArr.append(i)
-                    }
-                    
-                    
-                        
-//                    for j in datas {
-//                        idArr.append(j["id"] as! String)
-//                        krnameArr.append(j["name"] as! String)
-//                    }
-                    
-//                    if let namedata = datas["Aatrox"] as? [String : AnyObject] {
-//                        //print(namedata)
-//                    }
-                }
-                
-                
-                DispatchQueue.main.async {
-                    //이것이 4번 통보하는 법. reloadData
-                    self.CollectionViewMain.reloadData()
-                }
-                //print(self.nameArr)
-                //print(idArr)
-                //print(krnameArr)
-                
-                
-    //            for (key, value) in value {
-    //                print(key)
-    //            }
-                
-                //정렬인데.. 못써먹을듯.
-    //            let order = value.keys.sorted(by: <)
-    //            print(order)
-    //            let order = value.values.sorted(by: <)
-    //            print(order)
-    //            let order = value.sorted(by: <)
-            }
+        var idArr = [String]()
+        var dataArr = [AnyObject]()
+        
+        let urlString = "http://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion.json"
+        
+        guard let url = URL(string: urlString) else {
+            return
         }
-    }
+        
+        let task = URLSession.shared.dataTask(with: url, completionHandler: {data, _, error in
+            guard let data = data, error == nil else {
+                return
+            }
 
+            //print(data)
+            print(data.count)
+            var result: NameList?
+            do {
+                result = try JSONDecoder().decode(NameList.self, from: data)
+            }
+            catch {
+                print("Failed to decode with error: \(error)")
+            }
+            guard let final = result else {
+                return
+            }
+            print(final.version)
+            print(final.data.ahri.name)
+            print(final.data.ahri.image.full)
+            
+            
+        })
+        
+        task.resume()
+    }
+    
     fileprivate func config() {
         //스토리보드에 존재하는 라이브러리들은 VC로 직접 델리게이트를 설정해줄수있지만 제스처는 그렇지 않으므로 코드로 델리게이트 선언
         self.keyboardDismissTabGesture.delegate = self
@@ -137,11 +113,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
     }
     
-    //버튼이 클릭되었을때?
+    //버튼이 터치되었을때 - 필터링?
     @IBAction func onSearchButtonClicked(_ sender: Any) {
         print("검색버튼 터치")
-        
-
         
     }
     
@@ -179,7 +153,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //    override func viewDidAppear(_ animated: Bool) {
 //        self.searchBar.becomeFirstResponder() // 포커싱주기
 //    }
-    
     
     //글자가 입력될 때
     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -248,25 +221,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
 }
-
 class ChampList: UICollectionViewCell {
     
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
 }
 
-struct ChampInfo: Decodable {
-    
-    //이미지 크기는 48,48
-    //data에서 name, image에서 full
-    let data: String
-    let name: String
-    let id: String
-    
-    
-}
 
 
 
 
-        

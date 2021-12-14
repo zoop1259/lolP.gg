@@ -17,6 +17,7 @@
 		C52177E02759101600E1BA62 /* CommuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177DD2759101600E1BA62 /* CommuTableViewController.swift */; };
 		C52177E12759101600E1BA62 /* LoginPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177DE2759101600E1BA62 /* LoginPopupViewController.swift */; };
 		C52177E22759101600E1BA62 /* CommuDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177DF2759101600E1BA62 /* CommuDetailViewController.swift */; };
+		C52178452768215F00E1BA62 /* ChampInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52178442768215F00E1BA62 /* ChampInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		C52177DD2759101600E1BA62 /* CommuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommuTableViewController.swift; sourceTree = "<group>"; };
 		C52177DE2759101600E1BA62 /* LoginPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPopupViewController.swift; sourceTree = "<group>"; };
 		C52177DF2759101600E1BA62 /* CommuDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommuDetailViewController.swift; sourceTree = "<group>"; };
+		C52178442768215F00E1BA62 /* ChampInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampInfo.swift; sourceTree = "<group>"; };
 		DC7C8A3ED7ABB4575E2B249C /* Pods-lolP.gg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lolP.gg.release.xcconfig"; path = "Target Support Files/Pods-lolP.gg/Pods-lolP.gg.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,6 +95,7 @@
 				C52177C727590FAA00E1BA62 /* AppDelegate.swift */,
 				C52177C927590FAA00E1BA62 /* SceneDelegate.swift */,
 				C52177CB27590FAA00E1BA62 /* ViewController.swift */,
+				C52178442768215F00E1BA62 /* ChampInfo.swift */,
 				C52177DF2759101600E1BA62 /* CommuDetailViewController.swift */,
 				C52177DD2759101600E1BA62 /* CommuTableViewController.swift */,
 				C52177DE2759101600E1BA62 /* LoginPopupViewController.swift */,
@@ -215,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C52178452768215F00E1BA62 /* ChampInfo.swift in Sources */,
 				C52177E22759101600E1BA62 /* CommuDetailViewController.swift in Sources */,
 				C52177CC27590FAA00E1BA62 /* ViewController.swift in Sources */,
 				C52177C827590FAA00E1BA62 /* AppDelegate.swift in Sources */,
