@@ -72,12 +72,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         var idArr = [String]()
         var dataArr = [AnyObject]()
+        var dict: [String: AnyObject] = [:]
         
         let urlString = "http://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion.json"
         
         guard let url = URL(string: urlString) else {
             return
         }
+        
+        
         
         let task = URLSession.shared.dataTask(with: url, completionHandler: {data, _, error in
             guard let data = data, error == nil else {
@@ -96,6 +99,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             guard let final = result else {
                 return
             }
+            
+            
             print(final.version)
             print(final.data.ahri.name)
             print(final.data.ahri.image.full)

@@ -19,4 +19,6 @@ class LoginPopupViewController: UIViewController {
         popup.layer.cornerRadius = 30
     }
     
+    
+    
 }
