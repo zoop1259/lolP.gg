@@ -19,6 +19,7 @@
 		C52177E22759101600E1BA62 /* CommuDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177DF2759101600E1BA62 /* CommuDetailViewController.swift */; };
 		C52178452768215F00E1BA62 /* ChampInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52178442768215F00E1BA62 /* ChampInfo.swift */; };
 		C52178C9276B947B00E1BA62 /* LoginTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52178C8276B947B00E1BA62 /* LoginTest.swift */; };
+		C52178CD276BF00000E1BA62 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C52178CC276BEFFF00E1BA62 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		C52178442768215F00E1BA62 /* ChampInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampInfo.swift; sourceTree = "<group>"; };
 		C52178C8276B947B00E1BA62 /* LoginTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTest.swift; sourceTree = "<group>"; };
 		C52178CA276BB3F300E1BA62 /* lolP.gg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = lolP.gg.entitlements; sourceTree = "<group>"; };
+		C52178CC276BEFFF00E1BA62 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		DC7C8A3ED7ABB4575E2B249C /* Pods-lolP.gg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lolP.gg.release.xcconfig"; path = "Target Support Files/Pods-lolP.gg/Pods-lolP.gg.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,16 +95,17 @@
 			children = (
 				C52178CA276BB3F300E1BA62 /* lolP.gg.entitlements */,
 				C52177D027590FAC00E1BA62 /* Assets.xcassets */,
+				C52178CC276BEFFF00E1BA62 /* GoogleService-Info.plist */,
 				C52177D527590FAC00E1BA62 /* Info.plist */,
 				C52177D227590FAC00E1BA62 /* LaunchScreen.storyboard */,
 				C52177CD27590FAA00E1BA62 /* Main.storyboard */,
-				C52178C8276B947B00E1BA62 /* LoginTest.swift */,
 				C52177C727590FAA00E1BA62 /* AppDelegate.swift */,
 				C52177C927590FAA00E1BA62 /* SceneDelegate.swift */,
 				C52177CB27590FAA00E1BA62 /* ViewController.swift */,
 				C52178442768215F00E1BA62 /* ChampInfo.swift */,
 				C52177DF2759101600E1BA62 /* CommuDetailViewController.swift */,
 				C52177DD2759101600E1BA62 /* CommuTableViewController.swift */,
+				C52178C8276B947B00E1BA62 /* LoginTest.swift */,
 				C52177DE2759101600E1BA62 /* LoginPopupViewController.swift */,
 			);
 			path = lolP.gg;
@@ -169,6 +172,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C52177D427590FAC00E1BA62 /* LaunchScreen.storyboard in Resources */,
+				C52178CD276BF00000E1BA62 /* GoogleService-Info.plist in Resources */,
 				C52177D127590FAC00E1BA62 /* Assets.xcassets in Resources */,
 				C52177CF27590FAA00E1BA62 /* Main.storyboard in Resources */,
 			);

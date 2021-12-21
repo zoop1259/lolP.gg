@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 import AuthenticationServices
-
+import GoogleSignIn
+import Firebase
 
 class Logintest: UIViewController {
     
@@ -18,11 +19,12 @@ class Logintest: UIViewController {
     private var pwField: UITextField = UITextField()
     private var loginButton: UIButton = UIButton()
     private let signInButton = ASAuthorizationAppleIDButton()
-    
+    private let googleLoginBtn = GIDSignInButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMainLayout()
+        
     }
     
     private func setupMainLayout() {
@@ -31,12 +33,14 @@ class Logintest: UIViewController {
         view.addSubview(pwField)
         view.addSubview(loginButton)
         view.addSubview(signInButton)
+        view.addSubview(googleLoginBtn)
         
         titleView.translatesAutoresizingMaskIntoConstraints = false
         idField.translatesAutoresizingMaskIntoConstraints = false
         pwField.translatesAutoresizingMaskIntoConstraints = false
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         signInButton.translatesAutoresizingMaskIntoConstraints = false
+        googleLoginBtn.translatesAutoresizingMaskIntoConstraints = false
         
         titleView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         titleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 200).isActive = true
@@ -79,6 +83,30 @@ class Logintest: UIViewController {
         signInButton.trailingAnchor.constraint(equalTo: loginButton.trailingAnchor).isActive = true
         signInButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         
+        googleLoginBtn.addTarget(self, action: #selector(didTabGIDSignIn), for: .touchUpInside)
+        googleLoginBtn.frame = CGRect(x:0, y:0, width: 250, height: 50)
+        googleLoginBtn.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: 16).isActive = true
+        googleLoginBtn.leadingAnchor.constraint(equalTo: signInButton.leadingAnchor).isActive = true
+        googleLoginBtn.trailingAnchor.constraint(equalTo: signInButton.trailingAnchor).isActive = true
+        googleLoginBtn.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        
+    }
+    
+    @objc func didTabGIDSignIn() {
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+        let signInConfig = GIDConfiguration.init(clientID: clientID)
+        
+        GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { user, error in
+            guard error == nil else { return }
+            
+            guard let authentication = user?.authentication else { return }
+            let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken!, accessToken: authentication.accessToken)
+        
+            Auth.auth().signIn(with: credential) {_,_ in
+                
+                Logintest()
+            }
+        }
     }
     
     @objc func didTapSignIn() {
@@ -96,6 +124,7 @@ class Logintest: UIViewController {
     
 }
 
+//MARK: 애플 로그인 관련... 나중에 개발자 등록을 하고나면...
 extension Logintest: ASAuthorizationControllerDelegate {
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
@@ -124,3 +153,5 @@ extension Logintest: ASAuthorizationControllerPresentationContextProviding {
     }
     
 }
+
+

@@ -6,12 +6,20 @@
 //
 
 import UIKit
+import Firebase
 import AuthenticationServices
+import GoogleSignIn
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        FirebaseApp.configure()
+        //구글 로그인이 제대로 되었는지 확인하기.
+        if let user = Auth.auth().currentUser {
+            print("당신의 \(user.uid), email: \(user.email ?? "no email")")
+        }
         
         //네비게이션 바 색변경.
         let standard = UINavigationBarAppearance()
@@ -39,6 +47,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    // google login handler
+    //인증 절차의 마지막에 받은 URL을 처리하기 위해서 필요한 매서드.
+//    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+//        var handled: Bool
+//          handled = GIDSignIn.sharedInstance.handle(url)
+//          if handled {
+//            return true
+//          }
+//          // Handle other custom URL types.
+//          // If not handled by this app, return false.
+//          return false
+//    }
+
+    @available(iOS 9.0, *)
+    func application(_ application: UIApplication, open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey: Any])
+      -> Bool {
+      return GIDSignIn.sharedInstance.handle(url)
+    }
+    
+    
+    
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
@@ -54,6 +85,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
     }
+    
+ 
+
     
     //팝업을 만들고 싶다.
 //    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {

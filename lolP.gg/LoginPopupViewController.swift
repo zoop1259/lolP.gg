@@ -7,10 +7,17 @@
 
 import Foundation
 import UIKit
+import AuthenticationServices
+import GoogleSignIn
+import Firebase
 
 class LoginPopupViewController: UIViewController {
     
     @IBOutlet var popup: UIView!
+    @IBOutlet var loginBtn: UIButton!
+    @IBOutlet var googleloginBtn: UIButton!
+    @IBOutlet var appleloginBtn: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

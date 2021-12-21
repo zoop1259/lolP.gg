@@ -8,6 +8,10 @@ target 'lolP.gg' do
   pod 'SwiftyJSON', '~> 4.0'
   pod 'Alamofire', '~>5.1'
   pod 'Toast-Swift', '~> 5.0.1'
+  pod 'GoogleSignIn'
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+
   # Pods for lolP.gg
   
 end

@@ -1,4 +1,3 @@
-//
 //  ChampInfo.swift
 //  lolP.gg
 //

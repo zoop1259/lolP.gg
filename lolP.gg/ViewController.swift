@@ -43,7 +43,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     //MARK: -- Collection View delegate
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
-            return nameArr.count
+        return nameArr.count
         //return nameList.count
         
     }
@@ -80,8 +80,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             return
         }
         
-        
-        
         let task = URLSession.shared.dataTask(with: url, completionHandler: {data, _, error in
             guard let data = data, error == nil else {
                 return
@@ -102,6 +100,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             
             
             print(final.version)
+            print(final)
             print(final.data.ahri.name)
             print(final.data.ahri.image.full)
             
@@ -231,8 +230,6 @@ class ChampList: UICollectionViewCell {
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
 }
-
-
 
 
 
