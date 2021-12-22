@@ -475,7 +475,9 @@
                                         <rect key="frame" x="20" y="269" width="220" height="31"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Email로 로그인"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Email로 로그인">
+                                            <color key="baseForegroundColor" systemColor="labelColor"/>
+                                        </buttonConfiguration>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GBX-4f-F15">
                                         <rect key="frame" x="20" y="310" width="220" height="31"/>
@@ -486,7 +488,11 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="google_icon" title=" Sign in with Google">
                                             <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="13"/>
+                                            <color key="baseForegroundColor" systemColor="labelColor"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="googleLoginBtnAction:" destination="sHQ-jS-J6h" eventType="touchUpInside" id="RHj-a5-f36"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Kb-gc-QtV" customClass="ASAuthorizationAppleIDButton">
                                         <rect key="frame" x="20" y="351" width="220" height="31"/>

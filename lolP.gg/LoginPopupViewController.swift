@@ -11,7 +11,7 @@ import AuthenticationServices
 import GoogleSignIn
 import Firebase
 
-@available(iOS 13.0,*) //IOS 13이상 가능하기 떄문에 사용해야 한다.
+@available(iOS 13.0,*) //IOS13이상 가능하기 떄문에 사용해야 한다.
 class LoginPopupViewController: UIViewController {
     
     @IBOutlet var popup: UIView!
@@ -24,15 +24,16 @@ class LoginPopupViewController: UIViewController {
         super.viewDidLoad()
 
         appleloginBtn.addTarget(self, action: #selector(LoginPopupViewController.appleLogInButtonTapped), for: .touchDown)
-        
-        //모서리를 둥글게둥글게
         popup.layer.cornerRadius = 30
     }
     
+    
+    
+    //애플 버튼 눌렀을때
     @objc func appleLogInButtonTapped() {
         let authorizationProvider = ASAuthorizationAppleIDProvider()
         let request = authorizationProvider.createRequest()
-        request.requestedScopes = [.email]
+        request.requestedScopes = [.fullName, .email]
         
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
         authorizationController.delegate = self
@@ -40,19 +41,46 @@ class LoginPopupViewController: UIViewController {
         authorizationController.performRequests()
     }
     
+    //구글 버튼 눌렀을 때
+    @IBAction func googleLoginBtnAction(_ sender: UIButton) {
+        self.googleAuthLogin()
+    }
+    func googleAuthLogin() {
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+        let signInConfig = GIDConfiguration.init(clientID: clientID)
+        
+        GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { user, error in
+            guard error == nil else { return }
+            
+            guard let authentication = user?.authentication else { return }
+            let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken!, accessToken: authentication.accessToken)
+        
+            Auth.auth().signIn(with: credential) {_,_ in
+                
+                Logintest()
+            }
+        }
+    }
 }
 
+//MARK: Apple Login
 @available(iOS 13.0, *)
 extension LoginPopupViewController: ASAuthorizationControllerDelegate {
     
     //성공적으로 로그인을 완료했을 때
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential else {
-            return
+        switch authorization.credential {
+        case let credential as ASAuthorizationAppleIDCredential:
+            let firstName = credential.fullName?.givenName
+            let lastName = credential.fullName?.familyName
+            let email = credential.email
+            
+            break
+            
+        default:
+            break
+            
         }
-
-        print("AppleID Credential Authorization: userId: \(appleIDCredential.user), \(String(describing: appleIDCredential.email))")
-        
     }
     //에러가 있을 때
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
