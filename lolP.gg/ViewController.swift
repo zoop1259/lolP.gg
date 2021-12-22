@@ -100,7 +100,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             
             
             print(final.version)
-            print(final)
+            print(final) //이게 챔피언 정보 다 나오게하는거.
             print(final.data.ahri.name)
             print(final.data.ahri.image.full)
             
