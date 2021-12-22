@@ -669,10 +669,10 @@
             </objects>
             <point key="canvasLocation" x="48" y="518"/>
         </scene>
-        <!--View Controller-->
+        <!--Sign Up View Controller-->
         <scene sceneID="n6M-pC-o6N">
             <objects>
-                <viewController id="Th3-W4-lrG" sceneMemberID="viewController">
+                <viewController id="Th3-W4-lrG" customClass="SignUpViewController" customModule="lolP_gg" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1J6-g0-WAF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -757,16 +757,31 @@
                                 <rect key="frame" x="30.000000000000004" y="747" width="60.333333333333343" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="초기화"/>
+                                <connections>
+                                    <action selector="btnActReset:" destination="Th3-W4-lrG" eventType="touchUpInside" id="LEB-Nd-dxr"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NsC-x6-MQ7">
                                 <rect key="frame" x="311.33333333333331" y="747" width="72.666666666666686" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="회원가입"/>
+                                <connections>
+                                    <action selector="btnActSubmit:" destination="Th3-W4-lrG" eventType="touchUpInside" id="lkC-Xj-gmp"/>
+                                </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="패스워드가 일치합니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BVd-5T-TpU">
+                                <rect key="frame" x="246" y="296" width="138" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E68-7y-lT4">
                                 <rect key="frame" x="233.00000000000003" y="747" width="48.333333333333343" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="취소"/>
+                                <connections>
+                                    <action selector="btnActCancel:" destination="Th3-W4-lrG" eventType="touchUpInside" id="QZX-7Y-SAf"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="203-f5-S3D"/>
@@ -779,6 +794,7 @@
                             <constraint firstItem="K5F-Vf-lxA" firstAttribute="leading" secondItem="203-f5-S3D" secondAttribute="leading" constant="30" id="CDd-do-2uA"/>
                             <constraint firstItem="coE-Df-crq" firstAttribute="top" secondItem="ToT-zf-bpa" secondAttribute="bottom" constant="26" id="FLs-6I-B1P"/>
                             <constraint firstItem="203-f5-S3D" firstAttribute="trailing" secondItem="NsC-x6-MQ7" secondAttribute="trailing" constant="30" id="GOV-Tk-jV1"/>
+                            <constraint firstItem="203-f5-S3D" firstAttribute="trailing" secondItem="BVd-5T-TpU" secondAttribute="trailing" constant="30" id="H8Y-pD-u9d"/>
                             <constraint firstItem="FeI-pL-uTs" firstAttribute="leading" secondItem="203-f5-S3D" secondAttribute="leading" constant="30" id="HB2-l8-fHk"/>
                             <constraint firstItem="6ih-pK-5fC" firstAttribute="leading" secondItem="203-f5-S3D" secondAttribute="leading" constant="30" id="K4r-Tk-Ear"/>
                             <constraint firstItem="LcL-0f-cGi" firstAttribute="leading" secondItem="203-f5-S3D" secondAttribute="leading" constant="30" id="Qdw-Ec-1zq"/>
@@ -790,7 +806,9 @@
                             <constraint firstItem="NsC-x6-MQ7" firstAttribute="leading" secondItem="E68-7y-lT4" secondAttribute="trailing" constant="30" id="baI-Xp-A13"/>
                             <constraint firstItem="203-f5-S3D" firstAttribute="bottom" secondItem="CP6-3H-1QE" secondAttribute="bottom" constant="30" id="de3-Kf-TEe"/>
                             <constraint firstItem="7CA-jK-SJw" firstAttribute="top" secondItem="wT9-KO-ZUY" secondAttribute="bottom" constant="8" symbolic="YES" id="djB-9P-JUr"/>
+                            <constraint firstItem="E68-7y-lT4" firstAttribute="leading" secondItem="CP6-3H-1QE" secondAttribute="trailing" constant="142.66666666666669" id="e8g-Ia-VXc"/>
                             <constraint firstItem="203-f5-S3D" firstAttribute="bottom" secondItem="E68-7y-lT4" secondAttribute="bottom" constant="30" id="fuW-0V-qUB"/>
+                            <constraint firstItem="BVd-5T-TpU" firstAttribute="top" secondItem="7CA-jK-SJw" secondAttribute="bottom" constant="10" id="jdx-Cp-9h4"/>
                             <constraint firstItem="wT9-KO-ZUY" firstAttribute="leading" secondItem="FeI-pL-uTs" secondAttribute="trailing" constant="55" id="krh-m2-4jN"/>
                             <constraint firstItem="Py9-Du-Yb2" firstAttribute="top" secondItem="FeI-pL-uTs" secondAttribute="bottom" constant="20" id="rC4-E6-rL0"/>
                             <constraint firstItem="coE-Df-crq" firstAttribute="leading" secondItem="6ih-pK-5fC" secondAttribute="trailing" constant="55" id="rNm-cu-J8n"/>
@@ -802,6 +820,13 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="snJ-9H-77f"/>
+                    <connections>
+                        <outlet property="imgProfilePicture" destination="LcL-0f-cGi" id="h5W-fA-GLw"/>
+                        <outlet property="lblPasswordConfirmed" destination="BVd-5T-TpU" id="Tlg-Qu-0NW"/>
+                        <outlet property="txtPassword" destination="wT9-KO-ZUY" id="19L-6K-mGg"/>
+                        <outlet property="txtPasswordConfirm" destination="7CA-jK-SJw" id="yBa-Pi-2MB"/>
+                        <outlet property="txtUserEmail" destination="coE-Df-crq" id="w2p-bn-G7E"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wWw-ew-rKu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

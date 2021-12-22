@@ -20,6 +20,7 @@
 		C52178452768215F00E1BA62 /* ChampInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52178442768215F00E1BA62 /* ChampInfo.swift */; };
 		C52178CD276BF00000E1BA62 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C52178CC276BEFFF00E1BA62 /* GoogleService-Info.plist */; };
 		C5A30C482772F38200B2D4D3 /* LoginDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A30C472772F38200B2D4D3 /* LoginDetailView.swift */; };
+		C5A30C4A2773154000B2D4D3 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A30C492773154000B2D4D3 /* SignUpViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		C52178CA276BB3F300E1BA62 /* lolP.gg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = lolP.gg.entitlements; sourceTree = "<group>"; };
 		C52178CC276BEFFF00E1BA62 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		C5A30C472772F38200B2D4D3 /* LoginDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDetailView.swift; sourceTree = "<group>"; };
+		C5A30C492773154000B2D4D3 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		DC7C8A3ED7ABB4575E2B249C /* Pods-lolP.gg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lolP.gg.release.xcconfig"; path = "Target Support Files/Pods-lolP.gg/Pods-lolP.gg.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,6 +109,7 @@
 				C52177DD2759101600E1BA62 /* CommuTableViewController.swift */,
 				C52177DE2759101600E1BA62 /* LoginPopupViewController.swift */,
 				C5A30C472772F38200B2D4D3 /* LoginDetailView.swift */,
+				C5A30C492773154000B2D4D3 /* SignUpViewController.swift */,
 			);
 			path = lolP.gg;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 				C52177C827590FAA00E1BA62 /* AppDelegate.swift in Sources */,
 				C52177E12759101600E1BA62 /* LoginPopupViewController.swift in Sources */,
 				C52177E02759101600E1BA62 /* CommuTableViewController.swift in Sources */,
+				C5A30C4A2773154000B2D4D3 /* SignUpViewController.swift in Sources */,
 				C52177CA27590FAA00E1BA62 /* SceneDelegate.swift in Sources */,
 				C5A30C482772F38200B2D4D3 /* LoginDetailView.swift in Sources */,
 			);
