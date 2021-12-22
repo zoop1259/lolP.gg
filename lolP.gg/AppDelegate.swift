@@ -67,9 +67,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       return GIDSignIn.sharedInstance.handle(url)
     }
     
-    
-    
-    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
@@ -82,31 +79,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-        
-        
     }
-    
- 
-
-    
-    //팝업을 만들고 싶다.
-//    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-//        if viewController is LoginPopupViewController {
-//            /*
-//             let storyboard = UIStoryboard(name: "Popup", bundle: nil)
-//             let popupViewController = storyboard.instantiateViewController(withIdentifier: "Popup") as! PopupViewController
-//             popupViewController.modalPresentationStyle = .fullScreen
-//             tabBarController.present(popupViewController, animated: true, completion: nil)
-//             */
-//            if let popupView = tabBarController.storyboard?.instantiateViewController(withIdentifier: "popup") {
-//                tabBarController.present(popupView, animated: true)
-//                return false
-//            }
-//            return false
-//        }
-//        return true
-//    }
-
-
 }
 
