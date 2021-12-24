@@ -8,17 +8,21 @@
 import Foundation
 import UIKit
 import Firebase
+import FirebaseDatabase
+import FirebaseAuth
+import Toast_Swift
+
 
 class SignUpViewController: UIViewController {
 
+    private let ref: DatabaseReference! = Database.database().reference()
+   
     @IBOutlet weak var txtUserEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var txtPasswordConfirm: UITextField!
     @IBOutlet weak var lblPasswordConfirmed: UILabel!
     @IBOutlet weak var imgProfilePicture: UIImageView!
 
-    //??
-    var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +51,8 @@ class SignUpViewController: UIViewController {
         // -- 사진 초기화 --
         
     }
+    
+    //이게 구현이 되질 않음.
     @IBAction func btnActSubmit(_ sender: UIButton) {
         //파이어베이스에 정보를 보내야됨.
         guard let userEmail = txtUserEmail.text,
@@ -58,14 +64,15 @@ class SignUpViewController: UIViewController {
         guard userPassword != ""
                 && userPasswordConfirm != ""
                 && userPassword == userPasswordConfirm else {
-                    let alert = UIAlertController(title: "PW Error", message: "패스워드가 일치하지 않습니다.", preferredStyle: .alert)
+                    self.view.makeToast("❌패스워드가 일치하지 않습니다.", duration: 1.0, position: .center)
+                    
             return
         }
         
         Auth.auth().createUser(withEmail: userEmail, password: userPassword) { [self] authResult, error in
             // 이메일, 비밀번호 전송
             guard let user = authResult?.user, error == nil else {
-                let alert = UIAlertController(title: "Error", message: error!.localizedDescription , preferredStyle: .alert)
+                self.view.makeToast("❌전송 에러.", duration: 1.0, position: .center)
                 return
             }
             
@@ -114,16 +121,16 @@ extension SignUpViewController: UITextFieldDelegate {
         return false
     }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField == txtPasswordConfirm {
-            guard let password = txtPassword.text,
-                  let passwordConfirmBefore = txtPasswordConfirm.text else {
-                return true
-            }
-            let passwordConfirm = string.isEmpty ? passwordConfirmBefore[0..<(passwordConfirmBefore.count - 1)] : passwordConfirmBefore + string
-            setLabelPasswordConfirm(password, passwordConfirm)
-            
-        }
-        return true
-    }
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        if textField == txtPasswordConfirm {
+//            guard let password = txtPassword.text,
+//                  let passwordConfirmBefore = txtPasswordConfirm.text else {
+//                return true
+//            }
+//            let passwordConfirm = string.isEmpty ? passwordConfirmBefore[0..<(passwordConfirmBefore.count - 1)] : passwordConfirmBefore + string
+//            setLabelPasswordConfirm(password, passwordConfirm)
+//
+//        }
+//        return true
+//    }
 }
