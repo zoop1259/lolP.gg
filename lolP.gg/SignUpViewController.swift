@@ -52,6 +52,7 @@ class SignUpViewController: UIViewController {
         
     }
     
+    
     //이게 구현이 되질 않음.
     @IBAction func btnActSubmit(_ sender: UIButton) {
         //파이어베이스에 정보를 보내야됨.
@@ -60,6 +61,20 @@ class SignUpViewController: UIViewController {
               let userPasswordConfirm = txtPasswordConfirm.text else {
             return
         }
+        
+        //유효성 검사.
+        guard let email = txtUserEmail.text, !email.isEmpty,
+                let password = txtPassword.text, !password.isEmpty else {
+                    self.view.makeToast("비어있는 항목이 있습니다.", duration: 1.0, position: .center)
+                    return
+                }
+        
+        guard let pwRange = txtPassword.text, (pwRange.count > 8) else {
+            self.view.makeToast("8자 이상 입력해주세요.", duration: 1.0, position: .center)
+            return
+            
+        }
+        
         
         guard userPassword != ""
                 && userPasswordConfirm != ""
