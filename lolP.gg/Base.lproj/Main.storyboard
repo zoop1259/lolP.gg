@@ -449,6 +449,9 @@
                                         <buttonConfiguration key="configuration" style="plain" title="Email로 로그인">
                                             <color key="baseForegroundColor" systemColor="labelColor"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="btnActSubmit:" destination="sHQ-jS-J6h" eventType="touchUpInside" id="dcG-xu-lGp"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GBX-4f-F15">
                                         <rect key="frame" x="20" y="310" width="220" height="31"/>
@@ -522,6 +525,8 @@
                         <outlet property="googleloginBtn" destination="GBX-4f-F15" id="HBW-EQ-ER8"/>
                         <outlet property="loginBtn" destination="C8Z-zl-eaZ" id="8nL-Rb-WQc"/>
                         <outlet property="popup" destination="1Qw-2x-30p" id="arr-Ct-45l"/>
+                        <outlet property="txtuserLoginEmail" destination="h3i-aj-CH4" id="nx0-st-aBL"/>
+                        <outlet property="txtuserLoginPassword" destination="C8Y-uH-un4" id="6iR-eu-EOn"/>
                         <segue destination="xRD-og-bWW" kind="show" identifier="popupDetailView" id="Fv5-sx-T8J"/>
                     </connections>
                 </viewController>

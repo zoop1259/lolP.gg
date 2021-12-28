@@ -23,6 +23,8 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var lblPasswordConfirmed: UILabel!
     @IBOutlet weak var imgProfilePicture: UIImageView!
 
+    //뷰 컨트롤러의 멤버변수
+    var handle: AuthStateDidChangeListenerHandle!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,8 +37,28 @@ class SignUpViewController: UIViewController {
         // 패스워드 일치 여부를 표시하는 레이블을 빈 텍스트로
         lblPasswordConfirmed.text = ""
         
-        
+        //이게 음.. 로그인창 눌렸을떄 로그인되어있으면 로그인화면으로.. 이동시키게..
+        if FirebaseAuth.Auth.auth().currentUser != nil {
+            
+            
+        }
     }
+    
+    //user가 nil이 아니면 로그인이 된 상태이고, nil이라면 로그인이 되지 않은 상태
+//    override func viewWillAppear(_ animated: Bool) {
+//        handle = Auth.auth().addStateDidChangeListener { auth, user in
+//            if let user = user {
+//                self.viewUserInfo.isHidden = false
+//                self.viewSignUpForm.isHidden = true
+//                self.lblUserEmail.text = user.email
+//            } else {
+//                self.viewUserInfo.isHidden = true
+//                self.viewSignUpForm.isHidden = false
+//                self.lblUserEmail.text = ""
+//            }
+//        }
+//    }
+    
     
     @IBAction func btnActCancel(_ sender: UIButton) {
         //액션 세그로 이어진 뷰컨트롤러를 사라지게해서 되돌림.

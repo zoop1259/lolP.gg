@@ -19,7 +19,8 @@ class LoginPopupViewController: UIViewController {
     @IBOutlet var googleloginBtn: GIDSignInButton!
     @IBOutlet weak var appleloginBtn: ASAuthorizationAppleIDButton!
     
-    
+    @IBOutlet var txtuserLoginEmail: UITextField!
+    @IBOutlet var txtuserLoginPassword: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +29,21 @@ class LoginPopupViewController: UIViewController {
         popup.layer.cornerRadius = 30
     }
     
-    
+    //이메일 로그인 버튼 눌렀을때
+    @IBAction func btnActSubmit(_ sender: UIButton) {
+        guard let userEmail = txtuserLoginEmail.text else { return }
+        guard let userPassword = txtuserLoginPassword.text else  { return }
+        
+        Auth.auth().signIn(withEmail: userEmail, password: userPassword) { [weak self] authResult, error in
+            guard self != nil else { return }
+            
+            if authResult != nil {
+                print("로그인 되었습니다")
+            } else {
+                print("로그인되지 않았습니다.", error?.localizedDescription ?? "")
+            }
+        }
+    }
     
     //애플 버튼 눌렀을때
     @objc func appleLogInButtonTapped() {
