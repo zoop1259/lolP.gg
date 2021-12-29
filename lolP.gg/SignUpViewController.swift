@@ -37,7 +37,7 @@ class SignUpViewController: UIViewController {
         // 패스워드 일치 여부를 표시하는 레이블을 빈 텍스트로
         lblPasswordConfirmed.text = ""
         
-        //이게 음.. 로그인창 눌렸을떄 로그인되어있으면 로그인화면으로.. 이동시키게..
+        //이게 음..로그인감지인데.. 해야할건 로그인창 눌렸을떄 로그인되어있으면 로그인화면으로.. 이동시키게..
 //        if FirebaseAuth.Auth.auth().currentUser != nil {
 //        }
     }

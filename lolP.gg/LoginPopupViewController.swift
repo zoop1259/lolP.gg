@@ -51,7 +51,7 @@ class LoginPopupViewController: UIViewController {
             (user, error) in
             if user != nil{
                 print("login success")
-                self.showMainViewController()
+                self.showDetailViewController()
             }
             else{
                 print("로그인되지 않았습니다.", error?.localizedDescription ?? "")
@@ -98,20 +98,26 @@ class LoginPopupViewController: UIViewController {
         Auth.auth().signIn(with: credential) {_,_ in
             // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
             print("로그인 됨")
-            self.showMainViewController()
+            
+            self.showDetailViewController()
             
         }
       }
     }
     
-    private func showMainViewController() {
+    private func showDetailViewController() {
         let mystoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let mainViewController = mystoryboard.instantiateViewController(identifier: "LoginDetailView")
-        mainViewController.modalPresentationStyle = .fullScreen
+        let DetailViewController = mystoryboard.instantiateViewController(identifier: "LoginDetailView")
+        //이방법은 로그인창까지 겹쳐서 올라옴.
+//        self.show(DetailViewController, sender: self)
         
-        UIApplication.shared.windows.first?.rootViewController?.show(mainViewController, sender: nil)
+        //로그인창을 닫으면서 정보창 띄우기.
+        guard let pvc = self.presentingViewController else { return }
+
+        self.dismiss(animated: true) {
+            pvc.present(DetailViewController, animated: true, completion: nil)
+        }
     }
-    
 }
 
 //MARK: Apple Login

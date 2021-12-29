@@ -79,12 +79,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         guard let url = URL(string: urlString) else {
             return
         }
-        
         let task = URLSession.shared.dataTask(with: url, completionHandler: {data, _, error in
             guard let data = data, error == nil else {
                 return
             }
-
             //print(data)
             print(data.count)
             var result: NameList?
@@ -97,16 +95,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             guard let final = result else {
                 return
             }
-            
-            
             print(final.version)
             print(final) //이게 챔피언 정보 다 나오게하는거.
             print(final.data.ahri.name)
             print(final.data.ahri.image.full)
-            
-            
         })
-        
         task.resume()
     }
     
@@ -114,22 +107,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         //스토리보드에 존재하는 라이브러리들은 VC로 직접 델리게이트를 설정해줄수있지만 제스처는 그렇지 않으므로 코드로 델리게이트 선언
         self.keyboardDismissTabGesture.delegate = self
         self.view.addGestureRecognizer(keyboardDismissTabGesture)
-
     }
     
     //버튼이 터치되었을때 - 필터링?
     @IBAction func onSearchButtonClicked(_ sender: Any) {
         print("검색버튼 터치")
-        
     }
     
     //MARK: - UISearchBar Delegate methods
     //서치바에 입력된 텍스트를 가져옴
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print("VC - searchBarSearchButtonClicked()")
-        
         guard let userInputString = searchBar.text else { return }
-        
         if userInputString.isEmpty {
             self.view.makeToast("❌키워드를 입력해주세요", duration: 1.0, position: .center)
         }
@@ -137,12 +126,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //        else {
 //
 //        }
-        
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         //print("VC - 서치바 텍스트변경 : \(searchText)")
-        
         // 사용자가 입력한 값이 없을때 키보드 내림
         if (searchText.isEmpty) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
@@ -152,12 +139,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             self.searchButton.isHidden = false
         }
     }
-    
     //앱키자마자 키보드 뜨게하기.
 //    override func viewDidAppear(_ animated: Bool) {
 //        self.searchBar.becomeFirstResponder() // 포커싱주기
 //    }
-    
     //글자가 입력될 때
     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
@@ -209,7 +194,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
 
     @objc func keyboardWillShowHandle(notification: NSNotification) {
-        
         //키보드 사이즈를 가져와서 그만큼 뷰를 밀어냄.
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if(keyboardSize.height < CollectionViewMain.frame.origin.y){
@@ -217,19 +201,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 self.view.frame.origin.y = distance + CollectionViewMain.frame.height
             }
         }
-        
     }
-    
     @objc func keyboardWillHideHandle() {
-        
     }
-    
 }
 class ChampList: UICollectionViewCell {
-    
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
 }
-
-
 
