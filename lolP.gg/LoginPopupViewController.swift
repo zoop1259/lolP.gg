@@ -10,6 +10,7 @@ import UIKit
 import AuthenticationServices
 import GoogleSignIn
 import Firebase
+import FirebaseAuth
 
 @available(iOS 13.0,*) //IOS13이상 가능하기 떄문에 사용해야 한다.
 class LoginPopupViewController: UIViewController {
@@ -24,7 +25,8 @@ class LoginPopupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        //googleloginBtn.style = .standard
         appleloginBtn.addTarget(self, action: #selector(LoginPopupViewController.appleLogInButtonTapped), for: .touchDown)
         popup.layer.cornerRadius = 30
     }
@@ -34,16 +36,29 @@ class LoginPopupViewController: UIViewController {
         guard let userEmail = txtuserLoginEmail.text else { return }
         guard let userPassword = txtuserLoginPassword.text else  { return }
         
-        Auth.auth().signIn(withEmail: userEmail, password: userPassword) { [weak self] authResult, error in
-            guard self != nil else { return }
-            
-            if authResult != nil {
-                print("로그인 되었습니다")
-            } else {
+//        Auth.auth().signIn(withEmail: userEmail, password: userPassword) { [weak self] authResult, error in
+//            guard self != nil else { return }
+//
+//            if authResult != nil {
+//                print("로그인 되었습니다")
+//            } else {
+//                print("로그인되지 않았습니다.", error?.localizedDescription ?? "")
+//            }
+//        }
+//    }
+    
+        Auth.auth().signIn(withEmail: userEmail, password: userPassword) {
+            (user, error) in
+            if user != nil{
+                print("login success")
+                self.showMainViewController()
+            }
+            else{
                 print("로그인되지 않았습니다.", error?.localizedDescription ?? "")
             }
         }
     }
+    
     
     //애플 버튼 눌렀을때
     @objc func appleLogInButtonTapped() {
@@ -57,11 +72,18 @@ class LoginPopupViewController: UIViewController {
         authorizationController.performRequests()
     }
     
+    @IBAction func emsilogoubtn(_ sender: Any) {
+            //Auth.auth().signOut()
+            do {
+                try FirebaseAuth.Auth.auth().signOut()
+                print("로그아웃됨")
+            } catch {
+                print("에러 발생")
+            }
+        
+    }
     //구글 버튼 눌렀을 때
     @IBAction func googleLoginBtnAction(_ sender: UIButton) {
-        self.googleAuthLogin()
-    }
-    func googleAuthLogin() {
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
         let signInConfig = GIDConfiguration.init(clientID: clientID)
         
@@ -75,14 +97,16 @@ class LoginPopupViewController: UIViewController {
         // 파베 인증정보 등록
         Auth.auth().signIn(with: credential) {_,_ in
             // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
+            print("로그인 됨")
             self.showMainViewController()
+            
         }
       }
     }
     
     private func showMainViewController() {
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let mainViewController = storyboard.instantiateViewController(identifier: "LoginDetailView")
+        let mystoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let mainViewController = mystoryboard.instantiateViewController(identifier: "LoginDetailView")
         mainViewController.modalPresentationStyle = .fullScreen
         
         UIApplication.shared.windows.first?.rootViewController?.show(mainViewController, sender: nil)

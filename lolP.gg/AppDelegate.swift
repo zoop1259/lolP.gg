@@ -9,14 +9,16 @@ import UIKit
 import Firebase
 import AuthenticationServices
 import GoogleSignIn
+import FirebaseAuth
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        //파베에서 제공하는 GoogleService-Info에 클라이언트ID가 있기 때문에 주석처리
+        // GIDSignIn.sharedInstance().clientID = "client id"
         FirebaseApp.configure()
-        
         //구글 로그인이 제대로 되었는지 확인하기.
         if let user = Auth.auth().currentUser {
             print("당신의 \(user.uid), email: \(user.email ?? "no email")")

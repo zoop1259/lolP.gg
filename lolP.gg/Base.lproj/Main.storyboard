@@ -484,6 +484,15 @@
                                             <segue destination="Th3-W4-lrG" kind="show" id="Mi6-mK-i19"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mee-gd-9wh">
+                                        <rect key="frame" x="0.0" y="415" width="75" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <connections>
+                                            <action selector="emsilogoubtn:" destination="sHQ-jS-J6h" eventType="touchUpInside" id="tBW-xm-0Iz"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="tintColor" systemColor="systemTealColor"/>
                                 <constraints>
@@ -527,7 +536,6 @@
                         <outlet property="popup" destination="1Qw-2x-30p" id="arr-Ct-45l"/>
                         <outlet property="txtuserLoginEmail" destination="h3i-aj-CH4" id="nx0-st-aBL"/>
                         <outlet property="txtuserLoginPassword" destination="C8Y-uH-un4" id="6iR-eu-EOn"/>
-                        <segue destination="xRD-og-bWW" kind="show" identifier="popupDetailView" id="Fv5-sx-T8J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pxe-pH-4C1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -843,13 +851,13 @@
         <!--Login Detail View-->
         <scene sceneID="NMc-BO-exA">
             <objects>
-                <viewController storyboardIdentifier="LoginDetailView" id="xRD-og-bWW" customClass="LoginDetailView" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginDetailView" id="xRD-og-bWW" customClass="LoginDetailView" customModule="lolP_gg" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="z1s-xa-UYK">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EwW-67-qGd">
-                                <rect key="frame" x="77" y="221" width="260" height="400"/>
+                                <rect key="frame" x="77" y="248" width="260" height="400"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pPg-xq-ooI" userLabel="프로필 Image">
                                         <rect key="frame" x="20" y="20" width="220" height="155"/>
@@ -879,13 +887,23 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I7M-Vm-RSl">
+                                        <rect key="frame" x="10" y="359" width="72.666666666666671" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="로그아웃"/>
+                                        <connections>
+                                            <action selector="logoutBtn:" destination="xRD-og-bWW" eventType="touchUpInside" id="PJV-4t-UKs"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" systemColor="systemTealColor"/>
                                 <constraints>
                                     <constraint firstItem="pPg-xq-ooI" firstAttribute="leading" secondItem="EwW-67-qGd" secondAttribute="leading" constant="20" id="2Lu-eW-UcZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="I7M-Vm-RSl" secondAttribute="bottom" constant="10" id="2zN-Cq-Ksm"/>
                                     <constraint firstAttribute="width" constant="260" id="W72-HV-yld"/>
                                     <constraint firstAttribute="trailing" secondItem="pPg-xq-ooI" secondAttribute="trailing" constant="20" id="hIi-YQ-3c7"/>
+                                    <constraint firstItem="I7M-Vm-RSl" firstAttribute="leading" secondItem="EwW-67-qGd" secondAttribute="leading" constant="10" id="ndt-JL-ZCw"/>
                                     <constraint firstItem="pPg-xq-ooI" firstAttribute="top" secondItem="EwW-67-qGd" secondAttribute="top" constant="20" id="oEo-Qx-391"/>
                                     <constraint firstAttribute="height" constant="400" id="rmP-LQ-YaZ"/>
                                 </constraints>
@@ -898,17 +916,38 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="AM9-CP-u9Z"/>
-                    <connections>
-                        <outlet property="popup" destination="EwW-67-qGd" id="4ed-Ee-FDV"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wts-rN-H9w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3907" y="82"/>
+            <point key="canvasLocation" x="3905.7971014492755" y="81.696428571428569"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="xN3-a5-rVq">
+            <objects>
+                <viewController storyboardIdentifier="asd" id="wIY-HF-bYR" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jtC-bg-WNc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="hnnsd;sdnafl;adsnlfka" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rE8-VJ-MaQ">
+                                <rect key="frame" x="186" y="396" width="167" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="0Ec-eT-4vc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nd5-b3-pFK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4780" y="98"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Yw3-o2-HH9"/>
+        <segue reference="CUv-J5-WLN"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="AccentColor"/>
     <resources>
