@@ -13,20 +13,16 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet var searchButton: UIButton!
     @IBOutlet var searchIndicator: UIActivityIndicatorView!
     
-
     var keyboardDismissTabGesture : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: nil)
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
         //서치바의 라인 삭제
         //self.searchBar.searchBarStyle = .minimal
-    
         //ui설정
         self.config()
-        
         getData()
     }
     
@@ -37,7 +33,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     //4. 끗....
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("VC - prepare() called / segue.identifier : \(segue.identifier)")
-    
     }
     
     //MARK: -- Collection View delegate
@@ -108,7 +103,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         self.keyboardDismissTabGesture.delegate = self
         self.view.addGestureRecognizer(keyboardDismissTabGesture)
     }
-    
     //버튼이 터치되었을때 - 필터링?
     @IBAction func onSearchButtonClicked(_ sender: Any) {
         print("검색버튼 터치")
@@ -145,7 +139,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //    }
     //글자가 입력될 때
     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        
         //언래핑을 통해 카운트 감지
         let inputTextCount = searchBar.text?.appending(text).count ?? 0
         if (inputTextCount >= 15) {

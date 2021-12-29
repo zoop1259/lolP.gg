@@ -36,13 +36,10 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
 //        // #warning Incomplete implementation, return the number of sections
 //        return 0
 //    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return titleList.count
     }
-
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "communityCell", for: indexPath) as? CommunityCell else {
             return UITableViewCell()

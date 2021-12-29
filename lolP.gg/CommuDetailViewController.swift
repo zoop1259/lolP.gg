@@ -25,11 +25,9 @@ class CommuDetailViewController : UIViewController {
             //본문내용을 보여준다.
             self.detailLabel.text = mai
         }
-        
         if let sub = desc {
             //타이틀을 보여준다.
             self.detailtitleLabel.text = sub
         }
-        
     }
 }

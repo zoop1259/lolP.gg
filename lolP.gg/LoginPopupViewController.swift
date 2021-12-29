@@ -29,6 +29,17 @@ class LoginPopupViewController: UIViewController {
         //googleloginBtn.style = .standard
         appleloginBtn.addTarget(self, action: #selector(LoginPopupViewController.appleLogInButtonTapped), for: .touchDown)
         popup.layer.cornerRadius = 30
+        
+//        if let user = Auth.auth().currentUser {
+//            print("로그인 되어있는 상태")
+//            self.showDetailViewController()
+//        }
+    }
+    //로그인이 되어있는 상태면 바로 디테일화면으로.
+    override func viewDidAppear(_ animated: Bool) {
+        if let user = Auth.auth().currentUser {
+            self.showDetailViewController()
+            }
     }
     
     //이메일 로그인 버튼 눌렀을때
@@ -50,7 +61,7 @@ class LoginPopupViewController: UIViewController {
         Auth.auth().signIn(withEmail: userEmail, password: userPassword) {
             (user, error) in
             if user != nil{
-                print("login success")
+                print("로그인 성공")
                 self.showDetailViewController()
             }
             else{
@@ -110,10 +121,8 @@ class LoginPopupViewController: UIViewController {
         let DetailViewController = mystoryboard.instantiateViewController(identifier: "LoginDetailView")
         //이방법은 로그인창까지 겹쳐서 올라옴.
 //        self.show(DetailViewController, sender: self)
-        
         //로그인창을 닫으면서 정보창 띄우기.
         guard let pvc = self.presentingViewController else { return }
-
         self.dismiss(animated: true) {
             pvc.present(DetailViewController, animated: true, completion: nil)
         }
