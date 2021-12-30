@@ -6,11 +6,23 @@
 //
 
 import UIKit
+import Firebase
+import AuthenticationServices
+import GoogleSignIn
+import FirebaseAuth
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        //파베에서 제공하는 GoogleService-Info에 클라이언트ID가 있기 때문에 주석처리
+        // GIDSignIn.sharedInstance().clientID = "client id"
+        FirebaseApp.configure()
+        //구글 로그인이 제대로 되었는지 확인하기.
+        if let user = Auth.auth().currentUser {
+            print("당신의 \(user.uid), email: \(user.email ?? "no email")")
+        }
         
         //네비게이션 바 색변경.
         let standard = UINavigationBarAppearance()
@@ -38,6 +50,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    // google login handler
+    //인증 절차의 마지막에 받은 URL을 처리하기 위해서 필요한 매서드.
+//    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+//        var handled: Bool
+//          handled = GIDSignIn.sharedInstance.handle(url)
+//          if handled {
+//            return true
+//          }
+//          // Handle other custom URL types.
+//          // If not handled by this app, return false.
+//          return false
+//    }
+
+    @available(iOS 9.0, *)
+    func application(_ application: UIApplication, open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey: Any])
+      -> Bool {
+      return GIDSignIn.sharedInstance.handle(url)
+    }
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
@@ -50,28 +82,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-        
-        
     }
-    
-    //팝업을 만들고 싶다.
-//    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-//        if viewController is LoginPopupViewController {
-//            /*
-//             let storyboard = UIStoryboard(name: "Popup", bundle: nil)
-//             let popupViewController = storyboard.instantiateViewController(withIdentifier: "Popup") as! PopupViewController
-//             popupViewController.modalPresentationStyle = .fullScreen
-//             tabBarController.present(popupViewController, animated: true, completion: nil)
-//             */
-//            if let popupView = tabBarController.storyboard?.instantiateViewController(withIdentifier: "popup") {
-//                tabBarController.present(popupView, animated: true)
-//                return false
-//            }
-//            return false
-//        }
-//        return true
-//    }
-
-
 }
 

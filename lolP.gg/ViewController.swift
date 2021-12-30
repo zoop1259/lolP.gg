@@ -6,28 +6,24 @@ import Toast_Swift
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UIGestureRecognizerDelegate {
     
     let nameList = ["가렌", "갈리오", "갱플랭크","갱플랭크","갱플랭크","갱플랭크"]
+    var nameArr = [String]()
     
-
     @IBOutlet var CollectionViewMain: UICollectionView!
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var searchButton: UIButton!
     @IBOutlet var searchIndicator: UIActivityIndicatorView!
     
-    
-    
-
     var keyboardDismissTabGesture : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: nil)
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
         //서치바의 라인 삭제
         //self.searchBar.searchBarStyle = .minimal
-    
         //ui설정
         self.config()
+<<<<<<< HEAD
         getinfo()
     }
     
@@ -53,6 +49,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             }
         }
         task.resume()
+=======
+        getData()
+>>>>>>> main2
     }
     
     //MARK: -- prepare method 데이터 넘겨주기.
@@ -60,6 +59,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     //2. 메인화면의 챔피언 이름과 사진을 디테일화면에 넘겨줘야함.
     //3. 디테일 화면에서는 스킬정보를 받아와야함.
     //4. 끗....
+<<<<<<< HEAD
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        print("VC - prepare() called / segue.identifier : \(segue.identifier)")
 //
@@ -94,6 +94,28 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //
 //               //챔피언 이미지 밑에 챔피언명을 출력해야함.
 //        cell.nameLabel.text = nameList[(indexPath as NSIndexPath).item]
+=======
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("VC - prepare() called / segue.identifier : \(segue.identifier)")
+    }
+    
+    //MARK: -- Collection View delegate
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    
+        return nameArr.count
+        //return nameList.count
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = CollectionViewMain.dequeueReusableCell(withReuseIdentifier: "champList", for: indexPath) as? ChampList else {
+            return UICollectionViewCell()
+        }
+        
+//                챔피언 이미지 밑에 챔피언명을 출력해야함.
+        cell.nameLabel.text = nameArr[(indexPath as NSIndexPath).item]
+
+>>>>>>> main2
         return cell
     }
     
@@ -106,28 +128,56 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //        return CGSize(width: width, height: height)
 //    }
 
+    func getData() {
+        
+        var idArr = [String]()
+        var dataArr = [AnyObject]()
+        var dict: [String: AnyObject] = [:]
+        
+        let urlString = "http://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion.json"
+        
+        guard let url = URL(string: urlString) else {
+            return
+        }
+        let task = URLSession.shared.dataTask(with: url, completionHandler: {data, _, error in
+            guard let data = data, error == nil else {
+                return
+            }
+            //print(data)
+            print(data.count)
+            var result: NameList?
+            do {
+                result = try JSONDecoder().decode(NameList.self, from: data)
+            }
+            catch {
+                print("Failed to decode with error: \(error)")
+            }
+            guard let final = result else {
+                return
+            }
+            print(final.version)
+            print(final) //이게 챔피언 정보 다 나오게하는거.
+            print(final.data.ahri.name)
+            print(final.data.ahri.image.full)
+        })
+        task.resume()
+    }
+    
     fileprivate func config() {
         //스토리보드에 존재하는 라이브러리들은 VC로 직접 델리게이트를 설정해줄수있지만 제스처는 그렇지 않으므로 코드로 델리게이트 선언
         self.keyboardDismissTabGesture.delegate = self
         self.view.addGestureRecognizer(keyboardDismissTabGesture)
-
     }
-    
-    //버튼이 클릭되었을때?
+    //버튼이 터치되었을때 - 필터링?
     @IBAction func onSearchButtonClicked(_ sender: Any) {
         print("검색버튼 터치")
-        
-
-        
     }
     
     //MARK: - UISearchBar Delegate methods
     //서치바에 입력된 텍스트를 가져옴
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print("VC - searchBarSearchButtonClicked()")
-        
         guard let userInputString = searchBar.text else { return }
-        
         if userInputString.isEmpty {
             self.view.makeToast("❌키워드를 입력해주세요", duration: 1.0, position: .center)
         }
@@ -135,12 +185,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //        else {
 //
 //        }
-        
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         //print("VC - 서치바 텍스트변경 : \(searchText)")
-        
         // 사용자가 입력한 값이 없을때 키보드 내림
         if (searchText.isEmpty) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
@@ -150,16 +198,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             self.searchButton.isHidden = false
         }
     }
-    
     //앱키자마자 키보드 뜨게하기.
 //    override func viewDidAppear(_ animated: Bool) {
 //        self.searchBar.becomeFirstResponder() // 포커싱주기
 //    }
-    
-    
     //글자가 입력될 때
     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        
         //언래핑을 통해 카운트 감지
         let inputTextCount = searchBar.text?.appending(text).count ?? 0
         if (inputTextCount >= 15) {
@@ -208,7 +252,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
 
     @objc func keyboardWillShowHandle(notification: NSNotification) {
-        
         //키보드 사이즈를 가져와서 그만큼 뷰를 밀어냄.
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if(keyboardSize.height < CollectionViewMain.frame.origin.y){
@@ -216,21 +259,16 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 self.view.frame.origin.y = distance + CollectionViewMain.frame.height
             }
         }
-        
     }
-    
     @objc func keyboardWillHideHandle() {
-        
     }
-    
 }
-
 class ChampList: UICollectionViewCell {
-    
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
 }
 
+<<<<<<< HEAD
 struct ChampInfo: Decodable {
     
     //이미지 크기는 48,48
@@ -283,3 +321,5 @@ struct ChampInfo: Decodable {
 
 
         
+=======
+>>>>>>> main2
