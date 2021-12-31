@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let user = Auth.auth().currentUser {
             print("당신의 \(user.uid), email: \(user.email ?? "no email")")
         }
+        //uid로 push가 가능한지. 토큰을 써서해야하는지.
         
         //네비게이션 바 색변경.
         let standard = UINavigationBarAppearance()

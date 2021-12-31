@@ -26,6 +26,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         getData()
     }
     
+    //다시 그리는거 viewDidappear
+    
+    
     //MARK: -- prepare method 데이터 넘겨주기.
     //1. 메인 화면에 챔피언 이름과 사진을 받아와야함.
     //2. 메인화면의 챔피언 이름과 사진을 디테일화면에 넘겨줘야함.
@@ -38,8 +41,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     //MARK: -- Collection View delegate
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
+      
+//        return champs
         return nameArr.count
-        //return nameList.count
+           // return champs.count
         
     }
     
@@ -47,10 +52,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         guard let cell = CollectionViewMain.dequeueReusableCell(withReuseIdentifier: "champList", for: indexPath) as? ChampList else {
             return UICollectionViewCell()
         }
-        
 //                챔피언 이미지 밑에 챔피언명을 출력해야함.
-        cell.nameLabel.text = nameArr[(indexPath as NSIndexPath).item]
-
+//        cell.nameLabel.text = nameArr[(indexPath as NSIndexPath).item]
+//        cell.nameLabel.text = nameArr[indexPath.row]
+        
+//        cell.backgroundColor = .lightGray
+//        cell.lbl.text = list[indexPath.row]
+//        cell.lbl.backgroundColor = .yellow
+    
         return cell
     }
     
@@ -66,11 +75,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func getData() {
         
         var idArr = [String]()
-        var dataArr = [AnyObject]()
         var dict: [String: AnyObject] = [:]
         
         let urlString = "http://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion.json"
-        
         guard let url = URL(string: urlString) else {
             return
         }
@@ -78,11 +85,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             guard let data = data, error == nil else {
                 return
             }
-            //print(data)
-            print(data.count)
-            var result: NameList?
+            var result: mainData?
             do {
-                result = try JSONDecoder().decode(NameList.self, from: data)
+                result = try JSONDecoder().decode(mainData.self, from: data)
             }
             catch {
                 print("Failed to decode with error: \(error)")
@@ -90,10 +95,29 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             guard let final = result else {
                 return
             }
-            print(final.version)
-            print(final) //이게 챔피언 정보 다 나오게하는거.
-            print(final.data.ahri.name)
-            print(final.data.ahri.image.full)
+//         print(final.data.keys)
+//            print(final) //이게 챔피언 정보 다 나오게하는거.
+//           let names = final.data.keys
+            print(final.data.count)
+            let champs = final.data
+            for (name, champdata) in final.data {
+//                print("(\(name) : \(datum))")
+                let cName = getName(datas: champdata)
+                //print(cName)
+                //self.nameArr = cName
+                self.nameArr = cName.components(separatedBy: ", ")
+                print(self.nameArr)
+            }
+            
+//            let tmp: Datum? = final.data["Ahri"]
+//            if let ahri = tmp {
+//                print(ahri)
+//                print(ahri.version)
+//            }else{
+//                print("unknown")
+//            }
+            
+            print(champs.count)
         })
         task.resume()
     }

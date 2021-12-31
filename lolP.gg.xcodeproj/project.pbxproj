@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7486FC6BE21D03356122612E /* Pods_lolP_gg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BEFD2F6C988473E98527607 /* Pods_lolP_gg.framework */; };
+		C503C710277D7FE10014D249 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C503C70F277D7FE10014D249 /* GoogleService-Info.plist */; };
 		C52177C827590FAA00E1BA62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177C727590FAA00E1BA62 /* AppDelegate.swift */; };
 		C52177CA27590FAA00E1BA62 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177C927590FAA00E1BA62 /* SceneDelegate.swift */; };
 		C52177CC27590FAA00E1BA62 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177CB27590FAA00E1BA62 /* ViewController.swift */; };
@@ -18,7 +19,6 @@
 		C52177E12759101600E1BA62 /* LoginPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177DE2759101600E1BA62 /* LoginPopupViewController.swift */; };
 		C52177E22759101600E1BA62 /* CommuDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177DF2759101600E1BA62 /* CommuDetailViewController.swift */; };
 		C52178452768215F00E1BA62 /* ChampInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52178442768215F00E1BA62 /* ChampInfo.swift */; };
-		C52178CD276BF00000E1BA62 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C52178CC276BEFFF00E1BA62 /* GoogleService-Info.plist */; };
 		C5A30C482772F38200B2D4D3 /* LoginDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A30C472772F38200B2D4D3 /* LoginDetailView.swift */; };
 		C5A30C4A2773154000B2D4D3 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A30C492773154000B2D4D3 /* SignUpViewController.swift */; };
 /* End PBXBuildFile section */
@@ -26,6 +26,7 @@
 /* Begin PBXFileReference section */
 		1BEFD2F6C988473E98527607 /* Pods_lolP_gg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lolP_gg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		944A7E1A9938D05A60C08D5F /* Pods-lolP.gg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lolP.gg.debug.xcconfig"; path = "Target Support Files/Pods-lolP.gg/Pods-lolP.gg.debug.xcconfig"; sourceTree = "<group>"; };
+		C503C70F277D7FE10014D249 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C52177C427590FAA00E1BA62 /* lolP.gg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lolP.gg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C52177C727590FAA00E1BA62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C52177C927590FAA00E1BA62 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,7 +40,6 @@
 		C52177DF2759101600E1BA62 /* CommuDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommuDetailViewController.swift; sourceTree = "<group>"; };
 		C52178442768215F00E1BA62 /* ChampInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampInfo.swift; sourceTree = "<group>"; };
 		C52178CA276BB3F300E1BA62 /* lolP.gg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = lolP.gg.entitlements; sourceTree = "<group>"; };
-		C52178CC276BEFFF00E1BA62 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		C5A30C472772F38200B2D4D3 /* LoginDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDetailView.swift; sourceTree = "<group>"; };
 		C5A30C492773154000B2D4D3 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		DC7C8A3ED7ABB4575E2B249C /* Pods-lolP.gg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lolP.gg.release.xcconfig"; path = "Target Support Files/Pods-lolP.gg/Pods-lolP.gg.release.xcconfig"; sourceTree = "<group>"; };
@@ -97,8 +97,8 @@
 			children = (
 				C52178CA276BB3F300E1BA62 /* lolP.gg.entitlements */,
 				C52177D027590FAC00E1BA62 /* Assets.xcassets */,
-				C52178CC276BEFFF00E1BA62 /* GoogleService-Info.plist */,
 				C52177D527590FAC00E1BA62 /* Info.plist */,
+				C503C70F277D7FE10014D249 /* GoogleService-Info.plist */,
 				C52177D227590FAC00E1BA62 /* LaunchScreen.storyboard */,
 				C52177CD27590FAA00E1BA62 /* Main.storyboard */,
 				C52177C727590FAA00E1BA62 /* AppDelegate.swift */,
@@ -175,7 +175,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C52177D427590FAC00E1BA62 /* LaunchScreen.storyboard in Resources */,
-				C52178CD276BF00000E1BA62 /* GoogleService-Info.plist in Resources */,
+				C503C710277D7FE10014D249 /* GoogleService-Info.plist in Resources */,
 				C52177D127590FAC00E1BA62 /* Assets.xcassets in Resources */,
 				C52177CF27590FAA00E1BA62 /* Main.storyboard in Resources */,
 			);

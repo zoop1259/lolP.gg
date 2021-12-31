@@ -6,45 +6,128 @@
 
 import Foundation
 
-// MARK: - ChampList
-struct NameList: Codable {
-    let type, format, version: String
-    let data: DataClass
+//클로저
+func getName(datas: champData) -> String {
+    return datas.name
 }
 
-// MARK: - DataClass
-struct DataClass: Codable {
-    let aatrox, ahri, akali: Aatrox
 
-    enum CodingKeys: String, CodingKey {
-        case aatrox = "Aatrox"
-        case ahri = "Ahri"
-        case akali = "Akali"
+struct mainData: Codable {
+    let type: TypeEnum
+    let format: String
+    let version: String
+    let data: [String: champData]
+}
+    
+   
+// MARK: - champData
+    struct champData: Codable {
+        let version: String
+        let id, key, name, title: String
+        let blurb: String
+        let info: Info
+        let image: Image
+        let tags: [Tag]
+        let partype: Partype
+        let stats: [String: Double]
     }
-}
 
-// MARK: - Aatrox
-struct Aatrox: Codable {
-    let version, id, key, name: String
-    let title, blurb: String
-    let info: Info
-    let image: Image
-    let tags: [String]
-    let partype: String
-    let stats: [String: Double]
-}
+    // MARK: - Image
+    struct Image: Codable {
+        let full: String
+        let sprite: Sprite
+        let group: TypeEnum
+        let x, y, w, h: Int
+    }
 
-// MARK: - Image
-struct Image: Codable {
-    let full, sprite, group: String
-    let x, y, w, h: Int
-}
+    enum TypeEnum: String, Codable {
+        case champion = "champion"
+    }
 
-// MARK: - Info
-struct Info: Codable {
-    let attack, defense, magic, difficulty: Int
-}
+    enum Sprite: String, Codable {
+        case champion0PNG = "champion0.png"
+        case champion1PNG = "champion1.png"
+        case champion2PNG = "champion2.png"
+        case champion3PNG = "champion3.png"
+        case champion4PNG = "champion4.png"
+        case champion5PNG = "champion5.png"
+    }
 
+    // MARK: - Info
+    struct Info: Codable {
+        let attack, defense, magic, difficulty: Int
+    }
+
+    enum Partype: String, Codable {
+        case 기력 = "기력"
+        case 기류 = "기류"
+        case 마나 = "마나"
+        case 보호막 = "보호막 "
+        case 분노 = "분노"
+        case 없음 = "없음"
+        case 열기 = "열기"
+        case 용기 = "용기"
+        case 투지 = "투지"
+        case 피의샘 = "피의 샘"
+        case 핏빛격노 = "핏빛 격노"
+        case 흉포 = "흉포"
+    }
+
+    enum Tag: String, Codable {
+        case assassin = "Assassin"
+        case fighter = "Fighter"
+        case mage = "Mage"
+        case marksman = "Marksman"
+        case support = "Support"
+        case tank = "Tank"
+    }
+    
+    
+
+
+
+
+
+
+//// MARK: - ChampList
+//struct NameList: Codable {
+//    let type, format, version: String
+//    let data: DataClass
+//}
+//
+//// MARK: - DataClass
+//struct DataClass: Codable {
+//    let aatrox, ahri, akali: Aatrox
+//
+//    enum CodingKeys: String, CodingKey {
+//        case aatrox = "Aatrox"
+//        case ahri = "Ahri"
+//        case akali = "Akali"
+//    }
+//}
+//
+//// MARK: - Aatrox
+//struct Aatrox: Codable {
+//    let version, id, key, name: String
+//    let title, blurb: String
+//    let info: Info
+//    let image: Image
+//    let tags: [String]
+//    let partype: String
+//    let stats: [String: Double]
+//}
+//
+//// MARK: - Image
+//struct Image: Codable {
+//    let full, sprite, group: String
+//    let x, y, w, h: Int
+//}
+//
+//// MARK: - Info
+//struct Info: Codable {
+//    let attack, defense, magic, difficulty: Int
+//}
+//
 
 
 
