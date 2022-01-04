@@ -7,8 +7,13 @@
 import Foundation
 
 //클로저
-func getName(datas: champData) -> String {
-    return datas.name
+func getName(datas: champData) -> [String] {
+    return [datas.name]
+}
+
+func printAnd(string: String) -> Int {
+    print(string)
+    return string.count
 }
 
 

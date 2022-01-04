@@ -7,6 +7,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     let nameList = ["가렌", "갈리오", "갱플랭크","갱플랭크","갱플랭크","갱플랭크"]
     var nameArr = [String]()
+    var namestring = String()
+    var countList = [String:Any]()
+    var test1 = Int()
+    
     
     @IBOutlet var CollectionViewMain: UICollectionView!
     @IBOutlet var searchBar: UISearchBar!
@@ -22,29 +26,16 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         //서치바의 라인 삭제
         //self.searchBar.searchBarStyle = .minimal
         //ui설정
-        self.config()
         getData()
+        config()
     }
     
     //다시 그리는거 viewDidappear
     
-    
-    //MARK: -- prepare method 데이터 넘겨주기.
-    //1. 메인 화면에 챔피언 이름과 사진을 받아와야함.
-    //2. 메인화면의 챔피언 이름과 사진을 디테일화면에 넘겨줘야함.
-    //3. 디테일 화면에서는 스킬정보를 받아와야함.
-    //4. 끗....
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("VC - prepare() called / segue.identifier : \(segue.identifier)")
-    }
-    
     //MARK: -- Collection View delegate
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    
-      
 //        return champs
         return nameArr.count
-           // return champs.count
         
     }
     
@@ -53,15 +44,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             return UICollectionViewCell()
         }
 //                챔피언 이미지 밑에 챔피언명을 출력해야함.
-//        cell.nameLabel.text = nameArr[(indexPath as NSIndexPath).item]
-//        cell.nameLabel.text = nameArr[indexPath.row]
-        
+//        if cell != nil {
+//            cell.nameLabel.text = nameArr[(indexPath as NSIndexPath).item]
+//        } else { cell.nameLabel.text = "라이엇에서 제공하지 않음"}
+
 //        cell.backgroundColor = .lightGray
 //        cell.lbl.text = list[indexPath.row]
 //        cell.lbl.backgroundColor = .yellow
-    
+
+        cell.nameLabel.text = nameArr[(indexPath as NSIndexPath).item]
         return cell
     }
+    
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //        let itemSpacing: CGFloat = 5 // 가로에서 cell과 cell 사이의 거리
@@ -72,6 +66,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //        return CGSize(width: width, height: height)
 //    }
 
+    //MARK: -- prepare method 데이터 넘겨주기.
+    //1. 메인 화면에 챔피언 이름과 사진을 받아와야함.
+    //2. 메인화면의 챔피언 이름과 사진을 디테일화면에 넘겨줘야함.
+    //3. 디테일 화면에서는 스킬정보를 받아와야함.
+    //4. 끗....
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("VC - prepare() called / segue.identifier : \(segue.identifier)")
+    }
+    
     func getData() {
         
         var idArr = [String]()
@@ -95,20 +98,50 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             guard let final = result else {
                 return
             }
-//         print(final.data.keys)
-//            print(final) //이게 챔피언 정보 다 나오게하는거.
-//           let names = final.data.keys
-            print(final.data.count)
-            let champs = final.data
-            for (name, champdata) in final.data {
-//                print("(\(name) : \(datum))")
-                let cName = getName(datas: champdata)
-                //print(cName)
-                //self.nameArr = cName
-                self.nameArr = cName.components(separatedBy: ", ")
-                print(self.nameArr)
+            
+            DispatchQueue.main.async {
+                self.CollectionViewMain.reloadData()
             }
             
+            let a = 1
+            self.test1 = a
+            
+            
+//            self.countList = final.data
+//            print(self.countList)
+            //print(self.countList.count)
+            
+//         print(final.data.keys)
+//         print(final) //이게 챔피언 정보 다 나오게하는거.
+           
+            
+            
+            
+            for (data, champdata) in final.data {
+//                print("(\(name) : \(datum))")
+                let cName = getName(datas: champdata)
+                
+//                print(cName)
+                //print(cName)
+                //String을 배열로 담으려 했으나 원하는 결과가 아님.
+//                let newArr = cName.components(separatedBy: "")
+//                let sortName = newArr.sorted(by: <)
+//                print(sortName)
+//                var a : [String] = []
+                for i in cName{
+                    self.nameArr.append(String(i))
+                    //print(a)
+                }
+//                self.nameArr = a
+//                print(self.nameArr)
+                //print(cName)
+                //카운트수가 따로따로 적용됨
+                //idArr = cName
+                
+                //모든게 출력됨
+//                print(idArr)
+                
+            }
 //            let tmp: Datum? = final.data["Ahri"]
 //            if let ahri = tmp {
 //                print(ahri)
@@ -117,8 +150,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //                print("unknown")
 //            }
             
-            print(champs.count)
+            //마지막 하나만 출력됨.
+//            print(idArr)
+//            print(self.nameArr)
+            print(self.nameArr.count)
         })
+        
+        //print(self.test1)
         task.resume()
     }
     
@@ -202,6 +240,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowHandle(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideHandle), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         //키보드 노티 해제
