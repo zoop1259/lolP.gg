@@ -5,6 +5,7 @@
 //
 
 import Foundation
+import UIKit
 
 //클로저
 func getName(datas: champData) -> [String] {
@@ -16,6 +17,11 @@ func printAnd(string: String) -> Int {
     return string.count
 }
 
+func getImage(images: Image) -> [String] {
+    //http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/Aatrox.png
+    //http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/\(id).png
+    return [images.sprite]
+}
 
 struct mainData: Codable {
     let type: TypeEnum
@@ -40,7 +46,7 @@ struct mainData: Codable {
     // MARK: - Image
     struct Image: Codable {
         let full: String
-        let sprite: Sprite
+        let sprite: String
         let group: TypeEnum
         let x, y, w, h: Int
     }

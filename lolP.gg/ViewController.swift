@@ -4,14 +4,12 @@ import Alamofire
 import Toast_Swift
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UIGestureRecognizerDelegate {
-    
-    let nameList = ["가렌", "갈리오", "갱플랭크","갱플랭크","갱플랭크","갱플랭크"]
+
     var nameArr = [String]()
     var namestring = String()
     var countList = [String:Any]()
-    var test1 = Int()
-    
-    
+    var imageArr = [String]()
+
     @IBOutlet var CollectionViewMain: UICollectionView!
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var searchButton: UIButton!
@@ -28,34 +26,35 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         //ui설정
         getData()
         config()
+        getVersion()
     }
     
     //다시 그리는거 viewDidappear
     
     //MARK: -- Collection View delegate
+    //셀 수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return champs
+        print(nameArr.count)
         return nameArr.count
-        
     }
     
+    //셀 정보
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = CollectionViewMain.dequeueReusableCell(withReuseIdentifier: "champList", for: indexPath) as? ChampList else {
             return UICollectionViewCell()
         }
 //                챔피언 이미지 밑에 챔피언명을 출력해야함.
-//        if cell != nil {
-//            cell.nameLabel.text = nameArr[(indexPath as NSIndexPath).item]
-//        } else { cell.nameLabel.text = "라이엇에서 제공하지 않음"}
-
-//        cell.backgroundColor = .lightGray
-//        cell.lbl.text = list[indexPath.row]
-//        cell.lbl.backgroundColor = .yellow
-
-        cell.nameLabel.text = nameArr[(indexPath as NSIndexPath).item]
+        //cell.nameLabel.text = nameArr[(indexPath as NSIndexPath).item]
+        self.nameArr.sort()
+        cell.nameLabel.text = nameArr[indexPath.row]
         return cell
     }
-    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        print("\(indexPath.row)")
+    //셀 눌렀을 때
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("\(indexPath.item)")
+    }
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //        let itemSpacing: CGFloat = 5 // 가로에서 cell과 cell 사이의 거리
@@ -75,10 +74,20 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         print("VC - prepare() called / segue.identifier : \(segue.identifier)")
     }
     
-    func getData() {
+    func getVersion() {
+        AF.request("https://ddragon.leagueoflegends.com/api/versions.json").responseString { (resp) in
+            let newVersion = resp
+            print(newVersion)
+            
+            
+        }
         
-        var idArr = [String]()
-        var dict: [String: AnyObject] = [:]
+    }
+    
+    func getData() {
+
+        var nArr = [String]()
+        var sortArr = [String]()
         
         let urlString = "http://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion.json"
         guard let url = URL(string: urlString) else {
@@ -102,61 +111,22 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             DispatchQueue.main.async {
                 self.CollectionViewMain.reloadData()
             }
-            
-            let a = 1
-            self.test1 = a
-            
-            
-//            self.countList = final.data
-//            print(self.countList)
-            //print(self.countList.count)
-            
-//         print(final.data.keys)
-//         print(final) //이게 챔피언 정보 다 나오게하는거.
-           
-            
-            
-            
-            for (data, champdata) in final.data {
-//                print("(\(name) : \(datum))")
+            for (_, champdata) in final.data {
                 let cName = getName(datas: champdata)
-                
-//                print(cName)
-                //print(cName)
-                //String을 배열로 담으려 했으나 원하는 결과가 아님.
 //                let newArr = cName.components(separatedBy: "")
 //                let sortName = newArr.sorted(by: <)
 //                print(sortName)
-//                var a : [String] = []
                 for i in cName{
                     self.nameArr.append(String(i))
-                    //print(a)
                 }
-//                self.nameArr = a
-//                print(self.nameArr)
-                //print(cName)
-                //카운트수가 따로따로 적용됨
-                //idArr = cName
-                
-                //모든게 출력됨
-//                print(idArr)
                 
             }
-//            let tmp: Datum? = final.data["Ahri"]
-//            if let ahri = tmp {
-//                print(ahri)
-//                print(ahri.version)
-//            }else{
-//                print("unknown")
+//            for (img, champimgs) in final.data {
+//                let cimg = getImage(images: champimgs)
+//                self.ImageMain.image = UIImage(data: data)
 //            }
-            
-            //마지막 하나만 출력됨.
-//            print(idArr)
-//            print(self.nameArr)
-            print(self.nameArr.count)
+            //print(self.nameArr.count)
         })
-        
-        //print(self.test1)
         task.resume()
     }
     
