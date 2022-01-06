@@ -17,10 +17,21 @@ func printAnd(string: String) -> Int {
     return string.count
 }
 
-func getImage(images: Image) -> [String] {
-    //http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/Aatrox.png
-    //http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/\(id).png
-    return [images.sprite]
+func getID(ids: champData) -> [String] {
+//    //http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/Aatrox.png
+//    //http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/\(id).png
+    return [ids.id]
+}
+
+func getDict(names: champData, ids: champData) -> [String:String] {
+    return [ids.id: names.name]
+    
+//    func findDic(dict: [String: String]){
+//        for (key, value) in dict{
+//        print("\(key) : \(value)")
+//      }
+//    }
+    
 }
 
 struct mainData: Codable {
