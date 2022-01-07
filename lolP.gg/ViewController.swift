@@ -36,12 +36,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     //MARK: -- Collection View delegate
     //셀 수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("nameArr의 수는\(nameArr.count)개 이다.")
-        let isEmpty: Bool = nameArr.isEmpty
-        print("챔피언 이름 배열은 비어있는가? : \(isEmpty)")
-        print("champsInfo의 수 : \(champsInfo.values.count)")
-        return nameArr.count
-        //return champsInfo.values.count
+        //print("nameArr의 수는\(nameArr.count)개 이다.")
+        //let isEmpty: Bool = nameArr.isEmpty
+        //print("챔피언 이름 배열은 비어있는가? : \(isEmpty)")
+        print("champsInfo의 수 : \(champsInfo.count)")
+        //return nameArr.count
+        return champsInfo.count
     }
     
     //셀 정보 - 어떻게 보여줄 것인가.
@@ -53,8 +53,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         //cell.nameLabel.text = nameArr[(indexPath as NSIndexPath).item]
         self.nameArr.sort()
         cell.nameLabel.text = nameArr[indexPath.row]
-
+        //cell.nameLabel.text = champsInfo[indexPath.item]
+        //print("셀의 정보를 담고 있는 수 : \(nameArr.count) 개")
+        //cell.imgView.image = UIImage(named: idArr[indexPath.row]) ?? UIImage()
+        //cell.image.image = UIImage(named: arrImageName[indexPath.row]) ?? UIImage()
+        //print("이미지 url을 위한 idArr : \(self.idArr)")
+        
+        
+        
         return cell
+        
+
     }
     
     //셀 눌렀을 때
@@ -108,10 +117,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             guard let final = result else {
                 return
             }
-            
-            DispatchQueue.main.async {
-                self.CollectionViewMain.reloadData()
-            }
 
             for (_, champdata) in final.data {
                 let cName = getName(datas: champdata)
@@ -123,20 +128,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 }
             }
             //print("nameArr : \(self.nameArr.count)")
-            
-            var dict = [String:String]()
-            for (_, champnames) in final.data {
-                let cDic = getDict(names: champnames, ids: champnames)
-                //챔피언의 dictionary
-//                print("cImg : \(cImg)")
-                for (i , j) in cDic {
-                    dict.updateValue(i, forKey: j)
-//                    self.champsInfo = dict
-                    self.champsInfo.updateValue(i, forKey: j)
-                }
-                //self.champsInfo = dict
-                //print(self.champsInfo.keys.count)
-            }
             
             for (_, champdata) in final.data {
                 let cImg = getID(ids: champdata)
@@ -155,6 +146,19 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //                uiImageView
             }
             
+            var dict = [String:String]()
+            for (_, champnames) in final.data {
+                let cDic = getDict(names: champnames, ids: champnames)
+                //챔피언의 dictionary
+//                print("cImg : \(cImg)")
+                for (names , ids) in cDic {
+                    dict.updateValue(names, forKey: ids)
+//                    self.champsInfo = dict
+                    self.champsInfo.updateValue(names, forKey: ids)
+                }
+                //self.champsInfo = dict
+                //print(self.champsInfo.keys.count)
+            }
             
             //print("key값은 : \(self.champsInfo.keys)")
             //print("values값은 : \(self.champsInfo.values)")
@@ -162,13 +166,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //                let cimg = getImage(images: champimgs)
 //                self.ImageMain.image = UIImage(data: data)
 //            }
-            print("getData의 champsInfo : \(self.champsInfo.keys.count)")
+            DispatchQueue.main.async {
+                self.CollectionViewMain.reloadData()
+            }
+            print("getData의 champsInfo : \(self.champsInfo.count)")
             print("getData의 nameArr : \(self.nameArr.count)")
+       
         })
         //print(self.champsInfo)
         print("for문 밖의 nameArr : \(self.nameArr.count)")
-        print("for문 밖의 champsInfo : \(self.champsInfo.keys.count)")
-        print("for문 밖의 champsInfo : \(self.champsInfo.values.count)")
+        print("for문 밖의 champsInfo : \(self.champsInfo.count)")
+
         task.resume()
     }
     
