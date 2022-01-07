@@ -10,6 +10,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var countList = [String:Any]()
     var imageArr = [String]()
     var idArr = [String]()
+    var champsInfo = [String:String]()
 
     @IBOutlet var CollectionViewMain: UICollectionView!
     @IBOutlet var searchBar: UISearchBar!
@@ -17,7 +18,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet var searchIndicator: UIActivityIndicatorView!
     
     var keyboardDismissTabGesture : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: nil)
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +28,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         getData()
         config()
         //getVersion()
+
     }
     
     //다시 그리는거 viewDidappear
@@ -35,8 +36,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     //MARK: -- Collection View delegate
     //셀 수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("셀의 수는\(nameArr.count)개 이다.")
+        print("nameArr의 수는\(nameArr.count)개 이다.")
+        let isEmpty: Bool = nameArr.isEmpty
+        print("챔피언 이름 배열은 비어있는가? : \(isEmpty)")
+        print("champsInfo의 수 : \(champsInfo.values.count)")
         return nameArr.count
+        //return champsInfo.values.count
     }
     
     //셀 정보 - 어떻게 보여줄 것인가.
@@ -48,18 +53,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         //cell.nameLabel.text = nameArr[(indexPath as NSIndexPath).item]
         self.nameArr.sort()
         cell.nameLabel.text = nameArr[indexPath.row]
-        //print("셀의 정보를 담고 있는 수 : \(nameArr.count) 개")
-        
-        //cell.imgView.image = UIImage(named: idArr[indexPath.row]) ?? UIImage()
-        //cell.image.image = UIImage(named: arrImageName[indexPath.row]) ?? UIImage()
-        //print("이미지 url을 위한 idArr : \(self.idArr)")
-        
-        return cell
-        
 
+        return cell
     }
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print("\(indexPath.row)")
+    
     //셀 눌렀을 때
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("\(indexPath.item + 1)번째 셀의 챔피언")
@@ -84,28 +81,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     //af사용하여 신버전 받아오기.
-
 //    func getVersion(
 //    _ completion: @escaping (Result<Image, Error>) -> () // Result 타입을 사용하면 좋아요.
 //    ) {
 //        AF.request("https://ddragon.leagueoflegends.com/api/versions.json").responseString { (response) in
-//            switch response.result {
-//            case .success(let jsonData): // 잘 가져왔다면
-//                do {
-//                    let json = try JSONSerialization.data(withJSONObject: jsonData, options: .prettyPrinted)
-//                    let result = try JSONDecoder().decode(champData.self, from: json)
-//                    let image: Image = result.image
-//                    completion(.success(image)) // 성공하면 핸들러로 넘겨주고
-//                } catch(let error) {
-//                    completion(.failure(error))
-//                }
-//            case .failure(let error): // 실패했다면 에러처리..
-//                completion(.failure(error)) // 실패해도 핸들러로 넘겨줌..
-//            }
-//        }
+
 //    }
-    
-    
     
     func getData() {
  
@@ -131,6 +112,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             DispatchQueue.main.async {
                 self.CollectionViewMain.reloadData()
             }
+
             for (_, champdata) in final.data {
                 let cName = getName(datas: champdata)
 //                let newArr = cName.components(separatedBy: "")
@@ -139,6 +121,21 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 for i in cName {
                     self.nameArr.append(String(i))
                 }
+            }
+            //print("nameArr : \(self.nameArr.count)")
+            
+            var dict = [String:String]()
+            for (_, champnames) in final.data {
+                let cDic = getDict(names: champnames, ids: champnames)
+                //챔피언의 dictionary
+//                print("cImg : \(cImg)")
+                for (i , j) in cDic {
+                    dict.updateValue(i, forKey: j)
+//                    self.champsInfo = dict
+                    self.champsInfo.updateValue(i, forKey: j)
+                }
+                //self.champsInfo = dict
+                //print(self.champsInfo.keys.count)
             }
             
             for (_, champdata) in final.data {
@@ -158,22 +155,20 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //                uiImageView
             }
             
-            for (champids, champnames) in final.data {
-                let cImg = getDict(names: champnames, ids: champnames)
-                
-                print("cImg : \(cImg)")
-                
-            }
             
-            
-            
+            //print("key값은 : \(self.champsInfo.keys)")
+            //print("values값은 : \(self.champsInfo.values)")
 //            for (img, champimgs) in final.data {
 //                let cimg = getImage(images: champimgs)
 //                self.ImageMain.image = UIImage(data: data)
 //            }
-            //print("getData에서 챔피언 목록 : \(self.nameArr) 이다.")
-            print("getData에서 챔피언의 수 : \(self.nameArr.count)이다.")
+            print("getData의 champsInfo : \(self.champsInfo.keys.count)")
+            print("getData의 nameArr : \(self.nameArr.count)")
         })
+        //print(self.champsInfo)
+        print("for문 밖의 nameArr : \(self.nameArr.count)")
+        print("for문 밖의 champsInfo : \(self.champsInfo.keys.count)")
+        print("for문 밖의 champsInfo : \(self.champsInfo.values.count)")
         task.resume()
     }
     
