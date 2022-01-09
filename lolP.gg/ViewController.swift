@@ -34,12 +34,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     //MARK: -- Collection View delegate
     //셀 수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //print("nameArr의 수는\(nameArr.count)개 이다.")
-        //let isEmpty: Bool = nameArr.isEmpty
-        //print("챔피언 이름 배열은 비어있는가? : \(isEmpty)")
-        print("champsInfo의 수 : \(champsInfo.count)")
         print("챔피언의 수 : \(krarr.count)")
-        //return nameArr.count
         return krarr.count
     }
     
@@ -49,9 +44,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             return UICollectionViewCell()
         }
 //                챔피언 이미지 밑에 챔피언명을 출력해야함.
+        //let img = UIImage(named: "http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/\(enarr[indexPath.row]).png")
         cell.nameLabel.text = krarr[indexPath.row]
-        //cell.imgView.image = UIImage(named: enarr[indexPath.row]) ?? UIImage()
-        
+        cell.imgView.image = UIImage(named: "http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/Aatrox.png")
+       
         return cell
     }
     
@@ -154,13 +150,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             DispatchQueue.main.async {
                 self.CollectionViewMain.reloadData()
             }
-            
             //print("Aarr : \(self.Aarr) Barr : \(self.Barr)") //챔피언 한글이름과 영어이름 출력
             print("reloadData후 champsInfo : \(self.champsInfo.count)")
-            print("reloadData후 nameArr : \(self.nameArr.count)")
             
         })
-        print("reloadData전 nameArr : \(self.nameArr.count)")
         print("reloadData전 champsInfo : \(self.champsInfo.count)")
 
         task.resume()
