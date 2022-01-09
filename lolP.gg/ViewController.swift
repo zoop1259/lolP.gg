@@ -6,11 +6,9 @@ import Toast_Swift
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UIGestureRecognizerDelegate {
 
     var nameArr = [String]()
-    var namestring = String()
-    var countList = [String:Any]()
-    var imageArr = [String]()
-    var idArr = [String]()
-    var champsInfo = [String:String]()
+    var champsInfo = [String:String]() // 챔피언의 정보를 담은 Dictionary
+    var krarr = [String]() //챔피언 한글 이름
+    var enarr = [String]() //챔피언 영어 이름
 
     @IBOutlet var CollectionViewMain: UICollectionView!
     @IBOutlet var searchBar: UISearchBar!
@@ -40,8 +38,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         //let isEmpty: Bool = nameArr.isEmpty
         //print("챔피언 이름 배열은 비어있는가? : \(isEmpty)")
         print("champsInfo의 수 : \(champsInfo.count)")
+        print("챔피언의 수 : \(krarr.count)")
         //return nameArr.count
-        return champsInfo.count
+        return krarr.count
     }
     
     //셀 정보 - 어떻게 보여줄 것인가.
@@ -50,20 +49,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             return UICollectionViewCell()
         }
 //                챔피언 이미지 밑에 챔피언명을 출력해야함.
-        //cell.nameLabel.text = nameArr[(indexPath as NSIndexPath).item]
-        self.nameArr.sort()
-        cell.nameLabel.text = nameArr[indexPath.row]
-        //cell.nameLabel.text = champsInfo[indexPath.item]
-        //print("셀의 정보를 담고 있는 수 : \(nameArr.count) 개")
-        //cell.imgView.image = UIImage(named: idArr[indexPath.row]) ?? UIImage()
-        //cell.image.image = UIImage(named: arrImageName[indexPath.row]) ?? UIImage()
-        //print("이미지 url을 위한 idArr : \(self.idArr)")
-        
-        
+        cell.nameLabel.text = krarr[indexPath.row]
+        //cell.imgView.image = UIImage(named: enarr[indexPath.row]) ?? UIImage()
         
         return cell
-        
-
     }
     
     //셀 눌렀을 때
@@ -94,9 +83,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //    _ completion: @escaping (Result<Image, Error>) -> () // Result 타입을 사용하면 좋아요.
 //    ) {
 //        AF.request("https://ddragon.leagueoflegends.com/api/versions.json").responseString { (response) in
-
 //    }
-    
+
     func getData() {
  
         let urlString = "http://ddragon.leagueoflegends.com/cdn/11.24.1/data/ko_KR/champion.json"
@@ -133,11 +121,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 let cImg = getID(ids: champdata)
                 
                 for i in cImg {
-                    //self.idArr.append(String(i))
-                    
                     var imsiArr = [String]()
                     imsiArr.append(String(i))
-                    
 //                    "http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/\(id).png"
                 }
 //                let url = URL(string: "http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/\(id).png")
@@ -146,8 +131,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //                uiImageView
             }
             
+            //챔피언 id와 name의 dictionary 생성.
             var dict = [String:String]()
             for (_, champnames) in final.data {
+                //cDic만으론 157개를 가진 dictionary가 아니게 되어 2중for문 사용. 알아본바 map? 같은걸 사용해볼....
                 let cDic = getDict(names: champnames, ids: champnames)
                 //챔피언의 dictionary
 //                print("cImg : \(cImg)")
@@ -156,26 +143,25 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //                    self.champsInfo = dict
                     self.champsInfo.updateValue(names, forKey: ids)
                 }
-                //self.champsInfo = dict
-                //print(self.champsInfo.keys.count)
+            }
+
+            for (name, id) in self.champsInfo.sorted(by: <) {
+                self.krarr.append(name)
+                self.enarr.append(id)
             }
             
-            //print("key값은 : \(self.champsInfo.keys)")
-            //print("values값은 : \(self.champsInfo.values)")
-//            for (img, champimgs) in final.data {
-//                let cimg = getImage(images: champimgs)
-//                self.ImageMain.image = UIImage(data: data)
-//            }
+            //메인에서 일을 시킴. reloadData를 사용하기 떄문에 맨 마지막에 사용
             DispatchQueue.main.async {
                 self.CollectionViewMain.reloadData()
             }
-            print("getData의 champsInfo : \(self.champsInfo.count)")
-            print("getData의 nameArr : \(self.nameArr.count)")
-       
+            
+            //print("Aarr : \(self.Aarr) Barr : \(self.Barr)") //챔피언 한글이름과 영어이름 출력
+            print("reloadData후 champsInfo : \(self.champsInfo.count)")
+            print("reloadData후 nameArr : \(self.nameArr.count)")
+            
         })
-        //print(self.champsInfo)
-        print("for문 밖의 nameArr : \(self.nameArr.count)")
-        print("for문 밖의 champsInfo : \(self.champsInfo.count)")
+        print("reloadData전 nameArr : \(self.nameArr.count)")
+        print("reloadData전 champsInfo : \(self.champsInfo.count)")
 
         task.resume()
     }
@@ -200,7 +186,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         //여기서 이제 챔피언 필터링이 들어가야할거같다.
 //        else {
-//
 //        }
     }
     
