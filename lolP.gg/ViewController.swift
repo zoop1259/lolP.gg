@@ -43,11 +43,26 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         guard let cell = CollectionViewMain.dequeueReusableCell(withReuseIdentifier: "champList", for: indexPath) as? ChampList else {
             return UICollectionViewCell()
         }
-//                챔피언 이미지 밑에 챔피언명을 출력해야함.
+//                챔피언 이미지 밑에 챔피언명을 출력해야함. 아래방식은 나중에 챔피언스킬을 다운받아서 사용한다치면?
         //let img = UIImage(named: "http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/\(enarr[indexPath.row]).png")
         cell.nameLabel.text = krarr[indexPath.row]
-        cell.imgView.image = UIImage(named: "http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/Aatrox.png")
+        
+        // 섬네일 경로를 인자값으로 하는 URL객체를 생성
+        let url: URL! = URL(string: "http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/\(enarr[indexPath.row]).png")
+        // 이미지를 읽어와 Data객체에 저장
+        let imageData = try! Data(contentsOf: url)
+        // UIImage객체를 생성하여 아울렛 변수의 image 속성에 대입
+        cell.imgView.image = UIImage(data: imageData)
        
+//        //DispatchQueue를 쓰는 이유 -> 이미지가 클 경우 이미지를 다운로드 받기 까지 잠깐의 멈춤이 생길수 있다. (이유 : 싱글 쓰레드로 작동되기때문에)
+//        //DispatchQueue를 쓰면 멀티 쓰레드로 이미지가 클경우에도 멈춤이 생기지 않는다.
+//        DispatchQueue.global().async {
+//        let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+//        DispatchQueue.main.async {
+//        image = UIImage(data: data!)
+//        }
+//        }
+        
         return cell
     }
     
