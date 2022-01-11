@@ -53,6 +53,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let imageData = try! Data(contentsOf: url)
         // UIImage객체를 생성하여 아울렛 변수의 image 속성에 대입
         cell.imgView.image = UIImage(data: imageData)
+        
        
 //        //DispatchQueue를 쓰는 이유 -> 이미지가 클 경우 이미지를 다운로드 받기 까지 잠깐의 멈춤이 생길수 있다. (이유 : 싱글 쓰레드로 작동되기때문에)
 //        //DispatchQueue를 쓰면 멀티 쓰레드로 이미지가 클경우에도 멈춤이 생기지 않는다.
@@ -66,9 +67,34 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         return cell
     }
     
+    //MARK: -- prepare method 데이터 넘겨주기.
     //셀 눌렀을 때
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("\(indexPath.item + 1)번째 셀의 챔피언")
+        //performSegue(withIdentifier: "champDetailsegue", sender: indexPath.item)
+        
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "champDetailView") as! ChampDetailView
+
+        controller.VCName = krarr[indexPath.row]
+        //controller.VCImg = ChampList.imgView.image
+        
+        //1. 메인 화면에 챔피언 이름과 사진을 받아와야함.
+        //2. 메인화면의 챔피언 이름과 사진을 디테일화면에 넘겨줘야함.
+        //3. 디테일 화면에서는 스킬정보를 받아와야함.
+        //4. 끗....
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        if let id = segue.identifier, "champDetailsegue" == id {
+    //            //NewsDetail을 NewsDetailController로 이동시키려면
+    //            if let controller = segue.destination as? ChampDetailView {
+    //
+    //                if let indexPath = CollectionViewMain.indexPathsForSelectedItems {
+    //                }
+    //            }
+    //        }
+    //    }
+        
+        //여기에 이제 챔프스킬들을 넘겨주는게 필요함.
     }
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -79,15 +105,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //
 //        return CGSize(width: width, height: height)
 //    }
-
-    //MARK: -- prepare method 데이터 넘겨주기.
-    //1. 메인 화면에 챔피언 이름과 사진을 받아와야함.
-    //2. 메인화면의 챔피언 이름과 사진을 디테일화면에 넘겨줘야함.
-    //3. 디테일 화면에서는 스킬정보를 받아와야함.
-    //4. 끗....
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("VC - prepare() called / segue.identifier : \(segue.identifier)")
-    }
     
     //af사용하여 신버전 받아오기.
 //    func getVersion(
@@ -277,5 +294,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 class ChampList: UICollectionViewCell {
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
+    
+    public func configure(with image : UIImage) {
+        imgView.image = image
+        }
+    
 }
 
