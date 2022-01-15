@@ -85,7 +85,6 @@
                                         <connections>
                                             <outlet property="imgView" destination="wF1-Ng-3uj" id="OB2-AL-gPc"/>
                                             <outlet property="nameLabel" destination="He1-y3-INp" id="Xj2-LN-Sg5"/>
-                                            <segue destination="UwA-MN-zhX" kind="show" identifier="champDetailsegue" id="ZHY-Sv-E0I"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -155,7 +154,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KEi-qj-UIx">
-                                <rect key="frame" x="0.0" y="88" width="414" height="160"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="160"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zdT-dL-pnn">
                                         <rect key="frame" x="20" y="20" width="120" height="120"/>
@@ -185,7 +184,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="UNk-ry-eIj">
-                                <rect key="frame" x="20" y="251" width="374" height="562"/>
+                                <rect key="frame" x="20" y="207" width="374" height="655"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="100" id="k8L-5f-ToU">

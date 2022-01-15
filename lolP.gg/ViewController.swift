@@ -75,7 +75,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             print("챔프디테일에 넘겨주는 img값 : \(VCImg)")
         }
         //이동! = 얘는 이동을 수동으로 시켜줘야함.
-        showDetailViewController(controller, sender: nil)
+        show(controller, sender: nil)
         //여기에 이제 챔프스킬들을 넘겨주는게 필요함.
     }
     
