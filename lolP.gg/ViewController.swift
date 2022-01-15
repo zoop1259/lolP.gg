@@ -74,6 +74,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             controller.VCImg = VCImg
             print("챔프디테일에 넘겨주는 img값 : \(VCImg)")
         }
+        //이동! = 얘는 이동을 수동으로 시켜줘야함.
+        showDetailViewController(controller, sender: nil)
         //여기에 이제 챔프스킬들을 넘겨주는게 필요함.
     }
     
@@ -91,6 +93,29 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //        }
 //        //이동! = 얘는 세그웨이떄문에 자동임.
 //    }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let id = segue.identifier, "NewsDetail" == id {
+//            //NewsDetail을 NewsDetailController로 이동시키려면
+//            if let controller = segue.destination as? NewsDetailController {
+//
+//                if let news = newsData {
+//                    if let indexPath = TableViewMain.indexPathForSelectedRow {
+//                        let row = news[indexPath.row]
+//                        if let r = row as? Dictionary<String, Any> {
+//                            if let imageUrl = r["urlToImage"] as? String {
+//                                controller.imageUrl = imageUrl
+//                            }
+//                            if let desc = r["description"] as? String {
+//                                controller.desc = desc
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+    
     
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
