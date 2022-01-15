@@ -8,28 +8,41 @@
 import Foundation
 import UIKit
 
-class ChampDetailView : UIViewController {
+public class ChampDetailView : UIViewController {
     
     
     @IBOutlet var detailImg: UIImageView!
     @IBOutlet var detailName: UILabel!
 
-    var VCImg : UIImage?
-    var VCName : String?
+    public var VCImg : String?
+    public var VCName : String?
     
-    override func viewDidLoad() {
+//    public override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//
+//        var VC = ViewController()
+//        //detailName.text = VC.nameLabel
+//        //detailImg.image = VC.enarr
+//    }
+    
+    public override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let vcimg = VCImg {
-            //본문을 보여준다.
-            self.detailImg.image = vcimg
-        }
-        
+    
         if let vcname = VCName {
             //본문을 보여준다.
             self.detailName.text = vcname
+            print("챔프디테일에서의 vcname값 : \(vcname)")
         }
         
+        if let vcimg = VCImg {
+            
+            if let data = try? Data(contentsOf: URL(string: "http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/\(vcimg).png")!) {
+                DispatchQueue.main.async {
+                    self.detailImg.image = UIImage(data: data)
+                    print("챔프디테일에서의 vcimg값 : \(vcimg)")
+                }
+            }
+        }
     }
     
 }
