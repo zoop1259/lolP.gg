@@ -8,22 +8,17 @@
 import Foundation
 import UIKit
 
-public class ChampDetailView : UIViewController {
+public class ChampDetailView : UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+    @IBOutlet var DetailTableView: UITableView!
     
-    
-    @IBOutlet var detailImg: UIImageView!
-    @IBOutlet var detailName: UILabel!
+    @IBOutlet var detailImg: UIImageView! //VC의 챔피언 이미지
+    @IBOutlet var detailName: UILabel! //VC의 챔피언 이름
 
     public var VCImg : String?
     public var VCName : String?
     
-//    public override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//
-//        var VC = ViewController()
-//        //detailName.text = VC.nameLabel
-//        //detailImg.image = VC.enarr
-//    }
+    var detailErName : String?
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +30,7 @@ public class ChampDetailView : UIViewController {
         }
         
         if let vcimg = VCImg {
-            
+            detailErName = vcimg
             if let data = try? Data(contentsOf: URL(string: "http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/\(vcimg).png")!) {
                 DispatchQueue.main.async {
                     self.detailImg.image = UIImage(data: data)
@@ -45,6 +40,44 @@ public class ChampDetailView : UIViewController {
         }
     }
     
+    func getSkill() {
+ 
+        let urlString = "https://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion/\(detailErName).json"
+        guard let url = URL(string: urlString) else {
+            return
+        }
+        let task = URLSession.shared.dataTask(with: url, completionHandler: {data, _, error in
+            guard let data = data, error == nil else {
+                return
+            }
+            var result: mainData?
+            do {
+                result = try JSONDecoder().decode(mainData.self, from: data)
+            }
+            catch {
+                print("Failed to decode with error: \(error)")
+            }
+            guard let skills = result else {
+                return
+            }
+                                              
+        })
+        task.resume()
+    }
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        <#code#>
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        <#code#>
+    }
+    
 }
 
-
+class ChampSkill: UITableViewCell {
+    
+    @IBOutlet var skillImg: UIImageView!
+    @IBOutlet var skillName: UILabel!
+    
+}

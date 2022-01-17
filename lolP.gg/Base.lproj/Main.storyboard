@@ -187,7 +187,7 @@
                                 <rect key="frame" x="20" y="207" width="374" height="655"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="100" id="k8L-5f-ToU">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="100" id="k8L-5f-ToU" customClass="ChampSkill" customModule="lolP_gg" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.666666030883789" width="374" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="k8L-5f-ToU" id="diE-dR-cpM">
@@ -218,8 +218,16 @@
                                                 <constraint firstItem="lMN-K0-r46" firstAttribute="leading" secondItem="diE-dR-cpM" secondAttribute="leading" constant="10" id="kl7-So-tXK"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="skillImg" destination="lMN-K0-r46" id="YKz-vr-RZ3"/>
+                                            <outlet property="skillName" destination="A85-3o-oYb" id="CZZ-do-BPz"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="UwA-MN-zhX" id="iSa-gf-jMx"/>
+                                    <outlet property="delegate" destination="UwA-MN-zhX" id="ZS9-0V-OKy"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="uZz-xG-NXv"/>
@@ -236,6 +244,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="챔피언 정보" id="hbW-XV-ldY"/>
                     <connections>
+                        <outlet property="DetailTableView" destination="UNk-ry-eIj" id="Upi-TI-paW"/>
                         <outlet property="detailImg" destination="zdT-dL-pnn" id="ZsF-R7-NKY"/>
                         <outlet property="detailName" destination="xst-wg-Cf4" id="Ysw-DI-Iyw"/>
                     </connections>

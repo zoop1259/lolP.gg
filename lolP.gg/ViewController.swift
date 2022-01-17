@@ -5,7 +5,6 @@ import Toast_Swift
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UIGestureRecognizerDelegate {
 
-    var nameArr = [String]()
     var champsInfo = [String:String]() // 챔피언의 정보를 담은 Dictionary
     public var krarr = [String]() //챔피언 한글 이름
     public var enarr = [String]() //챔피언 영어 이름
@@ -62,6 +61,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("\(indexPath.item + 1)번째 셀의 챔피언")
   
+        //메인 스토리 보드를 찾고 그 스토리보드안에 지정한 ID를 가진 뷰컨트롤러를 찾아서 controller에 저장.
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "champDetailView") as! ChampDetailView
         
@@ -76,47 +76,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         //이동! = 얘는 이동을 수동으로 시켜줘야함.
         show(controller, sender: nil)
+        
         //여기에 이제 챔프스킬들을 넘겨주는게 필요함.
     }
-    
-//    2. 세그웨이 방식
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let id = segue.identifier, "champDetailView" == id {
-//            //NewsDetail을 NewsDetailController로 이동시키려면
-//            if let controller = segue.destination as? ChampDetailView {
-//
-//                if let indexPath = CollectionViewMain.indexPathsForSelectedItems {
-//                    if let VCName = krarr[indexPath.item] as? String {
-//                    controller.VCName = VCName
-//                }
-//            }
-//        }
-//        //이동! = 얘는 세그웨이떄문에 자동임.
-//    }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let id = segue.identifier, "NewsDetail" == id {
-//            //NewsDetail을 NewsDetailController로 이동시키려면
-//            if let controller = segue.destination as? NewsDetailController {
-//
-//                if let news = newsData {
-//                    if let indexPath = TableViewMain.indexPathForSelectedRow {
-//                        let row = news[indexPath.row]
-//                        if let r = row as? Dictionary<String, Any> {
-//                            if let imageUrl = r["urlToImage"] as? String {
-//                                controller.imageUrl = imageUrl
-//                            }
-//                            if let desc = r["description"] as? String {
-//                                controller.desc = desc
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-    
-    
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //        let itemSpacing: CGFloat = 5 // 가로에서 cell과 cell 사이의 거리
@@ -129,7 +91,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     //af사용하여 신버전 받아오기.
 //    func getVersion(
-//    _ completion: @escaping (Result<Image, Error>) -> () // Result 타입을 사용하면 좋아요.
+//    _ completion: @escaping (Result<Image, Error>) -> () // Result 타입을 사용하면 좋다.
 //    ) {
 //        AF.request("https://ddragon.leagueoflegends.com/api/versions.json").responseString { (response) in
 //    }
@@ -154,31 +116,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             guard let final = result else {
                 return
             }
-
-            for (_, champdata) in final.data {
-                let cName = getName(datas: champdata)
-//                let newArr = cName.components(separatedBy: "")
-//                let sortName = newArr.sorted(by: <)
-//                print(sortName)
-                for i in cName {
-                    self.nameArr.append(String(i))
-                }
-            }
-            //print("nameArr : \(self.nameArr.count)")
-            
-            for (_, champdata) in final.data {
-                let cImg = getID(ids: champdata)
-                
-                for i in cImg {
-                    var imsiArr = [String]()
-                    imsiArr.append(String(i))
-//                    "http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/\(id).png"
-                }
-//                let url = URL(string: "http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/\(id).png")
-//                let data = try Data(contentsOf: url!)
-//                uiImageView.image = UIImage(data: data)
-//                uiImageView
-            }
             
             //챔피언 id와 name의 dictionary 생성.
             var dict = [String:String]()
@@ -198,6 +135,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 self.krarr.append(name)
                 self.enarr.append(id)
             }
+            
+            
             
             //메인에서 일을 시킴. reloadData를 사용하기 떄문에 맨 마지막에 사용
             DispatchQueue.main.async {
