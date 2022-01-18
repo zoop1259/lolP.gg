@@ -21,6 +21,10 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
     var skillLabel : String?
     var skillimgLabel : String?
     
+    var urlString = "url정보담을 변수"
+    //"https://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion/\(self.detailErName).json"
+    //let urlString = "https://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion/Aatrox.json"
+
     public override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -36,7 +40,10 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
                 DispatchQueue.main.async {
                     self.detailImg.image = UIImage(data: data)
                     print("챔프디테일에서의 vcimg값 : \(vcimg)")
-                    print("으아아 : \(self.getSkill)")
+                    
+                    self.urlString = "https://ddragon.leagueoflegends.com/cdn/11.24.1/data/ko_KR/champion/\(vcimg).json"
+                    self.getSkill()
+                    print(self.urlString)
                 }
             }
         }
@@ -45,10 +52,10 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
     
     func getSkill() {
  
-//        let urlString = "https://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion/\(detailErName).json"
-        let urlString = "https://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion/Aatrox.json"
-        
-        guard let url = URL(string: urlString) else {
+        //챔피언의 이름을 받아서 urlString을 완성시켜야함.
+        //만 되면 좋은데...
+               
+        guard let url = URL(string: self.urlString) else {
             return
         }
         let task = URLSession.shared.dataTask(with: url, completionHandler: {data, _, error in
@@ -66,7 +73,7 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
             guard let final = result else {
                 return
             }
-            print ("final : \(final)")
+            
             
 //            var skills: SkillData?
 //            do {
@@ -78,7 +85,8 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
 //            guard let skilldatas = skills else {
 //                return
 //            }
-//
+//            print("asdasd: \(skilldatas.passive)")
+            
 //            print("skilldatas : \(skilldatas)")
             
             //챔피언스킬의 name과 image를 가져와야 한다.
@@ -121,7 +129,10 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
 //
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = DetailTableView.dequeueReusableCell(withIdentifier: "champSkill", for: indexPath) as! ChampSkill
-        //스킬이름 스킬이미지
+        //스킬이름
+//        cell.skillName.text = ''''
+        //스킬이미지
+//        cell.skillImg.image = ''''
         return cell
     }
     

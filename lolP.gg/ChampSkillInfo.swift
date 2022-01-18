@@ -22,6 +22,9 @@ func getskillName(skills: Passive) -> [String] {
 
 // MARK: - mainSkillData
 struct MainSkillData: Codable {
+    let type: String
+    let format: String
+    let version: String
     let data: [String: SkillData]
 }
 // MARK: - skillData
@@ -32,15 +35,10 @@ struct SkillData: Codable {
 
 // MARK: - Passive
 struct Passive: Codable {
-    let name, passiveDescription: String
+    let name, description: String
     let image: SkillImage
     let id: String
-
-    enum CodingKeys: String, CodingKey {
-        case name
-        case passiveDescription = "description"
-        case image, id
-    }
+    
 }
 
 struct SkillImage: Codable {
