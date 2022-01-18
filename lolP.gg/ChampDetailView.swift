@@ -44,6 +44,7 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
                     self.urlString = "https://ddragon.leagueoflegends.com/cdn/11.24.1/data/ko_KR/champion/\(vcimg).json"
                     self.getSkill()
                     print(self.urlString)
+                    
                 }
             }
         }
@@ -73,6 +74,8 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
             guard let final = result else {
                 return
             }
+            
+            print(final.data)
             
             
 //            var skills: SkillData?

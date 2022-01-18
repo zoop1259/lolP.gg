@@ -13,7 +13,7 @@ import UIKit
 // 챔피언 skill img UI
 // https://ddragon.leagueoflegends.com/cdn/11.24.1/img/spell/AatroxQ.png
 
-func getskillName(skills: Passive) -> [String] {
+func getskillName(skills: Spell) -> [String] {
     return [skills.name]
 }
 
@@ -29,12 +29,11 @@ struct MainSkillData: Codable {
 }
 // MARK: - skillData
 struct SkillData: Codable {
-    //let spells: [Passive]
-    let passive: Passive
+    let spells: [Spell]
 }
 
 // MARK: - Passive
-struct Passive: Codable {
+struct Spell: Codable {
     let name, description: String
     let image: SkillImage
     let id: String
