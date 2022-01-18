@@ -7,7 +7,6 @@
 import Foundation
 import UIKit
 
-//클로저
 func getName(datas: champData) -> [String] {
     return [datas.name]
 }

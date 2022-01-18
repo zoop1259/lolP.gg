@@ -136,8 +136,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 self.enarr.append(id)
             }
             
-            
-            
             //메인에서 일을 시킴. reloadData를 사용하기 떄문에 맨 마지막에 사용
             DispatchQueue.main.async {
                 self.CollectionViewMain.reloadData()

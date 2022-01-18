@@ -13,22 +13,36 @@ import UIKit
 // 챔피언 skill img UI
 // https://ddragon.leagueoflegends.com/cdn/11.24.1/img/spell/AatroxQ.png
 
+func getskillName(skills: Passive) -> [String] {
+    return [skills.name]
+}
+
+//let prac1 = SkillData.passive( ... )
+
 
 // MARK: - mainSkillData
-struct mainSkillData: Codable {
-    let data: [String: skillData]
+struct MainSkillData: Codable {
+    let data: [String: SkillData]
 }
-// MARK: - champData
-struct skillData: Codable {
-    let id, name, description: String
-    let image: skillImage
+// MARK: - skillData
+struct SkillData: Codable {
+    //let spells: [Passive]
+    let passive: Passive
 }
 
-// MARK: - skillImage
-struct skillImage: Codable {
+// MARK: - Passive
+struct Passive: Codable {
+    let name, passiveDescription: String
+    let image: SkillImage
+    let id: String
+
+    enum CodingKeys: String, CodingKey {
+        case name
+        case passiveDescription = "description"
+        case image, id
+    }
+}
+
+struct SkillImage: Codable {
     let full: String
 }
-
-
-
-
