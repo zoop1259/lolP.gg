@@ -77,22 +77,22 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
                 return
             }
             
-            var subresult: SkillData?
-            do {
-                subresult = try JSONDecoder().decode(SkillData.self, from: data)
-            }
-            catch {
-                print("서브리절트에서 오류: \(error)")
-            }
-            guard let subfinal = subresult else {
-                return
-            }
+//            var subresult: SkillData?
+//            do {
+//                subresult = try JSONDecoder().decode(SkillData.self, from: data)
+//            }
+//            catch {
+//                print("서브리절트에서 오류: \(error)")
+//            }
+//            guard let subfinal = subresult else {
+//                return
+//            }
             
             
             //챔피언 id와 name의 dictionary 생성.
             for (_, champnames) in final.data {
                 //cDic만으론 157개를 가진 dictionary가 아니게 되어 2중for문 사용. 알아본바 map? 같은걸 사용해볼....
-//                print(champnames)
+                print(champnames)
 //                let subdic = getskillName(skills: champnames)
 //                print(subdic.count)
 //                subarr.append(champnames.spells)
