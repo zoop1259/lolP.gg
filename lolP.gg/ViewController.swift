@@ -140,9 +140,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             DispatchQueue.main.async {
                 self.CollectionViewMain.reloadData()
             }
-            //print("Aarr : \(self.Aarr) Barr : \(self.Barr)") //챔피언 한글이름과 영어이름 출력
             print("reloadData후 champsInfo : \(self.champsInfo.count)")
-            
         })
         print("reloadData전 champsInfo : \(self.champsInfo.count)")
 

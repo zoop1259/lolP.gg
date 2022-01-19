@@ -24,13 +24,6 @@ func getID(ids: champData) -> [String] {
 
 func getDict(names: champData, ids: champData) -> [String:String] {
     return [ids.id: names.name]
-    
-//    func findDic(dict: [String: String]){
-//        for (key, value) in dict{
-//        print("\(key) : \(value)")
-//      }
-//    }
-    
 }
 
 struct mainData: Codable {
