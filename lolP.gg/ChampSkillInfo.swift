@@ -18,16 +18,25 @@ func getskillName(skills: SkillData) -> [String] {
 }
 
 func getskillInfo(infos: Spell) -> [String] {
-    return [infos.name]
+    return [infos.skillid]
 }
 //let prac1 = SkillData.passive( ... )
+
+func getspellDict(spellname: Spell, spellid: Spell) -> [String:String] {
+    return [spellname.skillname: spellid.skillid]
+}
+
+struct spelldata: Decodable {
+//    let data: [String: SkillData]
+//    let spells: [Spell]
+//
+//    var skillid: String {
+//        data.spells.skillid
+}
 
 
 // MARK: - mainSkillData
 struct MainSkillData: Codable {
-    let type: String
-    let format: String
-    let version: String
     let data: [String: SkillData]
 }
 // MARK: - skillData
@@ -38,14 +47,21 @@ struct SkillData: Codable {
 
 // MARK: - Spell
 struct Spell: Codable {
-    let id, name, spellDescription: String
+    let skillid, skillname, spellDescription: String
     let image: SkillImage
 
     enum CodingKeys: String, CodingKey {
-        case id, name
+        case skillid = "id"
+        case skillname = "name"
         case spellDescription = "description"
         case image
     }
+    
+//    init(from decoder: Decoder) throws {
+//        let values = try decoder.container(keyedBy: CodingKeys.self)
+//        skillid = try values.decode(String.self, forKey: .skillid)
+//    }
+    
 }
 
 struct SkillImage: Codable {

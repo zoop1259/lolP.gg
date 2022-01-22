@@ -42,10 +42,9 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
                 DispatchQueue.main.async {
                     self.detailImg.image = UIImage(data: data)
                     print("챔프디테일에서의 vcimg값 : \(vcimg)")
-                    
                     self.urlString = "https://ddragon.leagueoflegends.com/cdn/11.24.1/data/ko_KR/champion/\(vcimg).json"
                     self.getSkill()
-                    print(self.urlString)
+                    print("champskill url : \(self.urlString)")
                     
                 }
             }
@@ -57,7 +56,6 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
  
         //챔피언의 이름을 받아서 urlString을 완성시켜야함.
         //만 되면 좋은데...
-               
         guard let url = URL(string: self.urlString) else {
             return
         }
@@ -65,7 +63,6 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
             guard let data = data, error == nil else {
                 return
             }
-            
             var result: MainSkillData?
             do {
                 result = try JSONDecoder().decode(MainSkillData.self, from: data)
@@ -88,44 +85,38 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
 //                return
 //            }
             
-            
             //챔피언 id와 name의 dictionary 생성.
-            for (_, champnames) in final.data {
+//            for (_, skillnames) in final.data {
+//                for (_, subskillnames) in skillnames.spells {
+//                    print(subskillnames)
+//                }
+                
+                
                 //cDic만으론 157개를 가진 dictionary가 아니게 되어 2중for문 사용. 알아본바 map? 같은걸 사용해볼....
-                print(champnames)
 //                let subdic = getskillName(skills: champnames)
 //                print(subdic.count)
 //                subarr.append(champnames.spells)
 //                print(subarr.count) //왜 1개인가..
 //                self.ss.append(champnames.spells)
-                var dic = [champnames.id : champnames.spells]
 //                print(dic.count)
 //                print("dic key : \(dic.keys) ----value : \(dic.values)")
-   
                 
-                /*
-                for i in champnames.spells {
-                    //여기서 출력하면 추가되는 과정을 출력해주는건가.. ss가 [Any]일때 가능하지만...
-                    self.ss.append(i)
-                }
-                print(self.ss.count)
-                */
+//                for i in champnames.spells {
+//                    //여기서 출력하면 추가되는 과정을 출력해주는건가.. ss가 [Any]일때 가능하지만...
+//                    let asd = getskillInfo(infos: champnames)
+//                    print(asd)
+//                }
                 
-                
-                 
 //                let ss = getskillInfo(infos: champnames.name)
 //                for (_, subdatas) in champnames.spells {
 //
 //                }
-                
                 
 //                for (names , ids) in cDic {
 //                    dict.updateValue(names, forKey: ids)
 ////                    self.champsInfo = dict
 //                    self.champsInfo.updateValue(names, forKey: ids)
 //                }
-            }
-            
             
 //            print(final.data)
             
@@ -153,10 +144,14 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //스킬수만큼 카운트 패시브까지 한다면 패시브를 +
         return ss.count
+        
+        
     }
 //
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = DetailTableView.dequeueReusableCell(withIdentifier: "champSkill", for: indexPath) as! ChampSkill
+        
+        
         //스킬이름
 //        cell.skillName.text = ss[indexPath.row]
         //스킬이미지
