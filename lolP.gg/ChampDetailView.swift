@@ -21,6 +21,10 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
     var skillLabel : String?
     var skillimgLabel : String?
     
+    var skillName = [String]()
+    var skillDesc = [String]()
+    var skillImg = [String]()
+    
     var urlString = "url정보담을 변수"
     //"https://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion/\(self.detailErName).json"
     //let urlString = "https://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion/Aatrox.json"
@@ -57,7 +61,7 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
         guard let url = URL(string: self.urlString) else {
             return
         }
-        let task = URLSession.shared.dataTask(with: url, completionHandler: {data, _, error in
+        let task = URLSession.shared.dataTask(with: url, completionHandler: { [self]data, _, error in
             guard let data = data, error == nil else {
                 return
             }
@@ -83,11 +87,15 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
 //                    print("a: \(a)")
 //                }
                 for a in sub {
+                    self.skillName.append(a.skillname)
+                    self.skillDesc.append(a.spellDescription)
+                    self.skillImg.append(a.skillid)
                     print(a.skillid)
                     print(a.skillname)
                     print(a.spellDescription)
                 }
                 
+                print(self.skillName.count)
                 //let three = (Spell.self, (sub))
   
                 
@@ -147,7 +155,7 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //스킬수만큼 카운트 패시브까지 한다면 패시브를 +
-        return 4
+        return skillName.count
         
         
     }
@@ -157,9 +165,17 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
         
         
         //스킬이름
-//        cell.skillName.text = ss[indexPath.row]
+        cell.skillName.text = skillName[indexPath.row]
         //스킬이미지
-//        cell.skillImg.image = ''''
+        // 섬네일 경로를 인자값으로 하는 URL객체를 생성
+        let url: URL! = URL(string: "https://ddragon.leagueoflegends.com/cdn/11.24.1/img/spell/\(skillImg[indexPath.row]).png")
+                                //"http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/\(enarr[indexPath.row]).png")
+        // 이미지를 읽어와 Data객체에 저장
+        let imageData = try! Data(contentsOf: url)
+        // UIImage객체를 생성하여 아울렛 변수의 image 속성에 대입
+        cell.skillImg.image = UIImage(data: imageData)
+        
+        
         return cell
     }
     

@@ -86,7 +86,6 @@ struct Spell: Codable {
         try container.encode(skillname, forKey: .skillname)
         try container.encode(spellDescription, forKey: .spellDescription)
     }
-    
 }
 
 struct SkillImage: Codable {
