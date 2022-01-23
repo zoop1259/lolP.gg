@@ -17,6 +17,13 @@ func getskillName(skills: SkillData) -> [String] {
     return [skills.id]
 }
 
+func asdasd(skillids: Spell) -> [String] {
+    return [skillids.skillid]
+}
+
+let asd = Spell.CodingKeys.skillid
+
+
 func getskillInfo(infos: Spell) -> [String] {
     return [infos.skillid]
 }
@@ -38,32 +45,51 @@ struct spelldata: Decodable {
 // MARK: - mainSkillData
 struct MainSkillData: Codable {
     let data: [String: SkillData]
+    /*
+     let data: [SkillData]
+     Failed to decode with error: typeMismatch(Swift.Array<Any>, Swift.DecodingError.Context(codingPath: [CodingKeys(stringValue: "data", intValue: nil)], debugDescription: "Expected to decode Array<Any> but found a dictionary instead.", underlyingError: nil))
+     */
+    
 }
 // MARK: - skillData
 struct SkillData: Codable {
     let id, key, name: String
     let spells: [Spell]
+    /*
+     let spells: [String:Spell]
+     Failed to decode with error: typeMismatch(Swift.Dictionary<Swift.String, lolP_gg.Spell>, Swift.DecodingError.Context(codingPath: [CodingKeys(stringValue: "data", intValue: nil), _JSONKey(stringValue: "Garen", intValue: nil), CodingKeys(stringValue: "spells", intValue: nil)], debugDescription: "Expected to decode Dictionary<String, Spell> but found an array instead.", underlyingError: nil))
+     */
 }
 
 // MARK: - Spell
 struct Spell: Codable {
     let skillid, skillname, spellDescription: String
-    let image: SkillImage
+    //let image: SkillImage
 
     enum CodingKeys: String, CodingKey {
         case skillid = "id"
         case skillname = "name"
         case spellDescription = "description"
-        case image
+        //case image
     }
     
-//    init(from decoder: Decoder) throws {
-//        let values = try decoder.container(keyedBy: CodingKeys.self)
-//        skillid = try values.decode(String.self, forKey: .skillid)
-//    }
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        skillid = try values.decode(String.self, forKey: .skillid)
+        skillname = try values.decode(String.self, forKey: .skillname)
+        spellDescription = try values.decode(String.self, forKey: .spellDescription)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(skillid, forKey: .skillid)
+        try container.encode(skillname, forKey: .skillname)
+        try container.encode(spellDescription, forKey: .spellDescription)
+    }
     
 }
 
 struct SkillImage: Codable {
     let full: String
 }
+

@@ -21,8 +21,6 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
     var skillLabel : String?
     var skillimgLabel : String?
     
-    var ss = [String]()
-    
     var urlString = "url정보담을 변수"
     //"https://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion/\(self.detailErName).json"
     //let urlString = "https://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion/Aatrox.json"
@@ -66,6 +64,7 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
             var result: MainSkillData?
             do {
                 result = try JSONDecoder().decode(MainSkillData.self, from: data)
+                //let spell = result?.SkillData.Spell.CodingKeys.skillid
             }
             catch {
                 print("Failed to decode with error: \(error)")
@@ -73,23 +72,28 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
             guard let final = result else {
                 return
             }
-            
-//            var subresult: SkillData?
-//            do {
-//                subresult = try JSONDecoder().decode(SkillData.self, from: data)
-//            }
-//            catch {
-//                print("서브리절트에서 오류: \(error)")
-//            }
-//            guard let subfinal = subresult else {
-//                return
-//            }
-            
-            //챔피언 id와 name의 dictionary 생성.
-//            for (_, skillnames) in final.data {
-//                for (_, subskillnames) in skillnames.spells {
-//                    print(subskillnames)
+                
+//            챔피언 id와 name의 dictionary 생성.
+            for (_, skillnames) in final.data {
+                let sub = skillnames.spells
+                //print(sub)
+                
+                //튜플은 형식에 맞게 나눠서 for문돌려야함.
+//                for (a, b, c) in sub {
+//                    print("a: \(a)")
 //                }
+                for a in sub {
+                    print(a.skillid)
+                    print(a.skillname)
+                    print(a.spellDescription)
+                }
+                
+                //let three = (Spell.self, (sub))
+  
+                
+                
+                
+            }
                 
                 
                 //cDic만으론 157개를 가진 dictionary가 아니게 되어 2중for문 사용. 알아본바 map? 같은걸 사용해볼....
@@ -143,7 +147,7 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //스킬수만큼 카운트 패시브까지 한다면 패시브를 +
-        return ss.count
+        return 4
         
         
     }
