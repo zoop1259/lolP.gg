@@ -249,7 +249,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 }
 
 class ChampList: UICollectionViewCell {
-    
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
 }

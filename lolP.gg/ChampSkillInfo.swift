@@ -13,35 +13,6 @@ import UIKit
 // 챔피언 skill img UI
 // https://ddragon.leagueoflegends.com/cdn/11.24.1/img/spell/AatroxQ.png
 
-func getskillName(skills: SkillData) -> [String] {
-    return [skills.id]
-}
-
-func asdasd(skillids: Spell) -> [String] {
-    return [skillids.skillid]
-}
-
-let asd = Spell.CodingKeys.skillid
-
-
-func getskillInfo(infos: Spell) -> [String] {
-    return [infos.skillid]
-}
-//let prac1 = SkillData.passive( ... )
-
-func getspellDict(spellname: Spell, spellid: Spell) -> [String:String] {
-    return [spellname.skillname: spellid.skillid]
-}
-
-struct spelldata: Decodable {
-//    let data: [String: SkillData]
-//    let spells: [Spell]
-//
-//    var skillid: String {
-//        data.spells.skillid
-}
-
-
 // MARK: - mainSkillData
 struct MainSkillData: Codable {
     let data: [String: SkillData]

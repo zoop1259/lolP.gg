@@ -83,6 +83,7 @@ class LoginPopupViewController: UIViewController {
         authorizationController.performRequests()
     }
     
+    //임시 버튼. 나중에 삭제할 것.
     @IBAction func emsilogoubtn(_ sender: Any) {
             //Auth.auth().signOut()
             do {
