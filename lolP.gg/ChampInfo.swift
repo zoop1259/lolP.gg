@@ -32,7 +32,6 @@ struct mainData: Codable {
     let version: String
     let data: [String: champData]
 }
-    
    
 // MARK: - champData
     struct champData: Codable {

@@ -496,8 +496,12 @@
                                         <buttonConfiguration key="configuration" style="plain" title="Apple login btn"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0pF-b2-ynG">
-                                        <rect key="frame" x="10" y="392" width="240" height="31"/>
+                                        <rect key="frame" x="20" y="392" width="220" height="31"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="31" id="7rE-Cj-fGd"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="220" id="7te-wh-ahO"/>
+                                        </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="회원가입">
                                             <color key="baseForegroundColor" systemColor="labelColor"/>
@@ -506,22 +510,15 @@
                                             <segue destination="Th3-W4-lrG" kind="show" id="Mi6-mK-i19"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mee-gd-9wh">
-                                        <rect key="frame" x="0.0" y="415" width="75" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                                        <connections>
-                                            <action selector="emsilogoubtn:" destination="sHQ-jS-J6h" eventType="touchUpInside" id="tBW-xm-0Iz"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" systemColor="systemTealColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="h3i-aj-CH4" secondAttribute="trailing" constant="20" id="3Ec-Ol-r4d"/>
                                     <constraint firstItem="C8Y-uH-un4" firstAttribute="leading" secondItem="1Qw-2x-30p" secondAttribute="leading" constant="20" id="4GP-Gi-IPy"/>
                                     <constraint firstItem="6Kb-gc-QtV" firstAttribute="leading" secondItem="1Qw-2x-30p" secondAttribute="leading" constant="20" id="8eJ-MD-gig"/>
                                     <constraint firstAttribute="width" constant="260" id="9fn-Nk-Ybi"/>
+                                    <constraint firstAttribute="trailing" secondItem="0pF-b2-ynG" secondAttribute="trailing" constant="20" id="Afn-GE-9Ot"/>
                                     <constraint firstItem="C8Z-zl-eaZ" firstAttribute="leading" secondItem="1Qw-2x-30p" secondAttribute="leading" constant="20" id="BFB-fn-lps"/>
                                     <constraint firstItem="Oxw-QQ-6GC" firstAttribute="leading" secondItem="1Qw-2x-30p" secondAttribute="leading" constant="20" id="CxU-99-lqj"/>
                                     <constraint firstAttribute="trailing" secondItem="C8Z-zl-eaZ" secondAttribute="trailing" constant="20" id="DXJ-1G-tzj"/>
@@ -529,18 +526,17 @@
                                     <constraint firstItem="GBX-4f-F15" firstAttribute="leading" secondItem="1Qw-2x-30p" secondAttribute="leading" constant="20" id="Elz-uZ-BvF"/>
                                     <constraint firstItem="GBX-4f-F15" firstAttribute="top" secondItem="C8Z-zl-eaZ" secondAttribute="bottom" constant="10" id="KJ9-is-FsF"/>
                                     <constraint firstAttribute="trailing" secondItem="GBX-4f-F15" secondAttribute="trailing" constant="20" id="LwL-HV-X4q"/>
+                                    <constraint firstItem="0pF-b2-ynG" firstAttribute="top" secondItem="6Kb-gc-QtV" secondAttribute="bottom" constant="10" id="PQ3-jv-c6D"/>
+                                    <constraint firstItem="0pF-b2-ynG" firstAttribute="leading" secondItem="1Qw-2x-30p" secondAttribute="leading" constant="20" id="SL0-Bh-sf0"/>
                                     <constraint firstAttribute="trailing" secondItem="C8Y-uH-un4" secondAttribute="trailing" constant="20" id="ZgY-eP-CkF"/>
-                                    <constraint firstAttribute="trailing" secondItem="0pF-b2-ynG" secondAttribute="trailing" constant="10" id="bez-B9-PHo"/>
                                     <constraint firstItem="C8Y-uH-un4" firstAttribute="top" secondItem="h3i-aj-CH4" secondAttribute="bottom" constant="8" symbolic="YES" id="cjP-GT-Dwg"/>
                                     <constraint firstItem="h3i-aj-CH4" firstAttribute="leading" secondItem="1Qw-2x-30p" secondAttribute="leading" constant="20" id="iW9-Wq-OHq"/>
                                     <constraint firstAttribute="height" constant="450" id="kFb-tp-UY4"/>
                                     <constraint firstItem="6Kb-gc-QtV" firstAttribute="top" secondItem="GBX-4f-F15" secondAttribute="bottom" constant="10" id="ldt-Cc-kDY"/>
-                                    <constraint firstItem="0pF-b2-ynG" firstAttribute="leading" secondItem="1Qw-2x-30p" secondAttribute="leading" constant="10" id="o27-Hb-73H"/>
                                     <constraint firstAttribute="trailing" secondItem="Oxw-QQ-6GC" secondAttribute="trailing" constant="20" id="prt-p3-QzW"/>
                                     <constraint firstAttribute="trailing" secondItem="6Kb-gc-QtV" secondAttribute="trailing" constant="20" id="rJX-ha-3x2"/>
                                     <constraint firstItem="h3i-aj-CH4" firstAttribute="top" secondItem="Oxw-QQ-6GC" secondAttribute="bottom" constant="8" symbolic="YES" id="svG-8X-off"/>
                                     <constraint firstItem="C8Z-zl-eaZ" firstAttribute="top" secondItem="C8Y-uH-un4" secondAttribute="bottom" constant="10" id="wmt-ne-Qr0"/>
-                                    <constraint firstItem="0pF-b2-ynG" firstAttribute="top" secondItem="6Kb-gc-QtV" secondAttribute="bottom" constant="10" id="yu2-ql-NLQ"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -918,7 +914,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="tintColor" systemColor="systemTealColor"/>
                                 <constraints>
                                     <constraint firstItem="pPg-xq-ooI" firstAttribute="leading" secondItem="EwW-67-qGd" secondAttribute="leading" constant="20" id="2Lu-eW-UcZ"/>
@@ -938,6 +934,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="AM9-CP-u9Z"/>
+                    <connections>
+                        <outlet property="userEmail" destination="eua-Dg-6Aq" id="R3b-97-dFf"/>
+                        <outlet property="userId" destination="cfz-eb-5ed" id="lTl-Sn-pRp"/>
+                        <outlet property="userName" destination="PKf-xd-PjG" id="LaS-ph-oFw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wts-rN-H9w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

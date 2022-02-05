@@ -15,26 +15,34 @@ import FirebaseAuth
 class LoginDetailView: UIViewController {
     
     
+    @IBOutlet var userId: UILabel!
+    @IBOutlet var userName: UILabel!
+    @IBOutlet var userEmail: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //구글 로그인이 제대로 되었는지 확인하기.
+        //로그인 확인.
         if let user = Auth.auth().currentUser {
             print("당신의 \(user.uid), email: \(user.email ?? "no email")")
         }
     }
     
     @IBAction func logoutBtn(_ sender: Any) {
-        //Auth.auth().signOut()
         do {
             try FirebaseAuth.Auth.auth().signOut()
-            //뷰 닫기?
+            //로그아웃과 동시에 뷰 닫기
+            print("로그아웃 성공")
             self.dismiss(animated: true, completion: nil)
         } catch {
             print("에러 발생")
         }
     }
+}
+
+class UserInfo {
+    
+    
+    
 }
 
 //db랑

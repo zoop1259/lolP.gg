@@ -16,20 +16,12 @@ import UIKit
 // MARK: - mainSkillData
 struct MainSkillData: Codable {
     let data: [String: SkillData]
-    /*
-     let data: [SkillData]
-     Failed to decode with error: typeMismatch(Swift.Array<Any>, Swift.DecodingError.Context(codingPath: [CodingKeys(stringValue: "data", intValue: nil)], debugDescription: "Expected to decode Array<Any> but found a dictionary instead.", underlyingError: nil))
-     */
-    
 }
+
 // MARK: - skillData
 struct SkillData: Codable {
     let id, key, name: String
     let spells: [Spell]
-    /*
-     let spells: [String:Spell]
-     Failed to decode with error: typeMismatch(Swift.Dictionary<Swift.String, lolP_gg.Spell>, Swift.DecodingError.Context(codingPath: [CodingKeys(stringValue: "data", intValue: nil), _JSONKey(stringValue: "Garen", intValue: nil), CodingKeys(stringValue: "spells", intValue: nil)], debugDescription: "Expected to decode Dictionary<String, Spell> but found an array instead.", underlyingError: nil))
-     */
 }
 
 // MARK: - Spell
@@ -41,7 +33,6 @@ struct Spell: Codable {
         case skillid = "id"
         case skillname = "name"
         case spellDescription = "description"
-        //case image
     }
     
     init(from decoder: Decoder) throws {
@@ -59,7 +50,7 @@ struct Spell: Codable {
     }
 }
 
-struct SkillImage: Codable {
-    let full: String
-}
+//struct SkillImage: Codable {
+//    let full: String
+//}
 

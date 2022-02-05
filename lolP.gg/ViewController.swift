@@ -76,8 +76,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         //이동! = 얘는 이동을 수동으로 시켜줘야함.
         show(controller, sender: nil)
-        
-        //여기에 이제 챔프스킬들을 넘겨주는게 필요함.
     }
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -120,7 +118,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             //챔피언 id와 name의 dictionary 생성.
             var dict = [String:String]()
             for (_, champnames) in final.data {
-                //cDic만으론 157개를 가진 dictionary가 아니게 되어 2중for문 사용. 알아본바 map? 같은걸 사용해볼....
+                //cDic만으론 157개를 가진 dictionary가 아니게 되어 2중for문 사용.
                 let cDic = getDict(names: champnames, ids: champnames)
                 //챔피언의 dictionary
 //                print("cImg : \(cImg)")

@@ -23,18 +23,17 @@ class LoginPopupViewController: UIViewController {
     @IBOutlet var txtuserLoginEmail: UITextField!
     @IBOutlet var txtuserLoginPassword: UITextField!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        //googleloginBtn.style = .standard
-        appleloginBtn.addTarget(self, action: #selector(LoginPopupViewController.appleLogInButtonTapped), for: .touchDown)
-        popup.layer.cornerRadius = 30
-        
-//        if let user = Auth.auth().currentUser {
-//            print("로그인 되어있는 상태")
-//            self.showDetailViewController()
-//        }
-    }
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//
+//        //googleloginBtn.style = .standard
+//        appleloginBtn.addTarget(self, action: #selector(LoginPopupViewController.appleLogInButtonTapped), for: .touchDown)
+//        popup.layer.cornerRadius = 30
+////        if let user = Auth.auth().currentUser {
+////            print("로그인 되어있는 상태")
+////            self.showDetailViewController()
+////        }
+//    }
     //로그인이 되어있는 상태면 바로 디테일화면으로.
     override func viewDidAppear(_ animated: Bool) {
         if let user = Auth.auth().currentUser {
@@ -46,18 +45,7 @@ class LoginPopupViewController: UIViewController {
     @IBAction func btnActSubmit(_ sender: UIButton) {
         guard let userEmail = txtuserLoginEmail.text else { return }
         guard let userPassword = txtuserLoginPassword.text else  { return }
-        
-//        Auth.auth().signIn(withEmail: userEmail, password: userPassword) { [weak self] authResult, error in
-//            guard self != nil else { return }
-//
-//            if authResult != nil {
-//                print("로그인 되었습니다")
-//            } else {
-//                print("로그인되지 않았습니다.", error?.localizedDescription ?? "")
-//            }
-//        }
-//    }
-    
+         
         Auth.auth().signIn(withEmail: userEmail, password: userPassword) {
             (user, error) in
             if user != nil{
@@ -83,17 +71,6 @@ class LoginPopupViewController: UIViewController {
         authorizationController.performRequests()
     }
     
-    //임시 버튼. 나중에 삭제할 것.
-    @IBAction func emsilogoubtn(_ sender: Any) {
-            //Auth.auth().signOut()
-            do {
-                try FirebaseAuth.Auth.auth().signOut()
-                print("로그아웃됨")
-            } catch {
-                print("에러 발생")
-            }
-        
-    }
     //구글 버튼 눌렀을 때
     @IBAction func googleLoginBtnAction(_ sender: UIButton) {
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }

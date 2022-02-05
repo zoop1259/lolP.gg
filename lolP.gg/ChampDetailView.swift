@@ -17,9 +17,9 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
     public var VCImg : String? //viewcontroller에서 넘겨받은 챔피언 썸네일
     public var VCName : String? //vc에서 넘겨받은 챔피언 이름
 
-    var skillName = [String]()
-    var skillDesc = [String]()
-    var skillImg = [String]()
+    var skillName = [String]() //스킬이름을 저장할 배열
+    var skillDesc = [String]() //스킬설명을 저장할 배열
+    var skillImg = [String]()  //스킬이미지 주소를 사용하기 위해 저장할 string배열
     
     var urlString = "url정보담을 변수"
     //"https://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion/\(self.detailErName).json"
@@ -28,12 +28,14 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
     public override func viewDidLoad() {
         super.viewDidLoad()
     
+        //vc는 ViewController의 약자
         if let vcname = VCName {
             //본문을 보여준다.
             self.detailName.text = vcname
             print("챔프디테일에서의 vcname값 : \(vcname)")
         }
         
+        //챔프 썸네일과 스킬이미지 url 생성
         if let vcimg = VCImg {
             if let data = try? Data(contentsOf: URL(string: "http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/\(vcimg).png")!) {
                 DispatchQueue.main.async {
@@ -69,7 +71,7 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
                 return
             }
                 
-//            스킬의 이름 정보 이미지 관련 데이터를 변수에 저장.
+//            스킬의 이름, 정보, 이미지 관련 데이터를 배열에 저장.
             for (_, skillnames) in final.data {
                 let sub = skillnames.spells
                 for loop in sub {
