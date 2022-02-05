@@ -27,7 +27,7 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         //vc는 ViewController의 약자
         if let vcname = VCName {
             //본문을 보여준다.
@@ -47,6 +47,8 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
                 }
             }
         }
+        
+        DetailTableView.rowHeight  = UITableView.automaticDimension
     }
     
     func getSkill() {
@@ -105,7 +107,8 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
         //스킬이름
         cell.skillName.text = skillName[indexPath.row]
         //스킬설명
-        cell.skillDesc.text = skillDesc[indexPath.row]
+        cell.skillDesc.text = skillDesc[indexPath.row].description
+        
         //스킬이미지
         // 섬네일 경로를 인자값으로 하는 URL객체를 생성
         let url: URL! = URL(string: "https://ddragon.leagueoflegends.com/cdn/11.24.1/img/spell/\(skillImg[indexPath.row]).png")
@@ -116,6 +119,7 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
         
         return cell
     }
+    
 }
 
 class ChampSkill: UITableViewCell {

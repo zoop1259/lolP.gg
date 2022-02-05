@@ -99,14 +99,21 @@ class SignUpViewController: UIViewController {
         }
             
         //이메일과 암호 전송
-        Auth.auth().createUser(withEmail: userEmail, password: userPassword) {(authResut, error) in
-            self.view.makeToast(error?.localizedDescription, duration: 1.0, position: .center)
-            guard let user = authResut?.user else {
+//        Auth.auth().createUser(withEmail: userEmail, password: userPassword) {(authResut, error) in
+//            self.view.makeToast(error?.localizedDescription, duration: 1.0, position: .center)
+//            guard let user = authResut?.user else {
+//                return
+//            }
+            
+        Auth.auth().createUser(withEmail: userEmail, password: userPassword) { result, error in
+            if let error = error { // 로그인 실패시 메시지 출력
+                print("DEBUG: \(error.localizedDescription)")
                 return
             }
-            
-            //여기가 안되네? 뭐지...
+            guard let user = result?.user else { return }
             print(user)
+            
+            //confirm과 okAction이 안되네? 뭐지...
             let confirm = UIAlertController(title: "Complete", message: "\(user.email!) 님의 회원가입이 완료되었습니다.", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default, handler : nil )
             confirm.addAction(okAction)
