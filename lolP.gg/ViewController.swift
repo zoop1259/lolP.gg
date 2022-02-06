@@ -10,9 +10,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     public var enarr = [String]() //챔피언 영어 이름
 
     @IBOutlet var CollectionViewMain: UICollectionView!
-    @IBOutlet var searchBar: UISearchBar!
-    @IBOutlet var searchButton: UIButton!
-    @IBOutlet var searchIndicator: UIActivityIndicatorView!
     
     var keyboardDismissTabGesture : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: nil)
     
@@ -21,18 +18,31 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        //서치바의 라인 삭제
-        //self.searchBar.searchBarStyle = .minimal
         //ui설정
         //searchController.delegate = self
-        navigationItem.searchController = searchController
-        
+        setupSearchController()
         getData()
-        config()
+        //config()
         //getVersion()
 
     }
     
+    func setupSearchController() {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.placeholder = "챔피언 검색"
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.backgroundColor = .white
+        searchController.searchBar.tintColor = .link
+        //searchController.searchBar.frame.size.height = 44
+        //서치바의 라인 삭제
+        //searchController.searchBar.searchBarStyle = .minimal
+
+        self.navigationItem.searchController = searchController
+        //스크롤시에도 서치바 유지되게 하기.
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+    }
+
+
     //다시 그리는거 viewDidappear
     
     //MARK: -- Collection View delegate
@@ -150,6 +160,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         task.resume()
     }
     
+    
+/*
     fileprivate func config() {
         //스토리보드에 존재하는 라이브러리들은 VC로 직접 델리게이트를 설정해줄수있지만 제스처는 그렇지 않으므로 코드로 델리게이트 선언
         self.keyboardDismissTabGesture.delegate = self
@@ -160,6 +172,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         print("검색버튼 터치")
     }
     
+    
+
     //MARK: - UISearchBar Delegate methods
     //서치바에 입력된 텍스트를 가져옴
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -168,7 +182,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         if userInputString.isEmpty {
             self.view.makeToast("❌키워드를 입력해주세요", duration: 1.0, position: .center)
         }
-        print(searchBar.text)
         //여기서 이제 챔피언 필터링이 들어가야할거같다.
 //        else {
 //        }
@@ -222,6 +235,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             return true
         }
     }
+*/
+    
     
     //키보드가 올라가는 사실은 아이폰이 알려준다. 그걸 notificationcenter로 받아오는것.
     override func viewWillAppear(_ animated: Bool) {
