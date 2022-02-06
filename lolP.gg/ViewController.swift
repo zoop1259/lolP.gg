@@ -16,12 +16,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     var keyboardDismissTabGesture : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: nil)
     
+    let searchController = UISearchController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         //서치바의 라인 삭제
         //self.searchBar.searchBarStyle = .minimal
         //ui설정
+        //searchController.delegate = self
+        navigationItem.searchController = searchController
+        
         getData()
         config()
         //getVersion()
@@ -163,9 +168,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         if userInputString.isEmpty {
             self.view.makeToast("❌키워드를 입력해주세요", duration: 1.0, position: .center)
         }
+        print(searchBar.text)
         //여기서 이제 챔피언 필터링이 들어가야할거같다.
 //        else {
 //        }
+        
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -211,7 +218,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         } else {
         //편집이 끝났다함을 감지하여 키보드가 내려감 (빈곳을 터치)
             view.endEditing(true)
-            print("빈곳이 터치되었다.")
+            print("서치바가 아닌곳이 터치되었다.")
             return true
         }
     }
@@ -243,6 +250,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
     }
     @objc func keyboardWillHideHandle() {
+    }
+}
+
+extension ViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        dump(searchController.searchBar.text)
     }
 }
 

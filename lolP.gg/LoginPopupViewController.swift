@@ -118,12 +118,9 @@ extension LoginPopupViewController: ASAuthorizationControllerDelegate {
             let firstName = credential.fullName?.givenName
             let lastName = credential.fullName?.familyName
             let email = credential.email
-            
             break
-            
         default:
             break
-            
         }
     }
     //에러가 있을 때
