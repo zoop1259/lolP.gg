@@ -8,7 +8,19 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var champsInfo = [String:String]() // 챔피언의 정보를 담은 Dictionary
     public var krarr = [String]() //챔피언 한글 이름
     public var enarr = [String]() //챔피언 영어 이름
+    public var champArr = [String:String]() //필터링을 위해 사용할 딕셔너리....
 
+    //필터링을 위한 배열
+    var filteredArr: [String] = []
+    //필터링 파악
+    var isFiltering: Bool {
+        let searchController = self.navigationItem.searchController
+        let isActive = searchController?.isActive ?? false
+        let isSearchBarHasText = searchController?.searchBar.text?.isEmpty == false
+        return isActive && isSearchBarHasText
+    }
+
+    //챔피언컬렉션뷰
     @IBOutlet var CollectionViewMain: UICollectionView!
     
     var keyboardDismissTabGesture : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: nil)
@@ -40,6 +52,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         self.navigationItem.searchController = searchController
         //스크롤시에도 서치바 유지되게 하기.
         self.navigationItem.hidesSearchBarWhenScrolling = false
+        
+        //텍스트 업데이트 확인하기
+        searchController.searchResultsUpdater = self
+        
+        //먼 훗날 scopebar 사용해보자.
     }
 
 
@@ -49,7 +66,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     //셀 수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print("챔피언의 수 : \(krarr.count)")
-        return krarr.count
+        //return krarr.count
+        return self.isFiltering ? self.filteredArr.count : self.krarr.count
+
     }
     
     //셀 정보 - 어떻게 보여줄 것인가.
@@ -57,16 +76,29 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         guard let cell = CollectionViewMain.dequeueReusableCell(withReuseIdentifier: "champList", for: indexPath) as? ChampList else {
             return UICollectionViewCell()
         }
-//                챔피언 이미지 밑에 챔피언명을 출력해야함. 아래방식은 나중에 챔피언스킬을 다운받아서 사용한다치면?
-        //let img = UIImage(named: "http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/\(enarr[indexPath.row]).png")
-        cell.nameLabel.text = krarr[indexPath.row]
         
+        if self.isFiltering {
+            cell.nameLabel.text = self.filteredArr[indexPath.row]
+        } else {
+            cell.nameLabel.text = self.krarr[indexPath.row]
+        }
         // 섬네일 경로를 인자값으로 하는 URL객체를 생성
+        //음.. 가렌 썸네일만 나오네..
+        //갈리오면 갈리오의 주소를 가져와야하는데...
         let url: URL! = URL(string: "http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/\(enarr[indexPath.row]).png")
         // 이미지를 읽어와 Data객체에 저장
         let imageData = try! Data(contentsOf: url)
         // UIImage객체를 생성하여 아울렛 변수의 image 속성에 대입
         cell.imgView.image = UIImage(data: imageData)
+        
+        //챔피언 이미지 밑에 챔피언명을 출력해야함. 아래방식은 나중에 챔피언스킬을 다운받아서 사용한다치면?
+        //cell.nameLabel.text = krarr[indexPath.row]
+        // 섬네일 경로를 인자값으로 하는 URL객체를 생성
+//        let url: URL! = URL(string: "http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/\(enarr[indexPath.row]).png")
+//        // 이미지를 읽어와 Data객체에 저장
+//        let imageData = try! Data(contentsOf: url)
+//        // UIImage객체를 생성하여 아울렛 변수의 image 속성에 대입
+//        cell.imgView.image = UIImage(data: imageData)
         
         return cell
     }
@@ -75,11 +107,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     //셀 눌렀을 때
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("\(indexPath.item + 1)번째 셀의 챔피언")
-  
         //메인 스토리 보드를 찾고 그 스토리보드안에 지정한 ID를 가진 뷰컨트롤러를 찾아서 controller에 저장.
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "champDetailView") as! ChampDetailView
-        
+
         if let VCName = krarr[indexPath.row] as? String {
             controller.VCName = VCName
             print("챔프디테일에 넘겨주는 name : \(VCName)")
@@ -130,6 +161,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 return
             }
             
+            let a = final.data
             //챔피언 id와 name의 dictionary 생성.
             var dict = [String:String]()
             for (_, champnames) in final.data {
@@ -161,19 +193,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     
-/*
-    fileprivate func config() {
-        //스토리보드에 존재하는 라이브러리들은 VC로 직접 델리게이트를 설정해줄수있지만 제스처는 그렇지 않으므로 코드로 델리게이트 선언
-        self.keyboardDismissTabGesture.delegate = self
-        self.view.addGestureRecognizer(keyboardDismissTabGesture)
-    }
-    //버튼이 터치되었을때 - 필터링?
-    @IBAction func onSearchButtonClicked(_ sender: Any) {
-        print("검색버튼 터치")
-    }
-    
-    
 
+//    fileprivate func config() {
+//        //스토리보드에 존재하는 라이브러리들은 VC로 직접 델리게이트를 설정해줄수있지만 제스처는 그렇지 않으므로 코드로 델리게이트 선언
+//        self.keyboardDismissTabGesture.delegate = self
+//        self.view.addGestureRecognizer(keyboardDismissTabGesture)
+//    }
+
+ /*
     //MARK: - UISearchBar Delegate methods
     //서치바에 입력된 텍스트를 가져옴
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -270,7 +297,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
 extension ViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        dump(searchController.searchBar.text)
+        guard let text = searchController.searchBar.text else { return }
+        self.filteredArr = self.krarr.filter { $0.localizedCaseInsensitiveContains(text) }
+        dump(filteredArr)
+
+        self.CollectionViewMain.reloadData()
     }
 }
 
