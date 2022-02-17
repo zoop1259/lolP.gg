@@ -82,6 +82,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         } else {
             cell.nameLabel.text = self.krarr[indexPath.row]
         }
+        
+        //챔피언 이미지 밑에 챔피언명을 출력해야함. 아래방식은 나중에 챔피언스킬을 다운받아서 사용한다치면?
+        //cell.nameLabel.text = krarr[indexPath.row]
         // 섬네일 경로를 인자값으로 하는 URL객체를 생성
         //음.. 가렌 썸네일만 나오네..
         //갈리오면 갈리오의 주소를 가져와야하는데...
@@ -90,15 +93,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let imageData = try! Data(contentsOf: url)
         // UIImage객체를 생성하여 아울렛 변수의 image 속성에 대입
         cell.imgView.image = UIImage(data: imageData)
-        
-        //챔피언 이미지 밑에 챔피언명을 출력해야함. 아래방식은 나중에 챔피언스킬을 다운받아서 사용한다치면?
-        //cell.nameLabel.text = krarr[indexPath.row]
-        // 섬네일 경로를 인자값으로 하는 URL객체를 생성
-//        let url: URL! = URL(string: "http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/\(enarr[indexPath.row]).png")
-//        // 이미지를 읽어와 Data객체에 저장
-//        let imageData = try! Data(contentsOf: url)
-//        // UIImage객체를 생성하여 아울렛 변수의 image 속성에 대입
-//        cell.imgView.image = UIImage(data: imageData)
         
         return cell
     }
@@ -308,4 +302,8 @@ extension ViewController: UISearchResultsUpdating {
 class ChampList: UICollectionViewCell {
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
+    
+    func updateUI() {
+        
+    }
 }

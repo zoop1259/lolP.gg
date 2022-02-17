@@ -14,8 +14,8 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet var detailImg: UIImageView! //VC의 챔피언 이미지
     @IBOutlet var detailName: UILabel! //VC의 챔피언 이름
 
-    public var VCImg : String? //viewcontroller에서 넘겨받은 챔피언 썸네일
-    public var VCName : String? //vc에서 넘겨받은 챔피언 이름
+    var VCImg : String? //viewcontroller에서 넘겨받은 챔피언 썸네일
+    var VCName : String? //vc에서 넘겨받은 챔피언 이름
 
     var skillName = [String]() //스킬이름을 저장할 배열
     var skillDesc = [String]() //스킬설명을 저장할 배열
@@ -80,9 +80,9 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
                     self.skillName.append(loop.skillname)
                     self.skillDesc.append(loop.spellDescription)
                     self.skillImg.append(loop.skillid)
-                    print(loop.skillid)
-                    print(loop.skillname)
-                    print(loop.spellDescription)
+                    //print(loop.skillid)
+                    //print(loop.skillname)
+                    //print(loop.spellDescription)
                 }
                 print("스킬의 개수 : \(self.skillName.count)")
             }

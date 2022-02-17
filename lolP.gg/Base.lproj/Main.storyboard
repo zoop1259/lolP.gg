@@ -365,7 +365,7 @@
         <!--글 작성-->
         <scene sceneID="YFQ-2m-2KA">
             <objects>
-                <viewController id="dXh-g4-tEx" sceneMemberID="viewController">
+                <viewController id="dXh-g4-tEx" customClass="CommuCreateViewController" customModule="lolP_gg" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nEN-8L-2Jp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -398,8 +398,16 @@
                     </view>
                     <navigationItem key="navigationItem" title="글 작성" id="RNk-bn-BRp">
                         <barButtonItem key="backBarButtonItem" title="이전" id="PBU-Gf-JoH"/>
-                        <barButtonItem key="rightBarButtonItem" image="checkmark" catalog="system" id="xLf-y3-mFF"/>
+                        <barButtonItem key="rightBarButtonItem" image="checkmark" catalog="system" id="xLf-y3-mFF">
+                            <connections>
+                                <action selector="addBtn:" destination="dXh-g4-tEx" id="GgY-ej-ays"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="textLabel" destination="K2Q-bQ-nz3" id="VQL-Un-oMy"/>
+                        <outlet property="titleLabel" destination="UEM-DH-Qd3" id="rGz-Yo-z4N"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ltu-F0-64f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -915,7 +923,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="CUv-J5-WLN"/>
+        <segue reference="Yw3-o2-HH9"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="AccentColor"/>
     <resources>

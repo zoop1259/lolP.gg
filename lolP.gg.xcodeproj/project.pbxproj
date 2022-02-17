@@ -19,6 +19,7 @@
 		C52177E12759101600E1BA62 /* LoginPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177DE2759101600E1BA62 /* LoginPopupViewController.swift */; };
 		C52177E22759101600E1BA62 /* CommuDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177DF2759101600E1BA62 /* CommuDetailViewController.swift */; };
 		C52178452768215F00E1BA62 /* ChampInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52178442768215F00E1BA62 /* ChampInfo.swift */; };
+		C5730C2527BAED5A00DF2520 /* CommuCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5730C2427BAED5A00DF2520 /* CommuCreateViewController.swift */; };
 		C597267B278C8EFA0048C7CA /* ChampDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C597267A278C8EFA0048C7CA /* ChampDetailView.swift */; };
 		C597267D279544690048C7CA /* ChampSkillInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C597267C279544690048C7CA /* ChampSkillInfo.swift */; };
 		C5A30C482772F38200B2D4D3 /* LoginDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A30C472772F38200B2D4D3 /* LoginDetailView.swift */; };
@@ -42,6 +43,7 @@
 		C52177DF2759101600E1BA62 /* CommuDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommuDetailViewController.swift; sourceTree = "<group>"; };
 		C52178442768215F00E1BA62 /* ChampInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampInfo.swift; sourceTree = "<group>"; };
 		C52178CA276BB3F300E1BA62 /* lolP.gg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = lolP.gg.entitlements; sourceTree = "<group>"; };
+		C5730C2427BAED5A00DF2520 /* CommuCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommuCreateViewController.swift; sourceTree = "<group>"; };
 		C597267A278C8EFA0048C7CA /* ChampDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampDetailView.swift; sourceTree = "<group>"; };
 		C597267C279544690048C7CA /* ChampSkillInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampSkillInfo.swift; sourceTree = "<group>"; };
 		C5A30C472772F38200B2D4D3 /* LoginDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDetailView.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				C52178442768215F00E1BA62 /* ChampInfo.swift */,
 				C597267C279544690048C7CA /* ChampSkillInfo.swift */,
 				C52177DD2759101600E1BA62 /* CommuTableViewController.swift */,
+				C5730C2427BAED5A00DF2520 /* CommuCreateViewController.swift */,
 				C52177DF2759101600E1BA62 /* CommuDetailViewController.swift */,
 				C52177DE2759101600E1BA62 /* LoginPopupViewController.swift */,
 				C5A30C472772F38200B2D4D3 /* LoginDetailView.swift */,
@@ -238,6 +241,7 @@
 			files = (
 				C52178452768215F00E1BA62 /* ChampInfo.swift in Sources */,
 				C52177E22759101600E1BA62 /* CommuDetailViewController.swift in Sources */,
+				C5730C2527BAED5A00DF2520 /* CommuCreateViewController.swift in Sources */,
 				C52177CC27590FAA00E1BA62 /* ViewController.swift in Sources */,
 				C597267D279544690048C7CA /* ChampSkillInfo.swift in Sources */,
 				C52177C827590FAA00E1BA62 /* AppDelegate.swift in Sources */,
