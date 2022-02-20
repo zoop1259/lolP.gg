@@ -430,89 +430,79 @@
                                             <constraint firstAttribute="height" constant="155" id="a8m-ls-Np1"/>
                                         </constraints>
                                     </imageView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h3i-aj-CH4">
-                                        <rect key="frame" x="20" y="183" width="220" height="34"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C8Y-uH-un4">
-                                        <rect key="frame" x="20" y="225" width="220" height="34"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C8Z-zl-eaZ">
-                                        <rect key="frame" x="20" y="269" width="220" height="31"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Email로 로그인">
-                                            <color key="baseForegroundColor" systemColor="labelColor"/>
-                                        </buttonConfiguration>
-                                        <connections>
-                                            <action selector="btnActSubmit:" destination="sHQ-jS-J6h" eventType="touchUpInside" id="dcG-xu-lGp"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GBX-4f-F15">
-                                        <rect key="frame" x="20" y="310" width="220" height="31"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="31" id="HEU-1h-tAZ"/>
-                                        </constraints>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="google_icon" title=" Sign in with Google">
-                                            <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="13"/>
-                                            <color key="baseForegroundColor" systemColor="labelColor"/>
-                                        </buttonConfiguration>
-                                        <connections>
-                                            <action selector="googleLoginBtnAction:" destination="sHQ-jS-J6h" eventType="touchUpInside" id="RHj-a5-f36"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Kb-gc-QtV" customClass="ASAuthorizationAppleIDButton">
-                                        <rect key="frame" x="20" y="351" width="220" height="31"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Apple login btn"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0pF-b2-ynG">
-                                        <rect key="frame" x="20" y="392" width="220" height="31"/>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="31" id="7rE-Cj-fGd"/>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="220" id="7te-wh-ahO"/>
-                                        </constraints>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="회원가입">
-                                            <color key="baseForegroundColor" systemColor="labelColor"/>
-                                        </buttonConfiguration>
-                                        <connections>
-                                            <segue destination="Th3-W4-lrG" kind="show" id="Mi6-mK-i19"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="xIB-Ap-jZE">
+                                        <rect key="frame" x="20" y="195" width="220" height="237"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h3i-aj-CH4">
+                                                <rect key="frame" x="0.0" y="0.0" width="220" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C8Y-uH-un4">
+                                                <rect key="frame" x="0.0" y="43" width="220" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C8Z-zl-eaZ">
+                                                <rect key="frame" x="0.0" y="86" width="220" height="31"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Email로 로그인">
+                                                    <color key="baseForegroundColor" systemColor="labelColor"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="btnActSubmit:" destination="sHQ-jS-J6h" eventType="touchUpInside" id="dcG-xu-lGp"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GBX-4f-F15">
+                                                <rect key="frame" x="0.0" y="126" width="220" height="31"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="31" id="HEU-1h-tAZ"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="google_icon" title=" Sign in with Google">
+                                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                    <color key="baseForegroundColor" systemColor="labelColor"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="googleLoginBtnAction:" destination="sHQ-jS-J6h" eventType="touchUpInside" id="RHj-a5-f36"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Kb-gc-QtV" customClass="ASAuthorizationAppleIDButton">
+                                                <rect key="frame" x="0.0" y="166" width="220" height="31"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Apple login btn"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0pF-b2-ynG">
+                                                <rect key="frame" x="0.0" y="206" width="220" height="31"/>
+                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="31" id="7rE-Cj-fGd"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="220" id="7te-wh-ahO"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="회원가입">
+                                                    <color key="baseForegroundColor" systemColor="labelColor"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <segue destination="Th3-W4-lrG" kind="show" id="Mi6-mK-i19"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" systemColor="systemTealColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="h3i-aj-CH4" secondAttribute="trailing" constant="20" id="3Ec-Ol-r4d"/>
-                                    <constraint firstItem="C8Y-uH-un4" firstAttribute="leading" secondItem="1Qw-2x-30p" secondAttribute="leading" constant="20" id="4GP-Gi-IPy"/>
-                                    <constraint firstItem="6Kb-gc-QtV" firstAttribute="leading" secondItem="1Qw-2x-30p" secondAttribute="leading" constant="20" id="8eJ-MD-gig"/>
                                     <constraint firstAttribute="width" constant="260" id="9fn-Nk-Ybi"/>
-                                    <constraint firstAttribute="trailing" secondItem="0pF-b2-ynG" secondAttribute="trailing" constant="20" id="Afn-GE-9Ot"/>
-                                    <constraint firstItem="C8Z-zl-eaZ" firstAttribute="leading" secondItem="1Qw-2x-30p" secondAttribute="leading" constant="20" id="BFB-fn-lps"/>
+                                    <constraint firstItem="Oxw-QQ-6GC" firstAttribute="centerX" secondItem="1Qw-2x-30p" secondAttribute="centerX" id="AVq-EQ-rfI"/>
                                     <constraint firstItem="Oxw-QQ-6GC" firstAttribute="leading" secondItem="1Qw-2x-30p" secondAttribute="leading" constant="20" id="CxU-99-lqj"/>
-                                    <constraint firstAttribute="trailing" secondItem="C8Z-zl-eaZ" secondAttribute="trailing" constant="20" id="DXJ-1G-tzj"/>
                                     <constraint firstItem="Oxw-QQ-6GC" firstAttribute="top" secondItem="1Qw-2x-30p" secondAttribute="top" constant="20" id="EFC-N2-yx0"/>
-                                    <constraint firstItem="GBX-4f-F15" firstAttribute="leading" secondItem="1Qw-2x-30p" secondAttribute="leading" constant="20" id="Elz-uZ-BvF"/>
-                                    <constraint firstItem="GBX-4f-F15" firstAttribute="top" secondItem="C8Z-zl-eaZ" secondAttribute="bottom" constant="10" id="KJ9-is-FsF"/>
-                                    <constraint firstAttribute="trailing" secondItem="GBX-4f-F15" secondAttribute="trailing" constant="20" id="LwL-HV-X4q"/>
-                                    <constraint firstItem="0pF-b2-ynG" firstAttribute="top" secondItem="6Kb-gc-QtV" secondAttribute="bottom" constant="10" id="PQ3-jv-c6D"/>
-                                    <constraint firstItem="0pF-b2-ynG" firstAttribute="leading" secondItem="1Qw-2x-30p" secondAttribute="leading" constant="20" id="SL0-Bh-sf0"/>
-                                    <constraint firstAttribute="trailing" secondItem="C8Y-uH-un4" secondAttribute="trailing" constant="20" id="ZgY-eP-CkF"/>
-                                    <constraint firstItem="C8Y-uH-un4" firstAttribute="top" secondItem="h3i-aj-CH4" secondAttribute="bottom" constant="8" symbolic="YES" id="cjP-GT-Dwg"/>
-                                    <constraint firstItem="h3i-aj-CH4" firstAttribute="leading" secondItem="1Qw-2x-30p" secondAttribute="leading" constant="20" id="iW9-Wq-OHq"/>
+                                    <constraint firstItem="xIB-Ap-jZE" firstAttribute="top" secondItem="Oxw-QQ-6GC" secondAttribute="bottom" constant="20" id="Qls-MM-V9i"/>
+                                    <constraint firstItem="xIB-Ap-jZE" firstAttribute="centerX" secondItem="Oxw-QQ-6GC" secondAttribute="centerX" id="Vzh-72-c58"/>
                                     <constraint firstAttribute="height" constant="450" id="kFb-tp-UY4"/>
-                                    <constraint firstItem="6Kb-gc-QtV" firstAttribute="top" secondItem="GBX-4f-F15" secondAttribute="bottom" constant="10" id="ldt-Cc-kDY"/>
                                     <constraint firstAttribute="trailing" secondItem="Oxw-QQ-6GC" secondAttribute="trailing" constant="20" id="prt-p3-QzW"/>
-                                    <constraint firstAttribute="trailing" secondItem="6Kb-gc-QtV" secondAttribute="trailing" constant="20" id="rJX-ha-3x2"/>
-                                    <constraint firstItem="h3i-aj-CH4" firstAttribute="top" secondItem="Oxw-QQ-6GC" secondAttribute="bottom" constant="8" symbolic="YES" id="svG-8X-off"/>
-                                    <constraint firstItem="C8Z-zl-eaZ" firstAttribute="top" secondItem="C8Y-uH-un4" secondAttribute="bottom" constant="10" id="wmt-ne-Qr0"/>
                                 </constraints>
                             </view>
                         </subviews>
