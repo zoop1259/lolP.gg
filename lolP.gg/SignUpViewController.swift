@@ -98,13 +98,6 @@ class SignUpViewController: UIViewController {
             return
         }
             
-        //이메일과 암호 전송
-//        Auth.auth().createUser(withEmail: userEmail, password: userPassword) {(authResut, error) in
-//            self.view.makeToast(error?.localizedDescription, duration: 1.0, position: .center)
-//            guard let user = authResut?.user else {
-//                return
-//            }
-            
         Auth.auth().createUser(withEmail: userEmail, password: userPassword) { result, error in
             if let error = error { // 로그인 실패시 메시지 출력
                 print("DEBUG: \(error.localizedDescription)")

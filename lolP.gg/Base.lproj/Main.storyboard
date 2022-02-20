@@ -305,7 +305,6 @@
                                             <outlet property="dateLabel" destination="A5V-zh-0Ve" id="iUD-ld-kEa"/>
                                             <outlet property="titleLabel" destination="Mry-1U-j2q" id="6V5-Vx-gcw"/>
                                             <outlet property="userLabel" destination="u9b-Sx-1Ir" id="FtL-7T-VqS"/>
-                                            <segue destination="bY3-QC-ySD" kind="show" identifier="commuDetailsegue" id="ouU-aD-ySW"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -540,13 +539,13 @@
         <!--커뮤니티-->
         <scene sceneID="xOw-ua-Q4A">
             <objects>
-                <viewController id="bY3-QC-ySD" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CommuDetailViewController" id="bY3-QC-ySD" customClass="CommuDetailViewController" customModule="lolP_gg" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Wms-aP-JXC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="obE-3I-Pfn">
-                                <rect key="frame" x="20" y="108" width="374" height="609.33333333333337"/>
+                                <rect key="frame" x="20" y="64" width="374" height="702.33333333333337"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="500" text="타이틀ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vv7-XM-shA">
                                         <rect key="frame" x="15" y="15" width="344" height="60"/>
@@ -588,7 +587,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="SEQ-8c-blV">
-                                <rect key="frame" x="0.0" y="778.66666666666663" width="414" height="34.333333333333371"/>
+                                <rect key="frame" x="0.0" y="827.66666666666663" width="414" height="34.333333333333371"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3AU-GZ-2QR">
                                         <rect key="frame" x="0.0" y="0.0" width="138" height="34.333333333333336"/>
@@ -614,7 +613,7 @@
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="QsT-0C-kx6">
-                                <rect key="frame" x="10" y="722.33333333333337" width="394" height="46.333333333333371"/>
+                                <rect key="frame" x="10" y="771.33333333333337" width="394" height="46.333333333333371"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46.5" id="3yg-Rj-4KO"/>
@@ -637,6 +636,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="커뮤니티" id="ZN8-jT-lXW"/>
+                    <connections>
+                        <outlet property="detailtitleLabel" destination="vv7-XM-shA" id="egi-dy-qYV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3KZ-9F-F2x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
