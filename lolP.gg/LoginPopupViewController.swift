@@ -36,7 +36,7 @@ class LoginPopupViewController: UIViewController {
 //    }
     //로그인이 되어있는 상태면 바로 디테일화면으로.
     override func viewDidAppear(_ animated: Bool) {
-        if let user = Auth.auth().currentUser {
+        if Auth.auth().currentUser != nil {
             self.showDetailViewController()
             }
     }
@@ -89,7 +89,6 @@ class LoginPopupViewController: UIViewController {
             print("로그인 됨")
             
             self.showDetailViewController()
-            
         }
       }
     }
