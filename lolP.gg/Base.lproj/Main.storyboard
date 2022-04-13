@@ -107,7 +107,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="CollectionViewMain" destination="cdX-Fw-BDR" id="8ze-Mx-Of3"/>
+                        <outlet property="collectionViewMain" destination="cdX-Fw-BDR" id="b8w-qf-51i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m4P-7T-91r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -947,7 +947,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Yw3-o2-HH9"/>
+        <segue reference="CUv-J5-WLN"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="AccentColor"/>
     <resources>

@@ -5,13 +5,16 @@ import Toast_Swift
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UIGestureRecognizerDelegate {
 
-    var champsInfo = [String:String]() // 챔피언의 정보를 담은 Dictionary
-    public var krarr = [String]() //챔피언 한글 이름
-    public var enarr = [String]() //챔피언 영어 이름
+    var champion: [ChampData] = []
+    
+    var champ = [String:String]()
+    var newVersion = String()
+    
     public var champArr = [String:String]() //필터링을 위해 사용할 딕셔너리....
 
     //필터링을 위한 배열
     var filteredArr: [String] = []
+    var filteredenArr: [String] = []
     //필터링 파악
     var isFiltering: Bool {
         let searchController = self.navigationItem.searchController
@@ -21,7 +24,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
 
     //챔피언컬렉션뷰
-    @IBOutlet var CollectionViewMain: UICollectionView!
+    
+    @IBOutlet var collectionViewMain: UICollectionView!
     
     var keyboardDismissTabGesture : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: nil)
     
@@ -29,14 +33,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         //ui설정
         //searchController.delegate = self
         setupSearchController()
-        getData()
         //config()
-        //getVersion()
-
+        champData()
     }
     
     func setupSearchController() {
@@ -65,30 +66,25 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     //MARK: -- Collection View delegate
     //셀 수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("챔피언의 수 : \(krarr.count)")
-        //return krarr.count
-        return self.isFiltering ? self.filteredArr.count : self.krarr.count
 
+        //return self.isFiltering ? self.filteredArr.count : self.krarr.count
+        return self.champion.count
     }
     
     //셀 정보 - 어떻게 보여줄 것인가.
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = CollectionViewMain.dequeueReusableCell(withReuseIdentifier: "champList", for: indexPath) as? ChampList else {
+        guard let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: "champList", for: indexPath) as? ChampList else {
             return UICollectionViewCell()
         }
+
+//        if self.isFiltering {
+//            cell.nameLabel.text = self.filteredArr[indexPath.row]
+//        } else {
+//            cell.nameLabel.text = self.krarr[indexPath.row]
+//        }
         
-        if self.isFiltering {
-            cell.nameLabel.text = self.filteredArr[indexPath.row]
-        } else {
-            cell.nameLabel.text = self.krarr[indexPath.row]
-        }
-        
-        //챔피언 이미지 밑에 챔피언명을 출력해야함. 아래방식은 나중에 챔피언스킬을 다운받아서 사용한다치면?
-        //cell.nameLabel.text = krarr[indexPath.row]
-        // 섬네일 경로를 인자값으로 하는 URL객체를 생성
-        //음.. 가렌 썸네일만 나오네..
-        //갈리오면 갈리오의 주소를 가져와야하는데...
-        let url: URL! = URL(string: "http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/\(enarr[indexPath.row]).png")
+        cell.nameLabel.text = self.champion[indexPath.row].name
+        let url: URL! = URL(string: "http://ddragon.leagueoflegends.com/cdn/\(self.newVersion)/img/champion/\(self.champion[indexPath.row].id).png")
         // 이미지를 읽어와 Data객체에 저장
         let imageData = try! Data(contentsOf: url)
         // UIImage객체를 생성하여 아울렛 변수의 image 속성에 대입
@@ -105,15 +101,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "champDetailView") as! ChampDetailView
 
-        if let VCName = krarr[indexPath.row] as? String {
-            controller.VCName = VCName
-            print("챔프디테일에 넘겨주는 name : \(VCName)")
-        }
-        
-        if let VCImg = enarr[indexPath.row] as? String {
-            controller.VCImg = VCImg
-            print("챔프디테일에 넘겨주는 img값 : \(VCImg)")
-        }
+//        if let VCName = krarr[indexPath.row] as? String {
+//            controller.VCName = VCName
+//            print("챔프디테일에 넘겨주는 name : \(VCName)")
+//        }
+//
+//        if let VCImg = enarr[indexPath.row] as? String {
+//            controller.VCImg = VCImg
+//            print("챔프디테일에 넘겨주는 img값 : \(VCImg)")
+//        }
         //이동! = 얘는 이동을 수동으로 시켜줘야함.
         show(controller, sender: nil)
     }
@@ -126,17 +122,69 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //
 //        return CGSize(width: width, height: height)
 //    }
+  
+    func champData() {
+        
+        if let urls = URL(string: "https://ddragon.leagueoflegends.com/api/versions.json") {
+            var request = URLRequest.init(url: urls)
+            request.httpMethod = "GET"
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
+                guard let data = data else { return }
+                // 버전 구하기.
+                if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String] {
+                    
+                    let newversion = json[0]
+                    print("최신버전 : \(newversion)")
+                    
+                    if let url = URL(string:  "http://ddragon.leagueoflegends.com/cdn/\(newversion)/data/ko_KR/champion.json") {
+        
+                        print("최신버전의 url : \(url)")
+                        
+                        var request = URLRequest.init(url: url)
+                        request.httpMethod = "GET"
+                        URLSession.shared.dataTask(with: request) { (data, response, error) in
+                            guard let data = data else { return }
+                            print("데이터 크기 : \(data)") //데이터 크기
+                            var result: MainData?
+                            do {
+                                result = try JSONDecoder().decode(MainData.self, from: data)
+                            }
+                            catch {
+                                print("Failed to decode with error: \(error)")
+                            }
+                            guard let final = result else {
+                                return
+                            }
+                            for (_, datas) in final.data {
+                                //데이터 담기
+                                self.champion.append(ChampData(id: datas.id, key: datas.key, name: datas.name))
+                                //정렬하기
+                                self.champion.sort(by: {$0.name < $1.name})
+                            }
+                            //버전도 담기
+                            self.newVersion = newversion
+                            //async하여 데이터 메인에서 돌게
+                            DispatchQueue.main.async {
+                                self.collectionViewMain.reloadData()
+                            }
+                            print("챔피언 수 : \(self.champion.count)") //챔피언 수 파악
+                            print("newVersion : \(self.newVersion)") //버전 확인
+                            print(self.champion)                     //담은 데이터 출력
+                        }.resume()
+                    }
+                }
+            }.resume()
+        }
+    }
     
-    //af사용하여 신버전 받아오기.
-//    func getVersion(
-//    _ completion: @escaping (Result<Image, Error>) -> () // Result 타입을 사용하면 좋다.
-//    ) {
-//        AF.request("https://ddragon.leagueoflegends.com/api/versions.json").responseString { (response) in
-//    }
-
+    
+/*
+    //챔피언 데이터 찾기.
     func getData() {
- 
+        
         let urlString = "http://ddragon.leagueoflegends.com/cdn/11.24.1/data/ko_KR/champion.json"
+        //let urlString = "http://ddragon.leagueoflegends.com/cdn/\(newVersion)/data/ko_KR/champion.json"
+        
         guard let url = URL(string: urlString) else {
             return
         }
@@ -185,7 +233,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
         task.resume()
     }
-    
+*/
     
 
 //    fileprivate func config() {
@@ -279,9 +327,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @objc func keyboardWillShowHandle(notification: NSNotification) {
         //키보드 사이즈를 가져와서 그만큼 뷰를 밀어냄.
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if(keyboardSize.height < CollectionViewMain.frame.origin.y){
-                let distance = keyboardSize.height - CollectionViewMain.frame.origin.y
-                self.view.frame.origin.y = distance + CollectionViewMain.frame.height
+            if(keyboardSize.height < collectionViewMain.frame.origin.y){
+                let distance = keyboardSize.height - collectionViewMain.frame.origin.y
+                self.view.frame.origin.y = distance + collectionViewMain.frame.height
             }
         }
     }
@@ -292,18 +340,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 extension ViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return }
-        self.filteredArr = self.krarr.filter { $0.localizedCaseInsensitiveContains(text) }
+//        self.filteredArr = self.krarr.filter { $0.localizedCaseInsensitiveContains(text) }
+//        self.filteredenArr = self.enarr.filter { $0.localizedCaseInsensitiveContains(text) }
         dump(filteredArr)
 
-        self.CollectionViewMain.reloadData()
+        self.collectionViewMain.reloadData()
     }
 }
 
 class ChampList: UICollectionViewCell {
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
-    
-    func updateUI() {
-        
-    }
 }

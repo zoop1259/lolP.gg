@@ -40,21 +40,6 @@ class SignUpViewController: UIViewController {
         lblPasswordConfirmed.text = ""
     }
     
-    //user가 nil이 아니면 로그인이 된 상태이고, nil이라면 로그인이 되지 않은 상태
-//    override func viewWillAppear(_ animated: Bool) {
-//        handle = Auth.auth().addStateDidChangeListener { auth, user in
-//            if let user = user {
-//                self.viewUserInfo.isHidden = false
-//                self.viewSignUpForm.isHidden = true
-//                self.lblUserEmail.text = user.email
-//            } else {
-//                self.viewUserInfo.isHidden = true
-//                self.viewSignUpForm.isHidden = false
-//                self.lblUserEmail.text = ""
-//            }
-//        }
-//    }
-    
     //취소 버튼
     @IBAction func btnActCancel(_ sender: UIButton) {
         //액션 세그로 이어진 뷰컨트롤러를 사라지게해서 되돌림.
@@ -103,13 +88,36 @@ class SignUpViewController: UIViewController {
                 print("DEBUG: \(error.localizedDescription)")
                 return
             }
-            guard let user = result?.user else { return }
-            print(user)
-            
             //confirm과 okAction이 안되네? 뭐지...
-            let confirm = UIAlertController(title: "Complete", message: "\(user.email!) 님의 회원가입이 완료되었습니다.", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler : nil )
-            confirm.addAction(okAction)
+//            let confirm = UIAlertController(title: "Complete", message: "\(userEmail) 님의 회원가입이 완료되었습니다.", preferredStyle: .alert)
+//            let okAction = UIAlertAction(title: "OK", style: .default, handler : nil )
+//            confirm.addAction(okAction)
+//
+//            guard let user = result?.user else { return }
+//            print(user)
+            
+            /*
+             //신규사용자 생성
+             Auth.auth().createUser(withEmail: email, password: password) {[weak self] authResult, error in
+                 //weak self이후에 이렇게 사용하면 강한참조가 된다.
+                 guard let self = self else { return }
+                 
+                 //동일 계정 회원가입시 처리 또한 나머지도 처리.
+                 if let error = error {
+                     let code = (error as NSError).code
+                     switch code {
+                     case 17007: //이미 가입한 계정일 때
+                         //로그인하기로..
+                         self.loginUser(withEmail: email, password: password)
+                     default: //각 에러메세지.
+                         self.errorMessageLabel.text = error.localizedDescription
+                     }
+                 } else { //에러가 없는경우
+                     self.showMainViewController()
+                 }
+             }
+             */
+            
                 //present(confirm, animated: true, completion: nil)
             self.dismiss(animated: true, completion: nil)
             // 파이어베이스에 추가정보 입력할떄..? id라던가..
