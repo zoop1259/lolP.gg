@@ -8,11 +8,6 @@
 import Foundation
 import UIKit
 
-// 챔피언 json
-// https://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion/Aatrox.json
-// 챔피언 skill img UI
-// https://ddragon.leagueoflegends.com/cdn/11.24.1/img/spell/AatroxQ.png
-
 // MARK: - mainSkillData
 struct MainSkillData: Codable {
     let data: [String: SkillData]

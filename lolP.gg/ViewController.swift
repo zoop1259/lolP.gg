@@ -56,8 +56,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
        
         cell.nameLabel.text = champions.name
         
-//        cell.nameLabel.text = self.champion[indexPath.row].name
-        let url: URL! = URL(string: "http://ddragon.leagueoflegends.com/cdn/\(self.newVersion)/img/champion/\(self.champion[indexPath.row].id).png")
+        let url: URL! = URL(string: "http://ddragon.leagueoflegends.com/cdn/\(self.newVersion)/img/champion/\(champions.id).png")
         // 이미지를 읽어와 Data객체에 저장
         let imageData = try! Data(contentsOf: url)
         // UIImage객체를 생성하여 아울렛 변수의 image 속성에 대입
@@ -74,16 +73,32 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "champDetailView") as! ChampDetailView
 
-//        if let VCName = krarr[indexPath.row] as? String {
-//            controller.VCName = VCName
-//            print("챔프디테일에 넘겨주는 name : \(VCName)")
-//        }
-//
-//        if let VCImg = enarr[indexPath.row] as? String {
-//            controller.VCImg = VCImg
-//            print("챔프디테일에 넘겨주는 img값 : \(VCImg)")
-//        }
-        //이동! = 얘는 이동을 수동으로 시켜줘야함.
+        let championSkill: ChampData
+        if isFiltering {
+          championSkill = filteredChamp[indexPath.row]
+            if let VCName = filteredChamp[indexPath.row].name as? String {
+                controller.VCName = VCName
+                print("챔프디테일에 넘겨주는 name : \(VCName)")
+            }
+            
+            if let VCImg = filteredChamp[indexPath.row].id as? String {
+                controller.VCImg = VCImg
+                print("챔프디테일에 넘겨주는 img값 : \(VCImg)")
+            }
+        } else {
+            championSkill = champion[indexPath.row]
+            if let VCName = champion[indexPath.row].name as? String {
+                controller.VCName = VCName
+                print("챔프디테일에 넘겨주는 name : \(VCName)")
+            }
+            
+            if let VCImg = champion[indexPath.row].id as? String {
+                controller.VCImg = VCImg
+                print("챔프디테일에 넘겨주는 img값 : \(VCImg)")
+            }
+        }
+        
+        //이동
         show(controller, sender: nil)
     }
     
@@ -294,16 +309,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
 }
 
+//필터링
 extension ViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else { return }
-       // self.filteredChamp = self.champion.name.filter { $0.localizedCaseInsensitiveContains(text) }
-        dump(filteredArr)
-
+        self.filteredChamp = champion.filter({ (data:ChampData) -> Bool in
+            return data.name.lowercased().contains(searchController.searchBar.text!.lowercased())
+        })
+        dump(filteredChamp)
         self.collectionViewMain.reloadData()
     }
 }
 
+//셀 구성
 class ChampList: UICollectionViewCell {
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
