@@ -14,18 +14,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
     //필터링을 위한 배열
     var filteredArr: [String] = []
-    var filteredenArr: [String] = []
-    //필터링 파악
-    var isFiltering: Bool {
-        let searchController = self.navigationItem.searchController
-        let isActive = searchController?.isActive ?? false
-        let isSearchBarHasText = searchController?.searchBar.text?.isEmpty == false
-        return isActive && isSearchBarHasText
-    }
+    var filteredChamp = [ChampData]()
 
     //챔피언컬렉션뷰
-    
     @IBOutlet var collectionViewMain: UICollectionView!
+    
     
     var keyboardDismissTabGesture : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: nil)
     
@@ -39,36 +32,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         //config()
         champData()
     }
-    
-    func setupSearchController() {
-        let searchController = UISearchController(searchResultsController: nil)
-        searchController.searchBar.placeholder = "챔피언 검색"
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.backgroundColor = .white
-        searchController.searchBar.tintColor = .link
-        //searchController.searchBar.frame.size.height = 44
-        //서치바의 라인 삭제
-        //searchController.searchBar.searchBarStyle = .minimal
 
-        self.navigationItem.searchController = searchController
-        //스크롤시에도 서치바 유지되게 하기.
-        self.navigationItem.hidesSearchBarWhenScrolling = false
-        
-        //텍스트 업데이트 확인하기
-        searchController.searchResultsUpdater = self
-        
-        //먼 훗날 scopebar 사용해보자.
-    }
-
-
-    //다시 그리는거 viewDidappear
-    
     //MARK: -- Collection View delegate
     //셀 수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        //return self.isFiltering ? self.filteredArr.count : self.krarr.count
-        return self.champion.count
+        return self.isFiltering ? self.filteredChamp.count : self.champion.count
+        //return self.champion.count
     }
     
     //셀 정보 - 어떻게 보여줄 것인가.
@@ -76,14 +46,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         guard let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: "champList", for: indexPath) as? ChampList else {
             return UICollectionViewCell()
         }
-
-//        if self.isFiltering {
-//            cell.nameLabel.text = self.filteredArr[indexPath.row]
-//        } else {
-//            cell.nameLabel.text = self.krarr[indexPath.row]
-//        }
         
-        cell.nameLabel.text = self.champion[indexPath.row].name
+          let champions: ChampData
+          if isFiltering {
+            champions = filteredChamp[indexPath.row]
+          } else {
+              champions = champion[indexPath.row]
+          }
+       
+        cell.nameLabel.text = champions.name
+        
+//        cell.nameLabel.text = self.champion[indexPath.row].name
         let url: URL! = URL(string: "http://ddragon.leagueoflegends.com/cdn/\(self.newVersion)/img/champion/\(self.champion[indexPath.row].id).png")
         // 이미지를 읽어와 Data객체에 저장
         let imageData = try! Data(contentsOf: url)
@@ -169,72 +142,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                             }
                             print("챔피언 수 : \(self.champion.count)") //챔피언 수 파악
                             print("newVersion : \(self.newVersion)") //버전 확인
-                            print(self.champion)                     //담은 데이터 출력
+                            //print(self.champion)                     //담은 데이터 출력 . 방대한 양이므로 주석처리
                         }.resume()
                     }
                 }
             }.resume()
         }
     }
-    
-    
-/*
-    //챔피언 데이터 찾기.
-    func getData() {
-        
-        let urlString = "http://ddragon.leagueoflegends.com/cdn/11.24.1/data/ko_KR/champion.json"
-        //let urlString = "http://ddragon.leagueoflegends.com/cdn/\(newVersion)/data/ko_KR/champion.json"
-        
-        guard let url = URL(string: urlString) else {
-            return
-        }
-        let task = URLSession.shared.dataTask(with: url, completionHandler: {data, _, error in
-            guard let data = data, error == nil else {
-                return
-            }
-            var result: mainData?
-            do {
-                result = try JSONDecoder().decode(mainData.self, from: data)
-            }
-            catch {
-                print("Failed to decode with error: \(error)")
-            }
-            guard let final = result else {
-                return
-            }
-            
-            let a = final.data
-            //챔피언 id와 name의 dictionary 생성.
-            var dict = [String:String]()
-            for (_, champnames) in final.data {
-                //cDic만으론 157개를 가진 dictionary가 아니게 되어 2중for문 사용.
-                let cDic = getDict(names: champnames, ids: champnames)
-                //챔피언의 dictionary
-//                print("cImg : \(cImg)")
-                for (names , ids) in cDic {
-                    dict.updateValue(names, forKey: ids)
-//                    self.champsInfo = dict
-                    self.champsInfo.updateValue(names, forKey: ids)
-                }
-            }
-
-            for (name, id) in self.champsInfo.sorted(by: <) {
-                self.krarr.append(name)
-                self.enarr.append(id)
-            }
-            
-            //메인에서 일을 시킴. reloadData를 사용하기 떄문에 맨 마지막에 사용
-            DispatchQueue.main.async {
-                self.CollectionViewMain.reloadData()
-            }
-            print("reloadData후 champsInfo : \(self.champsInfo.count)")
-        })
-        print("reloadData전 champsInfo : \(self.champsInfo.count)")
-
-        task.resume()
-    }
-*/
-    
 
 //    fileprivate func config() {
 //        //스토리보드에 존재하는 라이브러리들은 VC로 직접 델리게이트를 설정해줄수있지만 제스처는 그렇지 않으므로 코드로 델리게이트 선언
@@ -251,7 +165,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         if userInputString.isEmpty {
             self.view.makeToast("❌키워드를 입력해주세요", duration: 1.0, position: .center)
         }
-        //여기서 이제 챔피언 필터링이 들어가야할거같다.
+        //여기서 이제 검색된 챔피언을 출력? 할 필요는 없는듯.
 //        else {
 //        }
         
@@ -335,13 +249,55 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     @objc func keyboardWillHideHandle() {
     }
+    
+    // MARK: - Filter methods
+    
+    func setupSearchController() {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.placeholder = "챔피언 검색"
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.backgroundColor = .white
+        searchController.searchBar.tintColor = .link
+        //searchController.searchBar.frame.size.height = 44
+        //서치바의 라인 삭제
+        //searchController.searchBar.searchBarStyle = .minimal
+
+        self.navigationItem.searchController = searchController
+        //스크롤시에도 서치바 유지되게 하기.
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+        
+        //텍스트 업데이트 확인하기
+        searchController.searchResultsUpdater = self
+        
+        //먼 훗날 scopebar 사용해보자.
+    }
+      
+    //필터링 파악
+    var isFiltering: Bool {
+        let searchController = self.navigationItem.searchController
+        let isActive = searchController?.isActive ?? false
+        let isSearchBarHasText = searchController?.searchBar.text?.isEmpty == false
+        return isActive && isSearchBarHasText
+    }
+    
+    func searchBarIsEmpty() -> Bool {
+      // Returns true if the text is empty or nil
+      return searchController.searchBar.text?.isEmpty ?? true
+    }
+      
+    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+      filteredChamp = champion.filter({( champion : ChampData) -> Bool in
+        return champion.name.lowercased().contains(searchText.lowercased())
+      })
+
+      collectionViewMain.reloadData()
+    }
 }
 
 extension ViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return }
-//        self.filteredArr = self.krarr.filter { $0.localizedCaseInsensitiveContains(text) }
-//        self.filteredenArr = self.enarr.filter { $0.localizedCaseInsensitiveContains(text) }
+       // self.filteredChamp = self.champion.name.filter { $0.localizedCaseInsensitiveContains(text) }
         dump(filteredArr)
 
         self.collectionViewMain.reloadData()
