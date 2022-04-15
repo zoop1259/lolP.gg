@@ -98,6 +98,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             }
         }
         
+        if let VCVersion = newVersion as? String {
+            controller.VCVersion = VCVersion
+            print("챔프디테일에 넘겨주는 버전: \(VCVersion)")
+        }
+        
         //이동
         show(controller, sender: nil)
     }

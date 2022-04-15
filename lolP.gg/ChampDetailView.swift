@@ -14,16 +14,15 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet var detailImg: UIImageView! //VC의 챔피언 이미지
     @IBOutlet var detailName: UILabel! //VC의 챔피언 이름
 
-    var VCImg : String? //viewcontroller에서 넘겨받은 챔피언 썸네일
+    var VCImg : String? //vc에서 넘겨받은 챔피언 썸네일
     var VCName : String? //vc에서 넘겨받은 챔피언 이름
-
+    var VCVersion : String? // vc에서 넘겨받은 최신버전
+    
     var skillName = [String]() //스킬이름을 저장할 배열
     var skillDesc = [String]() //스킬설명을 저장할 배열
     var skillImg = [String]()  //스킬이미지 주소를 사용하기 위해 저장할 string배열
     
     var urlString = "url정보담을 변수"
-    //"https://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion/\(self.detailErName).json"
-    //let urlString = "https://ddragon.leagueoflegends.com/cdn/11.23.1/data/ko_KR/champion/Aatrox.json"
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,14 +36,16 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
         
         //챔프 썸네일과 스킬이미지 url 생성
         if let vcimg = VCImg {
-            if let data = try? Data(contentsOf: URL(string: "http://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/\(vcimg).png")!) {
-                DispatchQueue.main.async {
-                    self.detailImg.image = UIImage(data: data)
-                    print("챔프디테일에서의 vcimg값 : \(vcimg)")
-                    self.urlString = "https://ddragon.leagueoflegends.com/cdn/11.24.1/data/ko_KR/champion/\(vcimg).json"
-                    self.getSkill()
-                    print("champskill url : \(self.urlString)")
-                }
+            if let vcversion = VCVersion {
+               if let data = try? Data(contentsOf: URL(string:  "http://ddragon.leagueoflegends.com/cdn/\(vcversion)/img/champion/\(vcimg).png")!) {
+                   DispatchQueue.main.async {
+                       self.detailImg.image = UIImage(data: data)
+                       print("챔프디테일에서의 vcimg값 : \(vcimg)")
+                       self.urlString =     "https://ddragon.leagueoflegends.com/cdn/\(vcversion)/data/ko_KR/champion/\(vcimg).json"
+                       self.getSkill()
+                       print("champskill url : \(self.urlString)")
+                   }
+               }
             }
         }
         
@@ -104,6 +105,7 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = DetailTableView.dequeueReusableCell(withIdentifier: "champSkill", for: indexPath) as! ChampSkill
                 
+        
         //스킬이름
         cell.skillName.text = skillName[indexPath.row]
         //스킬설명
@@ -111,12 +113,16 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
         
         //스킬이미지
         // 섬네일 경로를 인자값으로 하는 URL객체를 생성
-        let url: URL! = URL(string: "https://ddragon.leagueoflegends.com/cdn/11.24.1/img/spell/\(skillImg[indexPath.row]).png")
-        // 이미지를 읽어와 Data객체에 저장
-        let imageData = try! Data(contentsOf: url)
-        // UIImage객체를 생성하여 아울렛 변수의 image 속성에 대입
-        cell.skillImg.image = UIImage(data: imageData)
+        if let vcversion = VCVersion {
+            let url: URL! = URL(string: "https://ddragon.leagueoflegends.com/cdn/\(vcversion)/img/spell/\(skillImg[indexPath.row]).png")
+            // 이미지를 읽어와 Data객체에 저장
+            let imageData = try! Data(contentsOf: url)
+            // UIImage객체를 생성하여 아울렛 변수의 image 속성에 대입
+            cell.skillImg.image = UIImage(data: imageData)
+            
+        }
         
+
         return cell
     }
     
