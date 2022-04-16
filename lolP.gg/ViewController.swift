@@ -6,12 +6,9 @@ import Toast_Swift
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UIGestureRecognizerDelegate {
 
     var champion: [ChampData] = []
-    
     var champ = [String:String]()
     var newVersion = String()
     
-    public var champArr = [String:String]() //필터링을 위해 사용할 딕셔너리....
-
     //필터링을 위한 배열
     var filteredArr: [String] = []
     var filteredChamp = [ChampData]()
@@ -26,19 +23,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //ui설정
-        //searchController.delegate = self
         setupSearchController()
-        //config()
         champData()
     }
 
     //MARK: -- Collection View delegate
     //셀 수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
         return self.isFiltering ? self.filteredChamp.count : self.champion.count
-        //return self.champion.count
     }
     
     //셀 정보 - 어떻게 보여줄 것인가.
@@ -46,13 +38,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         guard let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: "champList", for: indexPath) as? ChampList else {
             return UICollectionViewCell()
         }
-        
-          let champions: ChampData
-          if isFiltering {
+        let champions: ChampData
+        if isFiltering {
             champions = filteredChamp[indexPath.row]
-          } else {
-              champions = champion[indexPath.row]
-          }
+        } else {
+            champions = champion[indexPath.row]
+        }
        
         cell.nameLabel.text = champions.name
         

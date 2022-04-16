@@ -48,7 +48,6 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
                }
             }
         }
-        
         DetailTableView.rowHeight  = UITableView.automaticDimension
     }
     
@@ -87,7 +86,6 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
                 }
                 print("스킬의 개수 : \(self.skillName.count)")
             }
- 
 //            메인에서 일을 시킴. reloadData를 사용하기 떄문에 맨 마지막에 사용
             DispatchQueue.main.async {
                 self.DetailTableView.reloadData()
@@ -104,8 +102,6 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = DetailTableView.dequeueReusableCell(withIdentifier: "champSkill", for: indexPath) as! ChampSkill
-                
-        
         //스킬이름
         cell.skillName.text = skillName[indexPath.row]
         //스킬설명
@@ -119,13 +115,9 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
             let imageData = try! Data(contentsOf: url)
             // UIImage객체를 생성하여 아울렛 변수의 image 속성에 대입
             cell.skillImg.image = UIImage(data: imageData)
-            
         }
-        
-
         return cell
     }
-    
 }
 
 class ChampSkill: UITableViewCell {
