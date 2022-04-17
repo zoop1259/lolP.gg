@@ -7,12 +7,13 @@
 import Foundation
 import UIKit
 
+//모든데이터
 struct MainData: Codable {
     let data: [String: ChampData]
 }
    
 // MARK: - ChampData
-    struct ChampData: Codable {
-        let id, key, name: String
-    }
+struct ChampData: Codable {
+    let id, key, name: String
+}
 
