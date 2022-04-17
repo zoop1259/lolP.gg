@@ -87,7 +87,21 @@ class SignUpViewController: UIViewController {
             if let error = error { // 로그인 실패시 메시지 출력
                 print("DEBUG: \(error.localizedDescription)")
                 return
+            } else {
+                let confirm = UIAlertController(title: "Complete", message: "\(userEmail) 회원가입이 완료되었습니다.", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default) {_ in 
+                    self.dismiss(animated: true, completion: nil)
+                }
+                confirm.addAction(okAction)
+                self.present(confirm, animated: false, completion: nil)
+                
+               
+                
+                guard let user = result?.user else { return }
+                print(user)
             }
+            
+            
             //confirm과 okAction이 안되네? 뭐지...
 //            let confirm = UIAlertController(title: "Complete", message: "\(userEmail) 님의 회원가입이 완료되었습니다.", preferredStyle: .alert)
 //            let okAction = UIAlertAction(title: "OK", style: .default, handler : nil )
@@ -119,7 +133,7 @@ class SignUpViewController: UIViewController {
              */
             
                 //present(confirm, animated: true, completion: nil)
-            self.dismiss(animated: true, completion: nil)
+
             // 파이어베이스에 추가정보 입력할떄..? id라던가..
             //ref.child("users").child(user.uid).setValue(["interesting": selectedInteresting])
         }
@@ -144,7 +158,6 @@ extension SignUpViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-
         switch textField {
         case txtUserEmail:
             txtPassword.becomeFirstResponder()
@@ -155,19 +168,6 @@ extension SignUpViewController: UITextFieldDelegate {
         }
         return false
     }
-    
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        if textField == txtPasswordConfirm {
-//            guard let password = txtPassword.text,
-//                  let passwordConfirmBefore = txtPasswordConfirm.text else {
-//                return true
-//            }
-//            let passwordConfirm = string.isEmpty ? passwordConfirmBefore[0..<(passwordConfirmBefore.count - 1)] : passwordConfirmBefore + string
-//            setLabelPasswordConfirm(password, passwordConfirm)
-//
-//        }
-//        return true
-//    }
 }
 
 /*
