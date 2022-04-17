@@ -22,7 +22,6 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var txtUserEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var txtPasswordConfirm: UITextField!
-    @IBOutlet weak var lblPasswordConfirmed: UILabel!
     @IBOutlet weak var imgProfilePicture: UIImageView!
 
     //뷰 컨트롤러의 멤버변수
@@ -32,12 +31,6 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
         
         // 텍스트 필드에 대한 딜리게이트, 데이터소스 연결 - 유효성 검사에서 필요함
-        txtUserEmail.delegate = self
-        txtPassword.delegate = self
-        txtPasswordConfirm.delegate = self
-        
-        // 패스워드 일치 여부를 표시하는 레이블을 빈 텍스트로
-        lblPasswordConfirmed.text = ""
     }
     
     //취소 버튼
@@ -51,7 +44,6 @@ class SignUpViewController: UIViewController {
         txtUserEmail.text = ""
         txtPassword.text = ""
         txtPasswordConfirm.text = ""
-        lblPasswordConfirmed.text = ""
         // -- 사진 초기화 --
     }
     //확인 버튼
@@ -89,84 +81,16 @@ class SignUpViewController: UIViewController {
                 return
             } else {
                 let confirm = UIAlertController(title: "Complete", message: "\(userEmail) 회원가입이 완료되었습니다.", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default) {_ in 
+                let okAction = UIAlertAction(title: "OK", style: .default) {_ in
                     self.dismiss(animated: true, completion: nil)
                 }
                 confirm.addAction(okAction)
                 self.present(confirm, animated: false, completion: nil)
-                
-               
-                
+            
                 guard let user = result?.user else { return }
                 print(user)
             }
-            
-            
-            //confirm과 okAction이 안되네? 뭐지...
-//            let confirm = UIAlertController(title: "Complete", message: "\(userEmail) 님의 회원가입이 완료되었습니다.", preferredStyle: .alert)
-//            let okAction = UIAlertAction(title: "OK", style: .default, handler : nil )
-//            confirm.addAction(okAction)
-//
-//            guard let user = result?.user else { return }
-//            print(user)
-            
-            /*
-             //신규사용자 생성
-             Auth.auth().createUser(withEmail: email, password: password) {[weak self] authResult, error in
-                 //weak self이후에 이렇게 사용하면 강한참조가 된다.
-                 guard let self = self else { return }
-                 
-                 //동일 계정 회원가입시 처리 또한 나머지도 처리.
-                 if let error = error {
-                     let code = (error as NSError).code
-                     switch code {
-                     case 17007: //이미 가입한 계정일 때
-                         //로그인하기로..
-                         self.loginUser(withEmail: email, password: password)
-                     default: //각 에러메세지.
-                         self.errorMessageLabel.text = error.localizedDescription
-                     }
-                 } else { //에러가 없는경우
-                     self.showMainViewController()
-                 }
-             }
-             */
-            
-                //present(confirm, animated: true, completion: nil)
-
-            // 파이어베이스에 추가정보 입력할떄..? id라던가..
-            //ref.child("users").child(user.uid).setValue(["interesting": selectedInteresting])
         }
-    }
-}
-
-//비밀번호 일치 확인하기 위한 delegate 설정
-extension SignUpViewController: UITextFieldDelegate {
-    func setLabelPasswordConfirm(_ password: String, _ passwordConfirm: String)  {
-        guard passwordConfirm != "" else {
-            lblPasswordConfirmed.text = ""
-            return
-        }
-        
-        if password == passwordConfirm {
-            lblPasswordConfirmed.textColor = .green
-            lblPasswordConfirmed.text = "패스워드가 일치합니다."
-        } else {
-            lblPasswordConfirmed.textColor = .red
-            lblPasswordConfirmed.text = "패스워드가 일치하지 않습니다."
-        }
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        switch textField {
-        case txtUserEmail:
-            txtPassword.becomeFirstResponder()
-        case txtPassword:
-            txtPasswordConfirm.becomeFirstResponder()
-        default:
-            textField.resignFirstResponder()
-        }
-        return false
     }
 }
 
