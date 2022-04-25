@@ -5,12 +5,11 @@
 //  Created by 강대민 on 2021/12/22.
 //
 
-import Foundation
 import UIKit
 import Firebase
 import FirebaseDatabase
 import FirebaseAuth
-import Toast_Swift
+//import Toast_Swift
 import FirebaseFirestore
 //import FirebaseStorage
 import PhotosUI
@@ -29,7 +28,6 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // 텍스트 필드에 대한 딜리게이트, 데이터소스 연결 - 유효성 검사에서 필요함
     }
     

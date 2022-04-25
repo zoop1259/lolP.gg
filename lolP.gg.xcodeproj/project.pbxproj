@@ -24,6 +24,7 @@
 		C597267D279544690048C7CA /* ChampSkillInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C597267C279544690048C7CA /* ChampSkillInfo.swift */; };
 		C5A30C482772F38200B2D4D3 /* LoginDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A30C472772F38200B2D4D3 /* LoginDetailView.swift */; };
 		C5A30C4A2773154000B2D4D3 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A30C492773154000B2D4D3 /* SignUpViewController.swift */; };
+		C5C8110328109F680088CE74 /* Commu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C8110228109F680088CE74 /* Commu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		C597267C279544690048C7CA /* ChampSkillInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampSkillInfo.swift; sourceTree = "<group>"; };
 		C5A30C472772F38200B2D4D3 /* LoginDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDetailView.swift; sourceTree = "<group>"; };
 		C5A30C492773154000B2D4D3 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		C5C8110228109F680088CE74 /* Commu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commu.swift; sourceTree = "<group>"; };
 		DC7C8A3ED7ABB4575E2B249C /* Pods-lolP.gg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lolP.gg.release.xcconfig"; path = "Target Support Files/Pods-lolP.gg/Pods-lolP.gg.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -116,6 +118,7 @@
 				C52177DD2759101600E1BA62 /* CommuTableViewController.swift */,
 				C5730C2427BAED5A00DF2520 /* CommuCreateViewController.swift */,
 				C52177DF2759101600E1BA62 /* CommuDetailViewController.swift */,
+				C5C8110228109F680088CE74 /* Commu.swift */,
 				C52177DE2759101600E1BA62 /* LoginPopupViewController.swift */,
 				C5A30C472772F38200B2D4D3 /* LoginDetailView.swift */,
 				C5A30C492773154000B2D4D3 /* SignUpViewController.swift */,
@@ -243,6 +246,7 @@
 				C52177E22759101600E1BA62 /* CommuDetailViewController.swift in Sources */,
 				C5730C2527BAED5A00DF2520 /* CommuCreateViewController.swift in Sources */,
 				C52177CC27590FAA00E1BA62 /* ViewController.swift in Sources */,
+				C5C8110328109F680088CE74 /* Commu.swift in Sources */,
 				C597267D279544690048C7CA /* ChampSkillInfo.swift in Sources */,
 				C52177C827590FAA00E1BA62 /* AppDelegate.swift in Sources */,
 				C52177E12759101600E1BA62 /* LoginPopupViewController.swift in Sources */,
