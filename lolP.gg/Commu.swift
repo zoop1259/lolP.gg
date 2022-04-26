@@ -18,13 +18,13 @@ struct Board {
     var title: String //제목
     var contents: String //내용
     var date: Date //날짜
+    var commentCount: Int //댓글 수
 }
 
 struct Comment {
     var uuidString: String
     var contents: String
     var date: Date
-    
 }
 
 
