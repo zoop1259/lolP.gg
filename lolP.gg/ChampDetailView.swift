@@ -5,7 +5,6 @@
 //  Created by 강대민 on 2022/01/11.
 //
 
-import Foundation
 import UIKit
 
 public class ChampDetailView : UIViewController, UITableViewDelegate, UITableViewDataSource {

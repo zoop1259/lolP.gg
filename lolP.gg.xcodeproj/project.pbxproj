@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7486FC6BE21D03356122612E /* Pods_lolP_gg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BEFD2F6C988473E98527607 /* Pods_lolP_gg.framework */; };
+		2CBC6B9D1376133E41056760 /* Pods_lolP_gg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 884D9FF41E15E614EF026F90 /* Pods_lolP_gg.framework */; };
 		C503C710277D7FE10014D249 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C503C70F277D7FE10014D249 /* GoogleService-Info.plist */; };
 		C52177C827590FAA00E1BA62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177C727590FAA00E1BA62 /* AppDelegate.swift */; };
 		C52177CA27590FAA00E1BA62 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177C927590FAA00E1BA62 /* SceneDelegate.swift */; };
@@ -28,8 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1BEFD2F6C988473E98527607 /* Pods_lolP_gg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lolP_gg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		944A7E1A9938D05A60C08D5F /* Pods-lolP.gg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lolP.gg.debug.xcconfig"; path = "Target Support Files/Pods-lolP.gg/Pods-lolP.gg.debug.xcconfig"; sourceTree = "<group>"; };
+		884D9FF41E15E614EF026F90 /* Pods_lolP_gg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lolP_gg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA677486173D4ED72DBC6404 /* Pods-lolP.gg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lolP.gg.debug.xcconfig"; path = "Target Support Files/Pods-lolP.gg/Pods-lolP.gg.debug.xcconfig"; sourceTree = "<group>"; };
 		C503C70F277D7FE10014D249 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C52177C427590FAA00E1BA62 /* lolP.gg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lolP.gg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C52177C727590FAA00E1BA62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -50,7 +50,7 @@
 		C5A30C472772F38200B2D4D3 /* LoginDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDetailView.swift; sourceTree = "<group>"; };
 		C5A30C492773154000B2D4D3 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C5C8110228109F680088CE74 /* Commu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commu.swift; sourceTree = "<group>"; };
-		DC7C8A3ED7ABB4575E2B249C /* Pods-lolP.gg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lolP.gg.release.xcconfig"; path = "Target Support Files/Pods-lolP.gg/Pods-lolP.gg.release.xcconfig"; sourceTree = "<group>"; };
+		FCD92A5044600BA6BFA1606B /* Pods-lolP.gg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lolP.gg.release.xcconfig"; path = "Target Support Files/Pods-lolP.gg/Pods-lolP.gg.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7486FC6BE21D03356122612E /* Pods_lolP_gg.framework in Frameworks */,
+				2CBC6B9D1376133E41056760 /* Pods_lolP_gg.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,18 +68,10 @@
 		253D1FCC20384558228C7876 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				944A7E1A9938D05A60C08D5F /* Pods-lolP.gg.debug.xcconfig */,
-				DC7C8A3ED7ABB4575E2B249C /* Pods-lolP.gg.release.xcconfig */,
+				AA677486173D4ED72DBC6404 /* Pods-lolP.gg.debug.xcconfig */,
+				FCD92A5044600BA6BFA1606B /* Pods-lolP.gg.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		5E9D74DC37FA230385654A53 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1BEFD2F6C988473E98527607 /* Pods_lolP_gg.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C52177BB27590FAA00E1BA62 = {
@@ -88,7 +80,7 @@
 				C52177C627590FAA00E1BA62 /* lolP.gg */,
 				C52177C527590FAA00E1BA62 /* Products */,
 				253D1FCC20384558228C7876 /* Pods */,
-				5E9D74DC37FA230385654A53 /* Frameworks */,
+				EC4D0F55A6395944A00700AE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -126,6 +118,14 @@
 			path = lolP.gg;
 			sourceTree = "<group>";
 		};
+		EC4D0F55A6395944A00700AE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				884D9FF41E15E614EF026F90 /* Pods_lolP_gg.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -133,11 +133,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C52177D827590FAC00E1BA62 /* Build configuration list for PBXNativeTarget "lolP.gg" */;
 			buildPhases = (
-				1615D2F335E33B3E08BF7A20 /* [CP] Check Pods Manifest.lock */,
+				5F05D8232D10E2CC7C055F2D /* [CP] Check Pods Manifest.lock */,
 				C52177C027590FAA00E1BA62 /* Sources */,
 				C52177C127590FAA00E1BA62 /* Frameworks */,
 				C52177C227590FAA00E1BA62 /* Resources */,
-				26807CD729B3CD3E2A7FAB74 /* [CP] Embed Pods Frameworks */,
+				1E8E4F9E77AA090C1E2012C5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -196,7 +196,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1615D2F335E33B3E08BF7A20 /* [CP] Check Pods Manifest.lock */ = {
+		1E8E4F9E77AA090C1E2012C5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lolP.gg/Pods-lolP.gg-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lolP.gg/Pods-lolP.gg-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lolP.gg/Pods-lolP.gg-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5F05D8232D10E2CC7C055F2D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -216,23 +233,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		26807CD729B3CD3E2A7FAB74 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lolP.gg/Pods-lolP.gg-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lolP.gg/Pods-lolP.gg-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lolP.gg/Pods-lolP.gg-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -398,13 +398,14 @@
 		};
 		C52177D927590FAC00E1BA62 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 944A7E1A9938D05A60C08D5F /* Pods-lolP.gg.debug.xcconfig */;
+			baseConfigurationReference = AA677486173D4ED72DBC6404 /* Pods-lolP.gg.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = lolP.gg/lolP.gg.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YULBA58FUP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = lolP.gg/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -412,6 +413,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -421,19 +423,20 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		C52177DA27590FAC00E1BA62 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC7C8A3ED7ABB4575E2B249C /* Pods-lolP.gg.release.xcconfig */;
+			baseConfigurationReference = FCD92A5044600BA6BFA1606B /* Pods-lolP.gg.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = lolP.gg/lolP.gg.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YULBA58FUP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = lolP.gg/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -441,6 +444,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -450,7 +454,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

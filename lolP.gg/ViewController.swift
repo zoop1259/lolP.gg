@@ -1,7 +1,4 @@
 import UIKit
-import SwiftyJSON
-import Alamofire
-import Toast_Swift
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UIGestureRecognizerDelegate {
 
@@ -97,6 +94,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         show(controller, sender: nil)
     }
   
+    //데이터 API
     func champData() {
         
         if let urls = URL(string: "https://ddragon.leagueoflegends.com/api/versions.json") {
@@ -150,125 +148,28 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             }.resume()
         }
     }
-
-//    fileprivate func config() {
-//        //스토리보드에 존재하는 라이브러리들은 VC로 직접 델리게이트를 설정해줄수있지만 제스처는 그렇지 않으므로 코드로 델리게이트 선언
-//        self.keyboardDismissTabGesture.delegate = self
-//        self.view.addGestureRecognizer(keyboardDismissTabGesture)
-//    }
-
- /*
-    //MARK: - UISearchBar Delegate methods
-    //서치바에 입력된 텍스트를 가져옴
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("VC - searchBarSearchButtonClicked()")
-        guard let userInputString = searchBar.text else { return }
-        if userInputString.isEmpty {
-            self.view.makeToast("❌키워드를 입력해주세요", duration: 1.0, position: .center)
-        }
-        //여기서 이제 검색된 챔피언을 출력? 할 필요는 없는듯.
-//        else {
-//        }
-        
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        //print("VC - 서치바 텍스트변경 : \(searchText)")
-        // 사용자가 입력한 값이 없을때 키보드 내림
-        if (searchText.isEmpty) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
-                searchBar.resignFirstResponder() //포커싱해제
-            })
-        } else {
-            self.searchButton.isHidden = false
-        }
-    }
-    //앱키자마자 키보드 뜨게하기.
-//    override func viewDidAppear(_ animated: Bool) {
-//        self.searchBar.becomeFirstResponder() // 포커싱주기
-//    }
-    //글자가 입력될 때
-    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        //언래핑을 통해 카운트 감지
-        let inputTextCount = searchBar.text?.appending(text).count ?? 0
-        if (inputTextCount >= 15) {
-            // 토스트 라이브러리 사용
-            self.view.makeToast("❌15자 이하로 입력해주세요.", duration: 1.0, position: .center)
-        }
-//        if inputTextCount <= 12 {
-//            return true
-//        } else {
-//            return false
-//        }
-        return inputTextCount <= 15
-    }
-    
-    //MARK: - UIGestureRecognizerDelegate
-    //터치를 감지
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        //엄한곳 터치됐다고 내려가면 안되니까.
-        if(touch.view?.isDescendant(of: searchBar) == true ) {
-            print("서치바가 터치되었다.")
-            return false
-        } else if (touch.view?.isDescendant(of: CollectionViewMain) == true ) {
-            return false
-        } else {
-        //편집이 끝났다함을 감지하여 키보드가 내려감 (빈곳을 터치)
-            view.endEditing(true)
-            print("서치바가 아닌곳이 터치되었다.")
-            return true
-        }
-    }
-*/
-    
-    
-    //키보드가 올라가는 사실은 아이폰이 알려준다. 그걸 notificationcenter로 받아오는것.
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        //키보드 올라가는 이벤트를 받는 처리
-        //키보드 노티 등록
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowHandle(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideHandle), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        //키보드 노티 해제
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-        
-    }
-
-    @objc func keyboardWillShowHandle(notification: NSNotification) {
-        //키보드 사이즈를 가져와서 그만큼 뷰를 밀어냄.
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if(keyboardSize.height < collectionViewMain.frame.origin.y){
-                let distance = keyboardSize.height - collectionViewMain.frame.origin.y
-                self.view.frame.origin.y = distance + collectionViewMain.frame.height
-            }
-        }
-    }
-    @objc func keyboardWillHideHandle() {
-    }
     
     // MARK: - Filter methods
-    
     func setupSearchController() {
         let searchController = UISearchController(searchResultsController: nil)
+        
         searchController.searchBar.placeholder = "챔피언 검색"
         searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.backgroundColor = .white
-        searchController.searchBar.tintColor = .link
+        searchController.searchBar.backgroundColor = .link
+        searchController.searchBar.searchTextField.backgroundColor = UIColor.white
+        searchController.searchBar.tintColor = .white
+        searchController.searchBar.setImage(UIImage(named: "icCancel"), for: .clear, state: .normal)
         //searchController.searchBar.frame.size.height = 44
         //서치바의 라인 삭제
         //searchController.searchBar.searchBarStyle = .minimal
-
+        
         self.navigationItem.searchController = searchController
         //스크롤시에도 서치바 유지되게 하기.
         self.navigationItem.hidesSearchBarWhenScrolling = false
         
         //텍스트 업데이트 확인하기
         searchController.searchResultsUpdater = self
+        
         
         //먼 훗날 scopebar 사용해보자.
     }

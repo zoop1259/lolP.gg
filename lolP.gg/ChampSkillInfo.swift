@@ -5,7 +5,6 @@
 //  Created by 강대민 on 2022/01/17.
 //
 
-import Foundation
 import UIKit
 
 // MARK: - mainSkillData

@@ -4,7 +4,6 @@
 //  Created by 강대민 on 2021/12/14.
 //
 
-import Foundation
 import UIKit
 
 //모든데이터

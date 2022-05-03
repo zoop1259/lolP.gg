@@ -5,7 +5,6 @@
 //  Created by 강대민 on 2022/02/15.
 //
 
-import Foundation
 import UIKit
 
 class CommuCreateViewController : UIViewController {
