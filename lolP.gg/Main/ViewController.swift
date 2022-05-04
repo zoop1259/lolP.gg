@@ -158,8 +158,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         searchController.searchBar.backgroundColor = .link
         searchController.searchBar.searchTextField.backgroundColor = UIColor.white
         searchController.searchBar.tintColor = .white
-        searchController.searchBar.setImage(UIImage(named: "icCancel"), for: .clear, state: .normal)
-        //searchController.searchBar.frame.size.height = 44
         //서치바의 라인 삭제
         //searchController.searchBar.searchBarStyle = .minimal
         

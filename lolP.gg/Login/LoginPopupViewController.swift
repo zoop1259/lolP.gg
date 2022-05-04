@@ -26,25 +26,22 @@ class LoginPopupViewController: UIViewController {
     
     fileprivate var currentNonce: String?
     
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        //googleloginBtn.style = .standard
-//        appleloginBtn.addTarget(self, action: #selector(LoginPopupViewController.appleLogInButtonTapped), for: .touchDown)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        loginBtn.layer.cornerRadius = 3
+        googleloginBtn.layer.cornerRadius = 3
+        appleloginBtn.cornerRadius = 3
+        
+        appleloginBtn.addTarget(self, action: #selector(LoginPopupViewController.appleLogInButtonTapped), for: .touchDown)
 //        popup.layer.cornerRadius = 30
-////        if let user = Auth.auth().currentUser {
-////            print("로그인 되어있는 상태")
-////            self.showDetailViewController()
-////        }
-//    }
+
+    }
     //로그인이 되어있는 상태면 바로 디테일화면으로.
     override func viewWillAppear(_ animated: Bool) {
         if Auth.auth().currentUser != nil {
             self.showDetailViewController()
             }
-        
-        appleloginBtn.addTarget(self, action: #selector(LoginPopupViewController.appleLogInButtonTapped), for: .touchDown)
-        
     }
     
     //이메일 로그인 버튼 눌렀을때
@@ -60,6 +57,11 @@ class LoginPopupViewController: UIViewController {
             }
             else{
                 print("로그인되지 않았습니다.", error?.localizedDescription ?? "")
+                let confirm = UIAlertController(title: "Complete", message: "입력한 정보가 올바르지 않습니다. \(error)", preferredStyle: .alert)
+                //17008 이메일 주소 에러, 17009 비밀번호 에러
+                let okAction = UIAlertAction(title: "OK", style: .default)
+                confirm.addAction(okAction)
+                self.present(confirm, animated: false, completion: nil)
             }
         }
     }
@@ -69,9 +71,6 @@ class LoginPopupViewController: UIViewController {
     @objc func appleLogInButtonTapped() {
         startSignInWithAppleFlow()
     }
-    
-    
-    
     
     //구글 버튼 눌렀을 때
     @IBAction func googleLoginBtnAction(_ sender: UIButton) {
@@ -131,6 +130,7 @@ class LoginPopupViewController: UIViewController {
 //}
 extension LoginPopupViewController: ASAuthorizationControllerDelegate {
     func startSignInWithAppleFlow() {
+
         let nonce = randomNonceString()
         currentNonce = nonce
         let appleIDProvider = ASAuthorizationAppleIDProvider()

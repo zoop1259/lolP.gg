@@ -95,6 +95,9 @@
 		C52177C627590FAA00E1BA62 /* lolP.gg */ = {
 			isa = PBXGroup;
 			children = (
+				C5B7B99628214D56002EE221 /* Main */,
+				C5B7B99728214D74002EE221 /* ChampDetail */,
+				C5B7B99828214DAD002EE221 /* Login */,
 				C52178CA276BB3F300E1BA62 /* lolP.gg.entitlements */,
 				C52177D027590FAC00E1BA62 /* Assets.xcassets */,
 				C52177D527590FAC00E1BA62 /* Info.plist */,
@@ -103,19 +106,40 @@
 				C52177CD27590FAA00E1BA62 /* Main.storyboard */,
 				C52177C727590FAA00E1BA62 /* AppDelegate.swift */,
 				C52177C927590FAA00E1BA62 /* SceneDelegate.swift */,
-				C52177CB27590FAA00E1BA62 /* ViewController.swift */,
-				C52178442768215F00E1BA62 /* ChampInfo.swift */,
-				C597267A278C8EFA0048C7CA /* ChampDetailView.swift */,
-				C597267C279544690048C7CA /* ChampSkillInfo.swift */,
 				C52177DD2759101600E1BA62 /* CommuTableViewController.swift */,
 				C5730C2427BAED5A00DF2520 /* CommuCreateViewController.swift */,
 				C52177DF2759101600E1BA62 /* CommuDetailViewController.swift */,
 				C5C8110228109F680088CE74 /* Commu.swift */,
+			);
+			path = lolP.gg;
+			sourceTree = "<group>";
+		};
+		C5B7B99628214D56002EE221 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				C52178442768215F00E1BA62 /* ChampInfo.swift */,
+				C52177CB27590FAA00E1BA62 /* ViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		C5B7B99728214D74002EE221 /* ChampDetail */ = {
+			isa = PBXGroup;
+			children = (
+				C597267A278C8EFA0048C7CA /* ChampDetailView.swift */,
+				C597267C279544690048C7CA /* ChampSkillInfo.swift */,
+			);
+			path = ChampDetail;
+			sourceTree = "<group>";
+		};
+		C5B7B99828214DAD002EE221 /* Login */ = {
+			isa = PBXGroup;
+			children = (
 				C52177DE2759101600E1BA62 /* LoginPopupViewController.swift */,
 				C5A30C472772F38200B2D4D3 /* LoginDetailView.swift */,
 				C5A30C492773154000B2D4D3 /* SignUpViewController.swift */,
 			);
-			path = lolP.gg;
+			path = Login;
 			sourceTree = "<group>";
 		};
 		EC4D0F55A6395944A00700AE /* Frameworks */ = {
