@@ -75,8 +75,25 @@ class LoginDetailView: UIViewController {
             
             self.userName.text = ("\(displayName)")
         }
-        
     }
-    
-    
 }
+
+
+/*
+ //회원탈퇴
+ private func loadDeleteFirebase()
+     {
+         let user = Auth.auth().currentUser
+         user?.delete(completion: { (error) in
+             guard error == nil else
+             {
+                 if let errorCode : AuthErrorCode = AuthErrorCode(rawValue: error!._code)
+                 {
+                     print("delete -> error -> \(errorCode.rawValue)")
+                 }
+                 return
+             }
+             return
+         })
+     }
+ */

@@ -28,6 +28,9 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
         // 텍스트 필드에 대한 딜리게이트, 데이터소스 연결 - 유효성 검사에서 필요함
     }
     
@@ -56,14 +59,14 @@ class SignUpViewController: UIViewController {
         guard let userPasswordConfirm = txtPasswordConfirm.text else {
             return
         }
-        //유효성 검사.
+        //유효성 검사. 정규식을 사용하지 않음.
         guard let email = txtUserEmail.text, !email.isEmpty,
                 let password = txtPassword.text, !password.isEmpty else {
                     self.view.makeToast("비어있는 항목이 있습니다.", duration: 1.0, position: .center)
                     return
                 }
         guard let pwRange = txtPassword.text, (pwRange.count >= 8) else {
-            self.view.makeToast("8자 이상 입력해주세요.", duration: 1.0, position: .center)
+            self.view.makeToast("비밀번호는 8자 이상 입력해주세요.", duration: 1.0, position: .center)
             return
         }
         guard userPassword != ""
@@ -74,8 +77,11 @@ class SignUpViewController: UIViewController {
         }
             
         Auth.auth().createUser(withEmail: userEmail, password: userPassword) { result, error in
-            if let error = error { // 로그인 실패시 메시지 출력
+            
+            //그 밖에 회원가입 에러 핸들링
+            if let error = error {
                 print("DEBUG: \(error.localizedDescription)")
+                self.handleError(error)
                 return
             } else {
                 let confirm = UIAlertController(title: "Complete", message: "\(userEmail) 회원가입이 완료되었습니다.", preferredStyle: .alert)
@@ -118,3 +124,58 @@ func uploadImage(image: UIImage) {
     }
 }
 */
+
+//회원가입 에러핸들링.
+extension AuthErrorCode {
+    
+    //FIRAuthErrorDomainCode=17007 //중복이메일
+    //FIRAuthErrorDomainCode=17008 //이메일형식
+    
+    var errorMessage: String {
+        switch self {
+        case .emailAlreadyInUse:
+            return "The email is already in use with another account"
+        case .userNotFound:
+            return "Account not found for the specified user. Please check and try again"
+        case .userDisabled:
+            return "Your account has been disabled. Please contact support."
+        case .invalidEmail, .invalidSender, .invalidRecipientEmail:
+            return "Please enter a valid email"
+        case .networkError:
+            return "Network error. Please try again."
+        case .weakPassword:
+            return "Your password is too weak. The password must be 6 characters long or more."
+        case .wrongPassword:
+            return "Your password is incorrect. Please try again or use 'Forgot password' to reset your password"
+        default:
+            return "Unknown error occurred"
+        }
+    }
+}
+
+extension UIViewController{
+    func handleError(_ error: Error) {
+        if let errorCode = AuthErrorCode(rawValue: error._code) {
+            print(errorCode.errorMessage)
+            let alert = UIAlertController(title: "Error", message: errorCode.errorMessage, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+
+        }
+    }
+    /*
+     권고하는 파이어베이스 에러핸들링 방식이라 한다.
+     
+     if let errorCode : AuthErrorCode = AuthErrorCode(rawValue: error!._code)
+     {
+         print("-> errorCode -> \(errorCode.rawValue)")
+         if AuthErrorCode.emailAlreadyInUse.rawValue == errorCode.rawValue
+         {
+         }
+     }
+     
+     */
+    
+
+}
