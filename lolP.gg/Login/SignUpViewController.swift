@@ -14,24 +14,30 @@ import FirebaseFirestore
 //import FirebaseStorage
 import PhotosUI
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, UITextFieldDelegate {
 
     private let ref: DatabaseReference! = Database.database().reference()
+    let db = Firestore.firestore()
    
     @IBOutlet weak var txtUserEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var txtPasswordConfirm: UITextField!
+    @IBOutlet var txtNickName: UITextField!
     @IBOutlet weak var imgProfilePicture: UIImageView!
-
+    
     //뷰 컨트롤러의 멤버변수
     var handle: AuthStateDidChangeListenerHandle!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 텍스트 필드에 대한 딜리게이트 연결 유효성 검사에서 필요함, 구현후 지워도되면 지우자.
+        txtUserEmail.delegate = self
+        txtPassword.delegate = self
+        txtPasswordConfirm.delegate = self
+        txtNickName.delegate = self
         
         
-        // 텍스트 필드에 대한 딜리게이트, 데이터소스 연결 - 유효성 검사에서 필요함
     }
     
     //취소 버튼
@@ -50,18 +56,17 @@ class SignUpViewController: UIViewController {
     //확인 버튼
     @IBAction func btnActSubmit(_ sender: UIButton) {
         //파이어베이스에 정보를 보내야됨.
-        guard let userEmail = txtUserEmail.text else {
+        guard let userEmail = txtUserEmail.text,
+              let userPassword = txtPassword.text,
+              let userPasswordConfirm = txtPasswordConfirm.text,
+              let userNickname = txtNickName.text else {
             return
         }
-        guard let userPassword = txtPassword.text else {
-            return
-        }
-        guard let userPasswordConfirm = txtPasswordConfirm.text else {
-            return
-        }
+        
         //유효성 검사. 정규식을 사용하지 않음.
         guard let email = txtUserEmail.text, !email.isEmpty,
-                let password = txtPassword.text, !password.isEmpty else {
+              let password = txtPassword.text, !password.isEmpty,
+              let nickname = txtNickName.text, !nickname.isEmpty else {
                     self.view.makeToast("비어있는 항목이 있습니다.", duration: 1.0, position: .center)
                     return
                 }
@@ -84,15 +89,20 @@ class SignUpViewController: UIViewController {
                 self.handleError(error)
                 return
             } else {
-                let confirm = UIAlertController(title: "Complete", message: "\(userEmail) 회원가입이 완료되었습니다.", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default) {_ in
-                    self.dismiss(animated: true, completion: nil)
+                
+                if let user = result?.user {
+                    self.ref.child("users").child(user.uid).setValue(["ninkname": userNickname])
+                    
+                    let confirm = UIAlertController(title: "Complete", message: "\(userEmail) 회원가입이     완료되었습니다.", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default) {_ in
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                    confirm.addAction(okAction)
+                    self.present(confirm, animated: false, completion: nil)
+                
+                    guard let user = result?.user else { return }
+                    print(user)
                 }
-                confirm.addAction(okAction)
-                self.present(confirm, animated: false, completion: nil)
-            
-                guard let user = result?.user else { return }
-                print(user)
             }
         }
     }

@@ -758,13 +758,13 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="shR-bs-3Dx">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eBa-EM-YZO">
                                                 <rect key="frame" x="0.0" y="118.66666666666664" width="234" height="29.333333333333329"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="234" id="zJV-Ze-781"/>
+                                                    <constraint firstAttribute="width" constant="234" id="T5a-Ah-9qu"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                <textInputTraits key="textInputTraits"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
@@ -817,6 +817,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="snJ-9H-77f"/>
                     <connections>
+                        <outlet property="txtNickName" destination="eBa-EM-YZO" id="MH9-WS-iWU"/>
                         <outlet property="txtPassword" destination="wT9-KO-ZUY" id="19L-6K-mGg"/>
                         <outlet property="txtPasswordConfirm" destination="7CA-jK-SJw" id="yBa-Pi-2MB"/>
                         <outlet property="txtUserEmail" destination="coE-Df-crq" id="w2p-bn-G7E"/>
