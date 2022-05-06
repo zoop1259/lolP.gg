@@ -108,7 +108,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
 }
 
-/*
+
 func uploadImage(image: UIImage) {
 
     // jpeg 파일의 퀄리티를 반으로 해서 가져오기, jpege 파일이 아니면 리턴
@@ -133,7 +133,7 @@ func uploadImage(image: UIImage) {
         }
     }
 }
-*/
+
 
 //회원가입 에러핸들링.
 extension AuthErrorCode {
