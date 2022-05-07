@@ -12,9 +12,8 @@ import FirebaseAuth //인증
 import Toast_Swift //인스턴스메세지
 import FirebaseFirestore //cloud저장소
 import FirebaseStorage //이미지 저장소
-import PhotosUI //앨범
 
-class SignUpViewController: UIViewController, UITextFieldDelegate {
+class SignUpViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
     let ref: DatabaseReference! = Database.database().reference() //리얼타임db 레퍼런스 초기화
     
@@ -43,14 +42,56 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         txtPasswordConfirm.delegate = self
         txtNickName.delegate = self
         
-        // 사진, 카메라 권한 (최초 요청)
-        PHPhotoLibrary.requestAuthorization { status in
-        }
-        AVCaptureDevice.requestAccess(for: .video) { granted in
-        }
     }
     
+    //라이브러리 업로드버튼
+    @IBAction func uploadBtn(_ sender: UIButton) {
+        let picker = UIImagePickerController()
+        picker.sourceType = .photoLibrary
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true)
+    }
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
+            return
+        }
+        
+        guard let imageData = image.pngData() else {
+            return
+        }
+        
+        storage.child("images/file.png").putData(imageData,
+                                                 metadata: nil,
+                                                 completion: {_, error in
+            guard error == nil else {
+                print("업로드 실패")
+                return
+            }
+            
+            self.storage.child("images/file.png").downloadURL(completion: {url, error in
+                guard let url = url, error == nil else {
+                    return
+                }
+                
+                let urlString = url.absoluteString
+                
+                DispatchQueue.main.async {
+                    self.imgProfilePicture.image = image
+                }
+                print("Download URL: \(urlString)")
+                UserDefaults.standard.set(urlString, forKey: "url")
+            })
+        })
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+                                                 
     
     //취소 버튼
     @IBAction func btnActCancel(_ sender: UIButton) {

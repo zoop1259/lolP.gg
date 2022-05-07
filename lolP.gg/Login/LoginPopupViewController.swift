@@ -96,13 +96,13 @@ class LoginPopupViewController: UIViewController {
     
     private func showDetailViewController() {
         let mystoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let DetailViewController = mystoryboard.instantiateViewController(identifier: "LoginDetailView")
+        let detailViewController = mystoryboard.instantiateViewController(identifier: "LoginDetailView")
         //이방법은 로그인창까지 겹쳐서 올라옴.
 //        self.show(DetailViewController, sender: self)
         //로그인창을 닫으면서 정보창 띄우기.
         guard let pvc = self.presentingViewController else { return }
         self.dismiss(animated: true) {
-            pvc.present(DetailViewController, animated: true, completion: nil)
+            pvc.present(detailViewController, animated: true, completion: nil)
         }
     }
 }

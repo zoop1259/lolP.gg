@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class CommuTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -29,13 +30,32 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        //titleList.reloadData()
+
+    //로그인이 되었는지 확인하고 로그인이 되었으면 글쓰기 화면으로.
+    @IBAction func tapWriteBtn(_ sender: UIButton) {
+        if Auth.auth().currentUser != nil {
+            self.showCommuCreateViewController()
+        } else {
+            let confirm = UIAlertController(title: "로그인이 필요합니다.", message: "로그인 해주세요.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) {_ in
+                self.dismiss(animated: true, completion: nil)
+            }
+            confirm.addAction(okAction)
+            self.present(confirm, animated: false, completion: nil)
+        }
     }
     
+    private func showCommuCreateViewController() {
+        let mystoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let createViewController = mystoryboard.instantiateViewController(identifier: "ShowCommuCreateViewController")
+        //이방법은 로그인창까지 겹쳐서 올라옴.
+        self.show(createViewController, sender: self)
+        //로그인창을 닫으면서 정보창 띄우기.
+//        guard let pvc = self.presentingViewController else { return }
+//        self.dismiss(animated: true) {
+//            pvc.present(DetailViewController, animated: true, completion: nil)
+//        }
+    }
 
     // MARK: - Table view data source
 
