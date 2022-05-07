@@ -7,18 +7,24 @@
 
 import UIKit
 import Firebase
-import FirebaseDatabase
-import FirebaseAuth
-import Toast_Swift
-import FirebaseFirestore
-//import FirebaseStorage
-import PhotosUI
+import FirebaseDatabase //db
+import FirebaseAuth //인증
+import Toast_Swift //인스턴스메세지
+import FirebaseFirestore //cloud저장소
+import FirebaseStorage //이미지 저장소
+import PhotosUI //앨범
 
 class SignUpViewController: UIViewController, UITextFieldDelegate {
 
-    private let ref: DatabaseReference! = Database.database().reference()
-    let db = Firestore.firestore()
-   
+    let ref: DatabaseReference! = Database.database().reference() //리얼타임db 레퍼런스 초기화
+    
+    let storage = Storage.storage().reference() //스토리지 레퍼런스 초기화
+    
+    public typealias UploadPictureCompletion = (Result<String, Error>) -> Void
+    
+    let imagePickerController = UIImagePickerController()
+    var userProfileThumbnail: UIImage!
+    
     @IBOutlet weak var txtUserEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var txtPasswordConfirm: UITextField!
@@ -31,14 +37,20 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 텍스트 필드에 대한 딜리게이트 연결 유효성 검사에서 필요함, 구현후 지워도되면 지우자.
+        // 각 라이브러리에 대한 델리게이트 연결
         txtUserEmail.delegate = self
         txtPassword.delegate = self
         txtPasswordConfirm.delegate = self
         txtNickName.delegate = self
         
-        
+        // 사진, 카메라 권한 (최초 요청)
+        PHPhotoLibrary.requestAuthorization { status in
+        }
+        AVCaptureDevice.requestAccess(for: .video) { granted in
+        }
     }
+    
+    
     
     //취소 버튼
     @IBAction func btnActCancel(_ sender: UIButton) {
@@ -91,7 +103,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             } else {
                 
                 if let user = result?.user {
-                    self.ref.child("users").child(user.uid).setValue(["ninkname": userNickname])
+                    
+                    self.ref.child("users").setValue(["uid": user.uid,
+                                                      "ninkname": userNickname])
                     
                     let confirm = UIAlertController(title: "Complete", message: "\(userEmail) 회원가입이     완료되었습니다.", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default) {_ in
@@ -106,34 +120,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    
 }
-
-
-func uploadImage(image: UIImage) {
-
-    // jpeg 파일의 퀄리티를 반으로 해서 가져오기, jpege 파일이 아니면 리턴
-    guard let imageData = image.jpegData(compressionQuality: 0.5) else { return }
-
-    // E621E1F8-C36C-495A-93FC-0C247A3E6E5F 형식으로 이미지 이름 짓기
-    let filename = NSUUID().uuidString
-    let ref = Storage.storage().reference(withPath: "폴더이름은/알아서지어요/\(filename)")
-
-    // 이미지 업로드 하기
-    ref.putData(imageData, metadata: nil) { data, error in
-        if let error = error {
-            print("DEBUG: \(error.localizedDescription)")
-            return
-        }
-
-        // 업로드한 이미지 url 가져오기
-        ref.downloadURL { url, _ in
-            guard let imageUrl = url?.absoluteString else { return }
-
-            print("URL: \(imageUrl)")
-        }
-    }
-}
-
 
 //회원가입 에러핸들링.
 extension AuthErrorCode {
@@ -189,3 +177,33 @@ extension UIViewController{
     
 
 }
+
+/*
+ //이미지
+ func uploadImage(image: UIImage) {
+
+     // jpeg 파일의 퀄리티를 반으로 해서 가져오기, jpege 파일이 아니면 리턴
+     guard let imageData = image.jpegData(compressionQuality: 0.5) else { return }
+
+     // E621E1F8-C36C-495A-93FC-0C247A3E6E5F 형식으로 이미지 이름 짓기
+     let filename = NSUUID().uuidString
+     let ref = Storage.storage().reference(withPath: "폴더이름은/알아서지어요/\(filename)")
+
+     // 이미지 업로드 하기
+     ref.putData(imageData, metadata: nil) { data, error in
+         if let error = error {
+             print("DEBUG: \(error.localizedDescription)")
+             return
+         }
+
+         // 업로드한 이미지 url 가져오기
+         ref.downloadURL { url, _ in
+             guard let imageUrl = url?.absoluteString else { return }
+
+             print("URL: \(imageUrl)")
+         }
+     }
+ }
+ 
+ */
+
