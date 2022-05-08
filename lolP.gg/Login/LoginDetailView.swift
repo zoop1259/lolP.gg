@@ -15,6 +15,7 @@ import FirebaseStorage
 
 class LoginDetailView: UIViewController {
     
+    let db = Database.database().reference()
     
     @IBOutlet var userId: UILabel!
     @IBOutlet var userName: UILabel!
@@ -30,6 +31,15 @@ class LoginDetailView: UIViewController {
         //로그인 확인.
         if let user = Auth.auth().currentUser {
             print("당신의 \(user.uid), email: \(user.email ?? "no email")")
+            
+//            db.child(user.safeEmail).observeSingleEvent(of: .value, with: { snapshot in
+//                print("스냅샷 \(snapshot)")
+//                let value = snapshot.value as? String ?? ""
+//                DispatchQueue.main.async {
+//                    self.userName.text = value
+//                }
+//            })
+            
         }
     }
     

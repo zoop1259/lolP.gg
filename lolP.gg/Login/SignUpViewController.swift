@@ -16,7 +16,7 @@ import FirebaseStorage //이미지 저장소
 class SignUpViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate {
 
     let ref: DatabaseReference! = Database.database().reference() //리얼타임db 레퍼런스 초기화
-    
+    let db = Firestore.firestore()
     let storage = Storage.storage().reference() //스토리지 레퍼런스 초기화
     
     public typealias UploadPictureCompletion = (Result<String, Error>) -> Void
@@ -114,6 +114,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UINavigationC
     
                if let user = result?.user {
     
+                   self.db.collection("users").document(email).setData(["nickName" : nickName])
+                   
+                   
 //                      self.ref.child("users").setValue(["uid": user.uid,
 //                                                        "ninkname": userNickname])
                     let userprofile = UserProfile(emailAddress: email, nickName: nickName)
