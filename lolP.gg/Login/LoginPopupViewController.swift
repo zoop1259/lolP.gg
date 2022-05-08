@@ -34,7 +34,6 @@ class LoginPopupViewController: UIViewController {
         appleloginBtn.cornerRadius = 3
         
         appleloginBtn.addTarget(self, action: #selector(LoginPopupViewController.appleLogInButtonTapped), for: .touchDown)
-//        popup.layer.cornerRadius = 30
 
     }
     //로그인이 되어있는 상태면 바로 디테일화면으로.
@@ -78,21 +77,39 @@ class LoginPopupViewController: UIViewController {
         let signInConfig = GIDConfiguration.init(clientID: clientID)
         
       GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { user, error in
-        guard error == nil else { return }
+          guard error == nil else { return }
+          
+          print("구글 로그인 \(user)")
+          
+          guard let email = user?.profile?.email,
+                let nickName = user?.profile?.givenName else {
+                    return
+                }
+          
+          DatabaseManager.shared.insertUser(with: UserProfile(emailAddress: email,
+                                                              nickName: nickName), completion: { success in
+              if success {
+                  //upload image
+                  
+              }
+          })
 
-        guard let authentication = user?.authentication else { return }
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken!, accessToken: authentication.accessToken)
-        // access token 부여 받음
-        
-        // 파베 인증정보 등록
-        Auth.auth().signIn(with: credential) {_,_ in
-            // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
-            print("로그인 됨")
-            
-            self.showDetailViewController()
+          guard let authentication = user?.authentication else { return }
+          let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken!, accessToken:   authentication.accessToken)
+          // access token 부여 받음
+          // 파베 인증정보 등록
+          Auth.auth().signIn(with: credential) {_,_ in
+              // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
+              print("로그인 됨")
+              self.showDetailViewController()
+            }
         }
-      }
     }
+    
+    @IBAction func signUpBtn(_ sender: UIButton) {
+        showSignUpViewController()
+    }
+    
     
     private func showDetailViewController() {
         let mystoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -103,6 +120,16 @@ class LoginPopupViewController: UIViewController {
         guard let pvc = self.presentingViewController else { return }
         self.dismiss(animated: true) {
             pvc.present(detailViewController, animated: true, completion: nil)
+        }
+    }
+    
+    private func showSignUpViewController() {
+        let mystoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let signUpViewController = mystoryboard.instantiateViewController(identifier: "SignUpViewController")
+        //로그인창을 닫으면서 회원가입창 띄우기.
+        guard let pvc = self.presentingViewController else { return }
+        self.dismiss(animated: true) {
+            pvc.present(signUpViewController, animated: true, completion: nil)
         }
     }
 }

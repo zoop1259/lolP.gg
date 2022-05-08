@@ -5,12 +5,13 @@
 //  Created by 강대민 on 2021/12/22.
 //
 
-import Foundation
 import UIKit
 import AuthenticationServices
 import GoogleSignIn
 import Firebase
 import FirebaseAuth
+import FirebaseDatabase
+import FirebaseStorage
 
 class LoginDetailView: UIViewController {
     
@@ -22,6 +23,10 @@ class LoginDetailView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // The user's ID, unique to the Firebase project. Do NOT use
+        // this value to authenticate with your backend server, if
+        // you have one. Use User.getToken() instead.
+        
         //로그인 확인.
         if let user = Auth.auth().currentUser {
             print("당신의 \(user.uid), email: \(user.email ?? "no email")")
@@ -36,6 +41,7 @@ class LoginDetailView: UIViewController {
         if let user = Auth.auth().currentUser {
             userId.text = ("\(user.uid)")
             userEmail.text = ("\(user.email ?? "이메일로그인이 아님")")
+            //userName.text = ("\()")
 //            userName.text = ("\(user.name ?? "유저")")
         }
         

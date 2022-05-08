@@ -13,7 +13,7 @@ import Toast_Swift //인스턴스메세지
 import FirebaseFirestore //cloud저장소
 import FirebaseStorage //이미지 저장소
 
-class SignUpViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+class SignUpViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate {
 
     let ref: DatabaseReference! = Database.database().reference() //리얼타임db 레퍼런스 초기화
     
@@ -36,6 +36,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //프로필사진 둥글게
+        imgProfilePicture.layer.masksToBounds = true
+        imgProfilePicture.layer.cornerRadius = imgProfilePicture.frame.height/2
+        imgProfilePicture.layer.borderWidth = 2
+        imgProfilePicture.layer.borderColor = UIColor.lightGray.cgColor
+        
         // 각 라이브러리에 대한 델리게이트 연결
         txtUserEmail.delegate = self
         txtPassword.delegate = self
@@ -46,52 +52,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     
     //라이브러리 업로드버튼
     @IBAction func uploadBtn(_ sender: UIButton) {
-        let picker = UIImagePickerController()
-        picker.sourceType = .photoLibrary
-        picker.delegate = self
-        picker.allowsEditing = true
-        present(picker, animated: true)
+        didTapChangeProfilePic()
     }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true, completion: nil)
-        
-        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
-            return
-        }
-        
-        guard let imageData = image.pngData() else {
-            return
-        }
-        
-        storage.child("images/file.png").putData(imageData,
-                                                 metadata: nil,
-                                                 completion: {_, error in
-            guard error == nil else {
-                print("업로드 실패")
-                return
-            }
-            
-            self.storage.child("images/file.png").downloadURL(completion: {url, error in
-                guard let url = url, error == nil else {
-                    return
-                }
-                
-                let urlString = url.absoluteString
-                
-                DispatchQueue.main.async {
-                    self.imgProfilePicture.image = image
-                }
-                print("Download URL: \(urlString)")
-                UserDefaults.standard.set(urlString, forKey: "url")
-            })
-        })
+    @objc private func didTapChangeProfilePic() {
+        presentPhotoActionSheet()
     }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
-    }
-                                                 
     
     //취소 버튼
     @IBAction func btnActCancel(_ sender: UIButton) {
@@ -109,10 +74,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     //확인 버튼
     @IBAction func btnActSubmit(_ sender: UIButton) {
         //파이어베이스에 정보를 보내야됨.
-        guard let userEmail = txtUserEmail.text,
-              let userPassword = txtPassword.text,
-              let userPasswordConfirm = txtPasswordConfirm.text,
-              let userNickname = txtNickName.text else {
+        guard let email = txtUserEmail.text,
+              let password = txtPassword.text,
+              let passwordConfirm = txtPasswordConfirm.text,
+              let nickName = txtNickName.text else {
             return
         }
         
@@ -127,34 +92,59 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIImagePicker
             self.view.makeToast("비밀번호는 8자 이상 입력해주세요.", duration: 1.0, position: .center)
             return
         }
-        guard userPassword != ""
-                && userPasswordConfirm != ""
-                && userPassword == userPasswordConfirm else {
+        guard password != ""
+                && passwordConfirm != ""
+                && password == passwordConfirm else {
                     self.view.makeToast("❌패스워드가 일치하지 않습니다.", duration: 1.0, position: .center)
             return
         }
-            
-        Auth.auth().createUser(withEmail: userEmail, password: userPassword) { result, error in
-            
+        
+           //실질적 정보 post
+        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+    
             //그 밖에 회원가입 에러 핸들링
             if let error = error {
                 print("DEBUG: \(error.localizedDescription)")
                 self.handleError(error)
                 return
             } else {
-                
+    
                 if let user = result?.user {
+    
+//                      self.ref.child("users").setValue(["uid": user.uid,
+//                                                        "ninkname": userNickname])
+                    let userprofile = UserProfile(emailAddress: email, nickName: nickName)
                     
-                    self.ref.child("users").setValue(["uid": user.uid,
-                                                      "ninkname": userNickname])
-                    
-                    let confirm = UIAlertController(title: "Complete", message: "\(userEmail) 회원가입이     완료되었습니다.", preferredStyle: .alert)
+                    DatabaseManager.shared.insertUser(with: userprofile, completion: { success in
+                        if success {
+                            //upload image
+                            guard let image = self.imgProfilePicture.image, let data = image.pngData() else {
+                                return
+                            }
+                            let filename = userprofile.profilePictureFileName
+                            StorageManager.shared.uploadProfilePicture(with: data, fileName: filename, completion: { result in
+                                switch result {
+                                case .success(let downloadUrl):
+                                    print(downloadUrl)
+                                case .failure(let error):
+                                    print("Storage 매니저 에러 : \(error)")
+                                }
+                            })
+                        }
+                    })
+    
+                    let confirm = UIAlertController(title: "Complete", message: "\(email) 회원가입이     완료되었습니다.", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default) {_ in
-                        self.dismiss(animated: true, completion: nil)
+                        let mystoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                        let detailViewController = mystoryboard.instantiateViewController(identifier:   "LoginDetailView")
+                        guard let pvc = self.presentingViewController else { return }
+                        self.dismiss(animated: true) {
+                            pvc.present(detailViewController, animated: true, completion: nil)
+                        }
                     }
                     confirm.addAction(okAction)
                     self.present(confirm, animated: false, completion: nil)
-                
+    
                     guard let user = result?.user else { return }
                     print(user)
                 }
@@ -215,36 +205,55 @@ extension UIViewController{
      }
      
      */
-    
-
 }
 
-/*
- //이미지
- func uploadImage(image: UIImage) {
 
-     // jpeg 파일의 퀄리티를 반으로 해서 가져오기, jpege 파일이 아니면 리턴
-     guard let imageData = image.jpegData(compressionQuality: 0.5) else { return }
 
-     // E621E1F8-C36C-495A-93FC-0C247A3E6E5F 형식으로 이미지 이름 짓기
-     let filename = NSUUID().uuidString
-     let ref = Storage.storage().reference(withPath: "폴더이름은/알아서지어요/\(filename)")
-
-     // 이미지 업로드 하기
-     ref.putData(imageData, metadata: nil) { data, error in
-         if let error = error {
-             print("DEBUG: \(error.localizedDescription)")
-             return
-         }
-
-         // 업로드한 이미지 url 가져오기
-         ref.downloadURL { url, _ in
-             guard let imageUrl = url?.absoluteString else { return }
-
-             print("URL: \(imageUrl)")
-         }
-     }
- }
- 
- */
-
+extension SignUpViewController: UIImagePickerControllerDelegate {
+    
+    func presentPhotoActionSheet() {
+        let actionSheet = UIAlertController(title: "프로필 사진",
+                                            message: "업로드 방법을 선택해 주세요.",
+                                            preferredStyle: .actionSheet)
+        //아래서부터 위로.(스택)
+        actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "카메라 촬영", style: .default, handler: {[weak self] _ in self?.presentCamera()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "라이브러리", style: .default, handler: {[weak self] _ in
+            self?.presentLibrary()
+        }))
+        
+        present(actionSheet, animated: true)
+        
+    }
+    
+    func presentCamera() {
+        let picker = UIImagePickerController()
+        picker.sourceType = .camera
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true)
+    }
+    
+    func presentLibrary() {
+        let picker = UIImagePickerController()
+        picker.sourceType = .photoLibrary
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true)
+    }
+    
+    //사용자가 사진을 찍거나 사진을 선택할 때 호출된다.
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
+            return
+        }
+        self.imgProfilePicture.image = image
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+}
