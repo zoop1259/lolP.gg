@@ -116,31 +116,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UINavigationC
     
                    self.db.collection("users").document(email).setData(["nickName" : nickName])
                    
-                   
-//                      self.ref.child("users").setValue(["uid": user.uid,
-//                                                        "ninkname": userNickname])
-                    let userprofile = UserProfile(emailAddress: email, nickName: nickName)
-                    
-                    DatabaseManager.shared.insertUser(with: userprofile, completion: { success in
-                        if success {
-                            //upload image
-                            guard let image = self.imgProfilePicture.image, let data = image.pngData() else {
-                                print("변환 오류")
-                                return
-                            }
-                            let filename = userprofile.profilePictureFileName
-                            StorageManager.shared.uploadProfilePicture(with: data, fileName: filename, completion: { result in
-                                switch result {
-                                case .success(let downloadUrl):
-                                    UserDefaults.standard.set(downloadUrl, forKey: "profile_picture_url")
-                                    print(downloadUrl)
-                                case .failure(let error):
-                                    print("Storage 매니저 에러 : \(error)")
-                                }
-                            })
-                        }
-                    })
-    
                     let confirm = UIAlertController(title: "Complete", message: "\(email) 회원가입이     완료되었습니다.", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default) {_ in
                         let mystoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)

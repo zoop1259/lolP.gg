@@ -18,8 +18,6 @@
 		C52177E22759101600E1BA62 /* CommuDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177DF2759101600E1BA62 /* CommuDetailViewController.swift */; };
 		C52178452768215F00E1BA62 /* ChampInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52178442768215F00E1BA62 /* ChampInfo.swift */; };
 		C5730C2527BAED5A00DF2520 /* CommuCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5730C2427BAED5A00DF2520 /* CommuCreateViewController.swift */; };
-		C585CC122827830F000629EE /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C585CC112827830F000629EE /* DatabaseManager.swift */; };
-		C585CC1428279E55000629EE /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C585CC1328279E55000629EE /* StorageManager.swift */; };
 		C585CC1D2827B92F000629EE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C585CC1C2827B92F000629EE /* GoogleService-Info.plist */; };
 		C597267B278C8EFA0048C7CA /* ChampDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C597267A278C8EFA0048C7CA /* ChampDetailView.swift */; };
 		C597267D279544690048C7CA /* ChampSkillInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C597267C279544690048C7CA /* ChampSkillInfo.swift */; };
@@ -47,8 +45,6 @@
 		C52178442768215F00E1BA62 /* ChampInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampInfo.swift; sourceTree = "<group>"; };
 		C52178CA276BB3F300E1BA62 /* lolP.gg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = lolP.gg.entitlements; sourceTree = "<group>"; };
 		C5730C2427BAED5A00DF2520 /* CommuCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommuCreateViewController.swift; sourceTree = "<group>"; };
-		C585CC112827830F000629EE /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
-		C585CC1328279E55000629EE /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		C585CC1C2827B92F000629EE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C597267A278C8EFA0048C7CA /* ChampDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampDetailView.swift; sourceTree = "<group>"; };
 		C597267C279544690048C7CA /* ChampSkillInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampSkillInfo.swift; sourceTree = "<group>"; };
@@ -130,8 +126,6 @@
 		C585CC1528279E67000629EE /* FirebaseManager */ = {
 			isa = PBXGroup;
 			children = (
-				C585CC112827830F000629EE /* DatabaseManager.swift */,
-				C585CC1328279E55000629EE /* StorageManager.swift */,
 			);
 			path = FirebaseManager;
 			sourceTree = "<group>";
@@ -286,13 +280,11 @@
 				C52177CC27590FAA00E1BA62 /* ViewController.swift in Sources */,
 				C5C8110328109F680088CE74 /* Commu.swift in Sources */,
 				C597267D279544690048C7CA /* ChampSkillInfo.swift in Sources */,
-				C585CC122827830F000629EE /* DatabaseManager.swift in Sources */,
 				C52177C827590FAA00E1BA62 /* AppDelegate.swift in Sources */,
 				C52177E12759101600E1BA62 /* LoginPopupViewController.swift in Sources */,
 				C52177E02759101600E1BA62 /* CommuTableViewController.swift in Sources */,
 				C5A30C4A2773154000B2D4D3 /* SignUpViewController.swift in Sources */,
 				C52177CA27590FAA00E1BA62 /* SceneDelegate.swift in Sources */,
-				C585CC1428279E55000629EE /* StorageManager.swift in Sources */,
 				C5A30C482772F38200B2D4D3 /* LoginDetailView.swift in Sources */,
 				C597267B278C8EFA0048C7CA /* ChampDetailView.swift in Sources */,
 			);

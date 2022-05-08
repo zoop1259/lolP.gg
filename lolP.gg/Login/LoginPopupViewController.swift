@@ -16,6 +16,8 @@ import CryptoKit
 @available(iOS 13.0,*) //IOS13이상 가능하기 떄문에 사용해야 한다.
 class LoginPopupViewController: UIViewController {
     
+    let db = Firestore.firestore()
+    
     @IBOutlet var popup: UIView!
     @IBOutlet var loginBtn: UIButton!
     @IBOutlet var googleloginBtn: GIDSignInButton!
@@ -83,13 +85,8 @@ class LoginPopupViewController: UIViewController {
                 let nickName = user?.profile?.givenName else {
                     return
                 }
-          DatabaseManager.shared.insertUser(with: UserProfile(emailAddress: email,
-                                                              nickName: nickName), completion: { success in
-              if success {
-                  //upload image
 
-              }
-          })
+          self.db.collection("users").document(email).setData(["nickName" : nickName])
 
           guard let authentication = user?.authentication else { return }
           let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken!, accessToken:   authentication.accessToken)
