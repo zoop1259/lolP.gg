@@ -13,7 +13,7 @@ import Toast_Swift //인스턴스메세지
 import FirebaseFirestore //cloud저장소
 import FirebaseStorage //이미지 저장소
 
-class SignUpViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate {
+class SignUpViewController: UIViewController, UITextFieldDelegate {
 
     let ref: DatabaseReference! = Database.database().reference() //리얼타임db 레퍼런스 초기화
     let db = Firestore.firestore()
@@ -22,7 +22,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UINavigationC
     public typealias UploadPictureCompletion = (Result<String, Error>) -> Void
     
     let imagePickerController = UIImagePickerController()
-    var userProfileThumbnail: UIImage!
+    var selectedImage: UIImage?
     
     @IBOutlet weak var txtUserEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
@@ -50,6 +50,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UINavigationC
         txtPassword.delegate = self
         txtPasswordConfirm.delegate = self
         txtNickName.delegate = self
+        
         
     }
     
@@ -114,7 +115,15 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UINavigationC
     
                if let user = result?.user {
     
-                   self.db.collection("users").document(email).setData(["nickName" : nickName])
+                   //firestore방법
+                   //self.db.collection("users").document(email).setData(["nickName" : nickName])
+                   
+                   //실시간db 이렇게하면 데이터가 덮어써짐;;;
+//                      self.ref.child("users").setValue(["uid": user.uid,
+//                                                        "ninkname": nickName])
+                   self.ref.child("users/\(user.uid)/nickName").setValue(nickName)
+                   
+                   
                    
                     let confirm = UIAlertController(title: "Complete", message: "\(email) 회원가입이     완료되었습니다.", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default) {_ in
@@ -191,7 +200,7 @@ extension UIViewController{
 
 
 
-extension SignUpViewController: UIImagePickerControllerDelegate {
+extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func presentPhotoActionSheet() {
         let actionSheet = UIAlertController(title: "프로필 사진",
@@ -231,8 +240,35 @@ extension SignUpViewController: UIImagePickerControllerDelegate {
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
             return
         }
-        print(info)
-        self.imgProfilePicture.image = image
+        guard let imageData = image.pngData() else {
+            return
+        }
+        /*
+         /Desktop/file.png
+         */
+        storage.child("images/file.png").putData(imageData,
+                                                 metadata: nil,
+                                                 completion: {_, error in
+            guard error == nil else {
+                print("업로드 실패")
+                return
+            }
+            self.storage.child("images/file.png").downloadURL(completion: {url, error in
+                guard let url = url, error == nil else {
+                    return
+                }
+                let urlString = url.absoluteString
+                DispatchQueue.main.async {
+                    //self.label.text = urlString
+                    self.imgProfilePicture.image = image
+                }
+                print("Download URL: \(urlString)")
+                UserDefaults.standard.set(urlString, forKey: "url")
+            })
+        })
+        //upload image data
+        // get download url
+        //save download url to userDefaults
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

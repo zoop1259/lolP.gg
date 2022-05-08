@@ -24,6 +24,7 @@
 		C5A30C482772F38200B2D4D3 /* LoginDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A30C472772F38200B2D4D3 /* LoginDetailView.swift */; };
 		C5A30C4A2773154000B2D4D3 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A30C492773154000B2D4D3 /* SignUpViewController.swift */; };
 		C5C8110328109F680088CE74 /* Commu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C8110228109F680088CE74 /* Commu.swift */; };
+		C5D3C239282806F70003EE78 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3C238282806F70003EE78 /* StorageManager.swift */; };
 		D3F75B0D1DE4A7C5BF643333 /* Pods_lolP_gg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2700A6A4A80C689317EE4106 /* Pods_lolP_gg.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +52,7 @@
 		C5A30C472772F38200B2D4D3 /* LoginDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDetailView.swift; sourceTree = "<group>"; };
 		C5A30C492773154000B2D4D3 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C5C8110228109F680088CE74 /* Commu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commu.swift; sourceTree = "<group>"; };
+		C5D3C238282806F70003EE78 /* StorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 		C585CC1528279E67000629EE /* FirebaseManager */ = {
 			isa = PBXGroup;
 			children = (
+				C5D3C238282806F70003EE78 /* StorageManager.swift */,
 			);
 			path = FirebaseManager;
 			sourceTree = "<group>";
@@ -176,6 +179,8 @@
 			dependencies = (
 			);
 			name = lolP.gg;
+			packageProductDependencies = (
+			);
 			productName = lolP.gg;
 			productReference = C52177C427590FAA00E1BA62 /* lolP.gg.app */;
 			productType = "com.apple.product-type.application";
@@ -204,6 +209,8 @@
 				Base,
 			);
 			mainGroup = C52177BB27590FAA00E1BA62;
+			packageReferences = (
+			);
 			productRefGroup = C52177C527590FAA00E1BA62 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -277,6 +284,7 @@
 				C52178452768215F00E1BA62 /* ChampInfo.swift in Sources */,
 				C52177E22759101600E1BA62 /* CommuDetailViewController.swift in Sources */,
 				C5730C2527BAED5A00DF2520 /* CommuCreateViewController.swift in Sources */,
+				C5D3C239282806F70003EE78 /* StorageManager.swift in Sources */,
 				C52177CC27590FAA00E1BA62 /* ViewController.swift in Sources */,
 				C5C8110328109F680088CE74 /* Commu.swift in Sources */,
 				C597267D279544690048C7CA /* ChampSkillInfo.swift in Sources */,

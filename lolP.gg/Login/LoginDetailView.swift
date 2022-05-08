@@ -28,13 +28,8 @@ class LoginDetailView: UIViewController {
         // this value to authenticate with your backend server, if
         // you have one. Use User.getToken() instead.
         
-        //let ref = Firestore.firestore().collection("users").document()
+        //let ref = Firestore.firestore().collection("users")
     
-        let ref = Firestore.firestore().collection("users")
-        
-        
-        
-        print("ref는 : \(ref)")
         
         //로그인 확인.
         if let user = Auth.auth().currentUser {
