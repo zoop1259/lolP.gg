@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>사진 업로드를 위한 라이브러리권한입니다.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>사진 업로드를 위한 카메라권한입니다.</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -13,7 +9,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.893399852680-d207flb8qt7a0ekm0lr0v5g30paie1s5</string>
+				<string>com.googleusercontent.apps.869257979212-3j9cfmc1l9ukuo247gf41cre03putb0p</string>
 			</array>
 		</dict>
 		<dict>

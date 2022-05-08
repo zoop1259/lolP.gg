@@ -7,14 +7,10 @@
 
 import Foundation
 import FirebaseDatabase
-//import FirebaseStorage
 
 final class DatabaseManager {
-    
     static let shared = DatabaseManager()
     private let database = Database.database().reference()
-    //private let storage = Storage.storage().reference()
-    
 }
 
 //account management

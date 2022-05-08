@@ -81,18 +81,18 @@ class LoginPopupViewController: UIViewController {
           
           print("구글 로그인 \(user)")
           
-          guard let email = user?.profile?.email,
-                let nickName = user?.profile?.givenName else {
-                    return
-                }
-          
-          DatabaseManager.shared.insertUser(with: UserProfile(emailAddress: email,
-                                                              nickName: nickName), completion: { success in
-              if success {
-                  //upload image
-                  
-              }
-          })
+//          guard let email = user?.profile?.email,
+//                let nickName = user?.profile?.givenName else {
+//                    return
+//                }
+//
+//          DatabaseManager.shared.insertUser(with: UserProfile(emailAddress: email,
+//                                                              nickName: nickName), completion: { success in
+//              if success {
+//                  //upload image
+//
+//              }
+//          })
 
           guard let authentication = user?.authentication else { return }
           let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken!, accessToken:   authentication.accessToken)

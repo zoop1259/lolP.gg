@@ -36,7 +36,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UINavigationC
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //프로필사진 둥글게
+        //프로필 사진 ui설정
+        imgProfilePicture.contentMode = .scaleAspectFit
+        imgProfilePicture.image = UIImage(systemName: "person")
+        imgProfilePicture.tintColor = .gray
         imgProfilePicture.layer.masksToBounds = true
         imgProfilePicture.layer.cornerRadius = imgProfilePicture.frame.height/2
         imgProfilePicture.layer.borderWidth = 2
@@ -109,7 +112,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UINavigationC
                 return
             } else {
     
-                if let user = result?.user {
+               if let user = result?.user {
     
 //                      self.ref.child("users").setValue(["uid": user.uid,
 //                                                        "ninkname": userNickname])
@@ -119,12 +122,14 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UINavigationC
                         if success {
                             //upload image
                             guard let image = self.imgProfilePicture.image, let data = image.pngData() else {
+                                print("변환 오류")
                                 return
                             }
                             let filename = userprofile.profilePictureFileName
                             StorageManager.shared.uploadProfilePicture(with: data, fileName: filename, completion: { result in
                                 switch result {
                                 case .success(let downloadUrl):
+                                    UserDefaults.standard.set(downloadUrl, forKey: "profile_picture_url")
                                     print(downloadUrl)
                                 case .failure(let error):
                                     print("Storage 매니저 에러 : \(error)")
@@ -151,7 +156,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UINavigationC
             }
         }
     }
-    
 }
 
 //회원가입 에러핸들링.
@@ -249,6 +253,7 @@ extension SignUpViewController: UIImagePickerControllerDelegate {
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
             return
         }
+        print(info)
         self.imgProfilePicture.image = image
     }
     

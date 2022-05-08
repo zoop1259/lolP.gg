@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>893399852680-d207flb8qt7a0ekm0lr0v5g30paie1s5.apps.googleusercontent.com</string>
+	<string>869257979212-3j9cfmc1l9ukuo247gf41cre03putb0p.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.893399852680-d207flb8qt7a0ekm0lr0v5g30paie1s5</string>
+	<string>com.googleusercontent.apps.869257979212-3j9cfmc1l9ukuo247gf41cre03putb0p</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDd3Hw6pTa8Sm2WjasDRHtUYV2XjxO-D5U</string>
+	<string>AIzaSyB5VIfxXPACZdkA_1oHoGwuPuUvigzJLlE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>893399852680</string>
+	<string>869257979212</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>my.macPc.lolP-gg</string>
 	<key>PROJECT_ID</key>
-	<string>my-project-4ad5a</string>
+	<string>lolpgg-d37ed</string>
 	<key>STORAGE_BUCKET</key>
-	<string>my-project-4ad5a.appspot.com</string>
+	<string>lolpgg-d37ed.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:893399852680:ios:c9650670fd8ad6a37b613d</string>
+	<string>1:869257979212:ios:e957ee6c1adb6dd7bbdbe9</string>
 </dict>
 </plist>
