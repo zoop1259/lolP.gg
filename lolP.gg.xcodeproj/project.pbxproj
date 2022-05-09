@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8EF08E0E04E0A7CF43C6A0D3 /* Pods_lolP_gg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B3D1DBBEE426B744C043FE6 /* Pods_lolP_gg.framework */; };
+		6E70A01CA01C25EB7D4157C4 /* Pods_lolP_gg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB41DC524ACDE1404DAEC41 /* Pods_lolP_gg.framework */; };
 		C52177C827590FAA00E1BA62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177C727590FAA00E1BA62 /* AppDelegate.swift */; };
 		C52177CA27590FAA00E1BA62 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177C927590FAA00E1BA62 /* SceneDelegate.swift */; };
 		C52177CC27590FAA00E1BA62 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177CB27590FAA00E1BA62 /* ViewController.swift */; };
@@ -29,8 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0B3D1DBBEE426B744C043FE6 /* Pods_lolP_gg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lolP_gg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		538D7E84A2FCFEE6429B8662 /* Pods-lolP.gg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lolP.gg.debug.xcconfig"; path = "Target Support Files/Pods-lolP.gg/Pods-lolP.gg.debug.xcconfig"; sourceTree = "<group>"; };
+		129FA7CD3FED30DE909476C0 /* Pods-lolP.gg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lolP.gg.release.xcconfig"; path = "Target Support Files/Pods-lolP.gg/Pods-lolP.gg.release.xcconfig"; sourceTree = "<group>"; };
+		1EB41DC524ACDE1404DAEC41 /* Pods_lolP_gg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lolP_gg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C52177C427590FAA00E1BA62 /* lolP.gg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lolP.gg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C52177C727590FAA00E1BA62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C52177C927590FAA00E1BA62 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,7 +52,7 @@
 		C5A30C492773154000B2D4D3 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C5C8110228109F680088CE74 /* Commu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commu.swift; sourceTree = "<group>"; };
 		C5D3C26928291AE80003EE78 /* ReadCommu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadCommu.swift; sourceTree = "<group>"; };
-		F7D7E4ADEA4993392318DAE0 /* Pods-lolP.gg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lolP.gg.release.xcconfig"; path = "Target Support Files/Pods-lolP.gg/Pods-lolP.gg.release.xcconfig"; sourceTree = "<group>"; };
+		D65494B6522040107DA0E945 /* Pods-lolP.gg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lolP.gg.debug.xcconfig"; path = "Target Support Files/Pods-lolP.gg/Pods-lolP.gg.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8EF08E0E04E0A7CF43C6A0D3 /* Pods_lolP_gg.framework in Frameworks */,
+				6E70A01CA01C25EB7D4157C4 /* Pods_lolP_gg.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,16 +70,16 @@
 		253D1FCC20384558228C7876 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				538D7E84A2FCFEE6429B8662 /* Pods-lolP.gg.debug.xcconfig */,
-				F7D7E4ADEA4993392318DAE0 /* Pods-lolP.gg.release.xcconfig */,
+				D65494B6522040107DA0E945 /* Pods-lolP.gg.debug.xcconfig */,
+				129FA7CD3FED30DE909476C0 /* Pods-lolP.gg.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		8449AE88F41389BCEE7E048F /* Frameworks */ = {
+		903463C748C35CC078260366 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0B3D1DBBEE426B744C043FE6 /* Pods_lolP_gg.framework */,
+				1EB41DC524ACDE1404DAEC41 /* Pods_lolP_gg.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -90,7 +90,7 @@
 				C52177C627590FAA00E1BA62 /* lolP.gg */,
 				C52177C527590FAA00E1BA62 /* Products */,
 				253D1FCC20384558228C7876 /* Pods */,
-				8449AE88F41389BCEE7E048F /* Frameworks */,
+				903463C748C35CC078260366 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -168,11 +168,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C52177D827590FAC00E1BA62 /* Build configuration list for PBXNativeTarget "lolP.gg" */;
 			buildPhases = (
-				71BD1F16E3A3158E9937FF03 /* [CP] Check Pods Manifest.lock */,
+				A1C3F8F4AB0A3E2CB410383D /* [CP] Check Pods Manifest.lock */,
 				C52177C027590FAA00E1BA62 /* Sources */,
 				C52177C127590FAA00E1BA62 /* Frameworks */,
 				C52177C227590FAA00E1BA62 /* Resources */,
-				C88ACA208824E1E9D3401DE1 /* [CP] Embed Pods Frameworks */,
+				195B9F7B77E6B72243C33C2B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -231,7 +231,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		71BD1F16E3A3158E9937FF03 /* [CP] Check Pods Manifest.lock */ = {
+		195B9F7B77E6B72243C33C2B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lolP.gg/Pods-lolP.gg-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lolP.gg/Pods-lolP.gg-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lolP.gg/Pods-lolP.gg-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A1C3F8F4AB0A3E2CB410383D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -251,23 +268,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C88ACA208824E1E9D3401DE1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lolP.gg/Pods-lolP.gg-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lolP.gg/Pods-lolP.gg-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lolP.gg/Pods-lolP.gg-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -434,7 +434,7 @@
 		};
 		C52177D927590FAC00E1BA62 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 538D7E84A2FCFEE6429B8662 /* Pods-lolP.gg.debug.xcconfig */;
+			baseConfigurationReference = D65494B6522040107DA0E945 /* Pods-lolP.gg.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -467,7 +467,7 @@
 		};
 		C52177DA27590FAC00E1BA62 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F7D7E4ADEA4993392318DAE0 /* Pods-lolP.gg.release.xcconfig */;
+			baseConfigurationReference = 129FA7CD3FED30DE909476C0 /* Pods-lolP.gg.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
