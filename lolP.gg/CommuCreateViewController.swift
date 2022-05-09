@@ -44,24 +44,24 @@ class CommuCreateViewController : UIViewController {
                                       "uid" : user.uid])
         
         ref.child("board").observeSingleEvent(of: .value) { snapshot in
-            //print("--> \(snapshot.value)")
-            self.ref.child("board").getData {(error, snapshot) in
-                if let error = error {
-                    print("Error getting data \(error)")
-                }
-                else if snapshot.exists() {
-                    guard let value = snapshot.value else {return}
-                    do {
-                        let userComment = try FirebaseDecoder().decode(Board.self, from: value)
-                        print(userComment)
-                    } catch let err {
-                        print (err)
-                    }
-                }
-                else {
-                    print("No data available")
-                }
-            }
+            print("--> \(snapshot.value)")
+//            self.ref.child("board").getData {(error, snapshot) in
+//                if let error = error {
+//                    print("Error getting data \(error)")
+//                }
+//                else if snapshot.exists() {
+//                    guard let value = snapshot.value else {return}
+//                    do {
+//                        let userComment = try FirebaseDecoder().decode(Board.self, from: value)
+//                        print(userComment)
+//                    } catch let err {
+//                        print (err)
+//                    }
+//                }
+//                else {
+//                    print("No data available")
+//                }
+//            }
         }
         
        //ref.child("board/\(self.titleLabel.text))/detail").setValue(["text" : self.textLabel.text,
