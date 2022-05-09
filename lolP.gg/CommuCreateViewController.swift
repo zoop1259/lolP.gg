@@ -39,6 +39,10 @@ class CommuCreateViewController : UIViewController {
                                       "recordTime" : ServerValue.timestamp(),
                                       "uid" : user.uid])
         
+        ref.child(keyValue).observeSingleEvent(of: .value) { snapshot in
+            print("--> \(snapshot.value)")
+        }
+        
        //ref.child("board/\(self.titleLabel.text))/detail").setValue(["text" : self.textLabel.text,
          //                                                            "recordTime" : ServerValue.timestamp()])
 

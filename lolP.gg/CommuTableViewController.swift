@@ -15,6 +15,9 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
     var ref: DatabaseReference!
     var titleList = [String]()
     
+    var paramTitle: String?
+    var paramNickname: String?
+    var param: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +37,8 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    
+    
     //로그인이 되었는지 확인하고 로그인이 되었으면 글쓰기 화면으로.
     @IBAction func tapWriteBtn(_ sender: UIButton) {
         if Auth.auth().currentUser != nil {
@@ -100,7 +104,7 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
         //이동! = 얘는 이동을 수동으로 시켜줘야함.
         show(viewController, sender: nil)
     }
-
+    
 }
 
 class CommunityCell: UITableViewCell {
@@ -109,5 +113,5 @@ class CommunityCell: UITableViewCell {
     @IBOutlet var userLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var commentLabel: UILabel!
-    
+        
 }
