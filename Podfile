@@ -14,6 +14,7 @@ target 'lolP.gg' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Messaging'
   pod 'Toast-Swift', '~> 5.0.1'
+  pod 'FirebaseFirestoreSwift', '8.3.0-beta'
 
   # add the Firebase pod for Google Analytics
   # or pod ‘Firebase/AnalyticsWithoutAdIdSupport’

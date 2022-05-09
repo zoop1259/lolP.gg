@@ -7,16 +7,20 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
 
 class CommuTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-   
     
-    let titleList = ["안녕", "오늘","정말","좋은","하루","야","그렇지","?","^^"]
+    var ref: DatabaseReference!
+    var titleList = [String]()
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref = Database.database().reference()
+        
+        boardObserver()
         //셀의 높이를 정하자, 오토매틱디멘션을 쓰면 알아서 정해줌.
 //        self.commuTableView.rowHeight = UITableView.automaticDimension
         
@@ -57,6 +61,17 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
 //        }
     }
 
+    func boardObserver() {
+        ref.child("board").observe(.childChanged) { (snapshot) in
+            if let value = snapshot.value as? String {
+                print("Message : \(value)")
+                self.titleList.append(value)
+            }
+            print("첫번쨰 타이틀리스트 : \(self.titleList)")
+        }
+        print(self.titleList)
+    }
+    
     // MARK: - Table view data source
 
 //    override func numberOfSections(in tableView: UITableView) -> Int {
@@ -72,10 +87,8 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
             return UITableViewCell()
         }
         
+        //cell.titleLabel.text = titleList[indexPath.row]
         cell.titleLabel.text = titleList[indexPath.row]
-        
-        // Configure the cell...
-
         return cell
     }
     

@@ -419,6 +419,8 @@ PODS:
     - "gRPC-C++ (~> 1.28.0)"
     - leveldb-library (~> 1.22)
     - nanopb (~> 2.30908.0)
+  - FirebaseFirestoreSwift (8.3.0-beta):
+    - FirebaseFirestore (~> 8.0)
   - FirebaseInstallations (8.10.0):
     - FirebaseCore (~> 8.0)
     - GoogleUtilities/Environment (~> 7.6)
@@ -528,6 +530,7 @@ DEPENDENCIES:
   - Firebase/Firestore
   - Firebase/Messaging
   - Firebase/Storage
+  - FirebaseFirestoreSwift (= 8.3.0-beta)
   - GoogleSignIn
   - Toast-Swift (~> 5.0.1)
 
@@ -543,6 +546,7 @@ SPEC REPOS:
     - FirebaseCoreDiagnostics
     - FirebaseDatabase
     - FirebaseFirestore
+    - FirebaseFirestoreSwift
     - FirebaseInstallations
     - FirebaseMessaging
     - FirebaseStorage
@@ -570,6 +574,7 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnostics: 56fb7216d87e0e6ec2feddefa9d8a392fe8b2c18
   FirebaseDatabase: 5f3e83b0a0d8759378fbd5d05661244d14dfbbb0
   FirebaseFirestore: 0e7321a508cc9de54316ec45400caba6b5719beb
+  FirebaseFirestoreSwift: 6434b5b8dde96977cfc5e409dba46141783cefbf
   FirebaseInstallations: 830327b45345ffc859eaa9c17bcd5ae893fd5425
   FirebaseMessaging: b0aeba17332ee1ee610662b4d1e02a86db82f08f
   FirebaseStorage: 815410224b548172c578f02554a86bbc8f817f50
@@ -586,6 +591,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: f919902470202022f18b81beb16e90f9af395861
+PODFILE CHECKSUM: ac61c73a59f093f49e9f660198a90760afa7f18f
 
 COCOAPODS: 1.11.2

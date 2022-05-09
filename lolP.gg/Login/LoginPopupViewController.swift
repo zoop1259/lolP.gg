@@ -12,11 +12,13 @@ import GoogleSignIn
 import Firebase
 import FirebaseAuth
 import CryptoKit
+import FirebaseDatabase
 
 @available(iOS 13.0,*) //IOS13이상 가능하기 떄문에 사용해야 한다.
 class LoginPopupViewController: UIViewController {
     
     let db = Firestore.firestore()
+    let ref: DatabaseReference! = Database.database().reference()
     
     @IBOutlet var popup: UIView!
     @IBOutlet var loginBtn: UIButton!
@@ -86,7 +88,11 @@ class LoginPopupViewController: UIViewController {
                     return
                 }
 
-          self.db.collection("users").document(email).setData(["nickName" : nickName])
+          let pic = user?.profile?.imageURL(withDimension: 150)
+          print("구글이미지 url : \(pic)")
+          
+          //self.db.collection("users").document(email).setData(["nickName" : nickName])
+          //self.ref.child("users/\(user.uid)/nickName").setValue(nickName)
 
           guard let authentication = user?.authentication else { return }
           let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken!, accessToken:   authentication.accessToken)
@@ -95,6 +101,7 @@ class LoginPopupViewController: UIViewController {
           Auth.auth().signIn(with: credential) {_,_ in
               // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
               print("로그인 됨")
+              
               self.showDetailViewController()
             }
         }

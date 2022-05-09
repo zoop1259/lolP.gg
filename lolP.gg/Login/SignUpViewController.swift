@@ -10,13 +10,12 @@ import Firebase
 import FirebaseDatabase //db
 import FirebaseAuth //인증
 import Toast_Swift //인스턴스메세지
-import FirebaseFirestore //cloud저장소
+import FirebaseCore
 import FirebaseStorage //이미지 저장소
 
 class SignUpViewController: UIViewController, UITextFieldDelegate {
 
     let ref: DatabaseReference! = Database.database().reference() //리얼타임db 레퍼런스 초기화
-    let db = Firestore.firestore()
     let storage = Storage.storage().reference() //스토리지 레퍼런스 초기화
     
     public typealias UploadPictureCompletion = (Result<String, Error>) -> Void
@@ -114,16 +113,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             } else {
     
                if let user = result?.user {
-    
-                   //firestore방법
-                   //self.db.collection("users").document(email).setData(["nickName" : nickName])
                    
                    //실시간db 이렇게하면 데이터가 덮어써짐;;;
 //                      self.ref.child("users").setValue(["uid": user.uid,
 //                                                        "ninkname": nickName])
                    self.ref.child("users/\(user.uid)/nickName").setValue(nickName)
-                   
-                   
+                   //self.ref.child(\(user.uid)).setValue([])
                    
                     let confirm = UIAlertController(title: "Complete", message: "\(email) 회원가입이     완료되었습니다.", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default) {_ in

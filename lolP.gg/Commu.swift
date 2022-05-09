@@ -14,7 +14,7 @@ enum SettingSection {
 }
 
 struct Board {
-    var uuidString: String //고유한 uuid를 생성.
+    var uuidString: String //고유한 uuid를 생성. 근데 이방식은 다른아이디로 로그인해도 똑같음..
     var title: String //제목
     var contents: String //내용
     var date: Date //날짜
