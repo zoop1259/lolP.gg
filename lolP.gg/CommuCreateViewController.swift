@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseAuth
 
 class CommuCreateViewController : UIViewController {
     
@@ -18,6 +19,7 @@ class CommuCreateViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
+        
     }
     
     
@@ -27,19 +29,18 @@ class CommuCreateViewController : UIViewController {
         //ref.child("board").setValue(["title" : self.titleLabel.text,
         //                            "text" : self.textLabel.text])
         
+        guard let user = Auth.auth().currentUser else { return }
 //        guard let key = REF.child("board").childByAutoId().key else { return }
         
         guard let keyValue = ref.child("board").childByAutoId().key else { return }
         
         ref.child(keyValue).setValue(["title" : self.titleLabel.text,
                                       "text" : self.textLabel.text,
-                                      "recordTime" : ServerValue.timestamp()])
+                                      "recordTime" : ServerValue.timestamp(),
+                                      "uid" : user.uid])
         
        //ref.child("board/\(self.titleLabel.text))/detail").setValue(["text" : self.textLabel.text,
          //                                                            "recordTime" : ServerValue.timestamp()])
-        
-        
-        ref.child("board/")
 
     }
 }
