@@ -15,8 +15,6 @@ import FirebaseStorage
 
 class LoginDetailView: UIViewController {
     
-    let db = Firestore.firestore()
-    
     @IBOutlet var userId: UILabel!
     @IBOutlet var userName: UILabel!
     @IBOutlet var userEmail: UILabel!

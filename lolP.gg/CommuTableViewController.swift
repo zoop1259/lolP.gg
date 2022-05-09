@@ -18,7 +18,8 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
     var paramTitle: String?
     var paramNickname: String?
     var param: Int?
-
+    var paramKeyValue: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
@@ -36,6 +37,12 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        ref.child("board").observeSingleEvent(of: .value) { snapshot in
+            print("--> \(snapshot.value)")
+        }
     }
     
     

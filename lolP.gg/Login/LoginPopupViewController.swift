@@ -17,7 +17,6 @@ import FirebaseDatabase
 @available(iOS 13.0,*) //IOS13이상 가능하기 떄문에 사용해야 한다.
 class LoginPopupViewController: UIViewController {
     
-    let db = Firestore.firestore()
     let ref: DatabaseReference! = Database.database().reference()
     
     @IBOutlet var popup: UIView!
