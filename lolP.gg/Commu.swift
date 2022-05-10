@@ -20,6 +20,15 @@ struct Board:Codable {
     let recordTime: Int
 }
 
+struct DetailBoard:Codable {
+    let title: String
+    let nickName: String
+    let text: String
+    let uid: String
+    let writeDate: String
+    let recordTime: Int
+}
+
 struct FBUser:Codable {
     let nickName: String
 }
