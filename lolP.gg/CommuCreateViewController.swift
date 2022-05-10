@@ -29,13 +29,11 @@ class CommuCreateViewController : UIViewController {
         //로그인정보부터 불러오기.
         guard let user = Auth.auth().currentUser else { return }
         
+        //작성날짜 구하기 위해서.
         let formatter = DateFormatter()
         formatter.dateFormat = "yy-MM-dd"
         let writedateString = formatter.string(from: Date())
         print(writedateString)
-        
-        
-//        guard let key = REF.child("board").childByAutoId().key else { return }
         
         //board다음에 autoid를 넣는것.
         guard let keyValue = ref.child("board").childByAutoId().key else { return }
@@ -69,7 +67,7 @@ class CommuCreateViewController : UIViewController {
                 print("유저닉 에러 \(error.localizedDescription)")
             }
             
-            //데이터 저장.
+            //데이터 저장. 별명이없는자는 일단 apple로그인 때문.
             self.ref.child("board").child(keyValue).setValue(["title" : self.titleLabel.text as Any,
                                           "text" : self.textLabel.text as Any,
                                           "recordTime" : ServerValue.timestamp(),
@@ -77,7 +75,7 @@ class CommuCreateViewController : UIViewController {
                                           "nickName" : self.fbusernickName
                                                        ?? "별명이없는자",
                                         "writeDate" : writedateString
-                                                    //우선 apple로그인때문
+                                                   
                                                         ])
         }
     }

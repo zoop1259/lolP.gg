@@ -25,7 +25,6 @@
 		C5A30C482772F38200B2D4D3 /* LoginDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A30C472772F38200B2D4D3 /* LoginDetailView.swift */; };
 		C5A30C4A2773154000B2D4D3 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A30C492773154000B2D4D3 /* SignUpViewController.swift */; };
 		C5C8110328109F680088CE74 /* Commu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C8110228109F680088CE74 /* Commu.swift */; };
-		C5D3C26A28291AE80003EE78 /* ReadCommu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3C26928291AE80003EE78 /* ReadCommu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,7 +50,6 @@
 		C5A30C472772F38200B2D4D3 /* LoginDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDetailView.swift; sourceTree = "<group>"; };
 		C5A30C492773154000B2D4D3 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C5C8110228109F680088CE74 /* Commu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commu.swift; sourceTree = "<group>"; };
-		C5D3C26928291AE80003EE78 /* ReadCommu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadCommu.swift; sourceTree = "<group>"; };
 		D65494B6522040107DA0E945 /* Pods-lolP.gg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lolP.gg.debug.xcconfig"; path = "Target Support Files/Pods-lolP.gg/Pods-lolP.gg.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,11 +115,10 @@
 				C52177CD27590FAA00E1BA62 /* Main.storyboard */,
 				C52177C727590FAA00E1BA62 /* AppDelegate.swift */,
 				C52177C927590FAA00E1BA62 /* SceneDelegate.swift */,
-				C52177DD2759101600E1BA62 /* CommuTableViewController.swift */,
-				C5D3C26928291AE80003EE78 /* ReadCommu.swift */,
 				C5C8110228109F680088CE74 /* Commu.swift */,
-				C5730C2427BAED5A00DF2520 /* CommuCreateViewController.swift */,
+				C52177DD2759101600E1BA62 /* CommuTableViewController.swift */,
 				C52177DF2759101600E1BA62 /* CommuDetailViewController.swift */,
+				C5730C2427BAED5A00DF2520 /* CommuCreateViewController.swift */,
 			);
 			path = lolP.gg;
 			sourceTree = "<group>";
@@ -288,7 +285,6 @@
 				C52177E02759101600E1BA62 /* CommuTableViewController.swift in Sources */,
 				C5A30C4A2773154000B2D4D3 /* SignUpViewController.swift in Sources */,
 				C52177CA27590FAA00E1BA62 /* SceneDelegate.swift in Sources */,
-				C5D3C26A28291AE80003EE78 /* ReadCommu.swift in Sources */,
 				C5A30C482772F38200B2D4D3 /* LoginDetailView.swift in Sources */,
 				C597267B278C8EFA0048C7CA /* ChampDetailView.swift in Sources */,
 			);

@@ -6,23 +6,20 @@
 //
 
 import UIKit
+import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
 class CommuTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet weak var commuTableView: UITableView!
     
-    var ref: DatabaseReference!
+    var ref = Database.database().reference()
     var titleList = [String]()
-    
-    var paramTitle: String?
-    var paramNickname: String?
-    var param: Int?
-    var paramKeyValue: String?
+    var boardList: [Board] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ref = Database.database().reference()
         //셀의 높이를 정하자, 오토매틱디멘션을 쓰면 알아서 정해줌.
 //        self.commuTableView.rowHeight = UITableView.automaticDimension
         
@@ -39,7 +36,7 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewWillAppear(_ animated: Bool) {
         ref.child("board").observeSingleEvent(of: .value) { snapshot in
-            print("--> \(snapshot.value)")
+            self.getBoardData()
         }
     }
     
@@ -78,15 +75,18 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
 //    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return titleList.count
+        return boardList.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "communityCell", for: indexPath) as? CommunityCell else {
             return UITableViewCell()
         }
+        cell.titleLabel.text = boardList[indexPath.row].title
+        cell.dateLabel.text = boardList[indexPath.row].writeDate
+        cell.userLabel.text = boardList[indexPath.row].nickName
         
-        //cell.titleLabel.text = titleList[indexPath.row]
-        cell.titleLabel.text = titleList[indexPath.row]
+        //cell.commentLabel //댓글수 라벨 추후에...
+        
         return cell
     }
     
@@ -100,29 +100,26 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     //게시글 가져오기.
-//    func getBoardData() {
-//        ref.child("board").observeSingleEvent(of: .value) { snapshot in
-//            guard let userData = snapshot.value as? [String:Any] else { return }
-//
-//            let userdata = try! JSONSerialization.data(withJSONObject: Array(userData.values), options: [])
-//
-//            do {
-//                let decoder = JSONDecoder()
-//                let usingData = try decoder.decode([FBUser].self, from: userdata)
-//                self.fbuser = usingData
-//                print("저장된 FBUser: \(self.fbuser)")
-//
-//                for i in usingData {
-//                    self.fbusernickName = i.nickName
-//                    print("이름이 이상해...\(self.fbusernickName)")
-//                }
-//
-//            } catch let error {
-//                print("유저닉 에러 \(error.localizedDescription)")
-//            }
-//
-//    }
-    
+    func getBoardData() {
+        ref.child("board").observeSingleEvent(of: .value) { snapshot in
+            guard let value = snapshot.value as? [String:Any] else { return }
+            
+            let boarddata = try! JSONSerialization.data(withJSONObject: Array(value.values), options: [])
+
+            print("게시글 데이타 ---> \(value.values)")
+
+            do {
+                let decoder = JSONDecoder()
+                let usingBoardData = try decoder.decode([Board].self, from: boarddata)
+                self.boardList = usingBoardData
+                DispatchQueue.main.async {
+                    self.commuTableView.reloadData()
+                }
+            } catch let error {
+                print("게시글 로드 에러 : \(error.localizedDescription)")
+            }
+        }
+    }
 }
 
 class CommunityCell: UITableViewCell {
