@@ -23,8 +23,6 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
-        
-        boardObserver()
         //셀의 높이를 정하자, 오토매틱디멘션을 쓰면 알아서 정해줌.
 //        self.commuTableView.rowHeight = UITableView.automaticDimension
         
@@ -70,17 +68,6 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
 //        self.dismiss(animated: true) {
 //            pvc.present(DetailViewController, animated: true, completion: nil)
 //        }
-    }
-
-    func boardObserver() {
-        ref.child("board").observe(.childChanged) { (snapshot) in
-            if let value = snapshot.value as? String {
-                print("Message : \(value)")
-                self.titleList.append(value)
-            }
-            print("첫번쨰 타이틀리스트 : \(self.titleList)")
-        }
-        print(self.titleList)
     }
     
     // MARK: - Table view data source

@@ -52,14 +52,11 @@ class CommuCreateViewController : UIViewController {
             
             do {
                 let decoder = JSONDecoder()
-                let asdasd = try decoder.decode([FBUser].self, from: userdata)
-                self.fbuser = asdasd
+                let usingData = try decoder.decode([FBUser].self, from: userdata)
+                self.fbuser = usingData
                 print("저장된 FBUser: \(self.fbuser)")
 
-                
-                
-                //옵셔널 값이구나..
-                for i in asdasd {
+                for i in usingData {
                     self.fbusernickName = i.nickName
                     print("이름이 이상해...\(self.fbusernickName)")
                 }
@@ -73,7 +70,9 @@ class CommuCreateViewController : UIViewController {
                                           "text" : self.textLabel.text as Any,
                                           "recordTime" : ServerValue.timestamp(),
                                           "uid" : user.uid,
-                                    "nickName" : self.fbusernickName ?? "별명이없는자"
+                                          "nickName" : self.fbusernickName
+                                                       ?? "별명이없는자"
+                                                    //우선 apple로그인때문
                                                         ])
         }
         
