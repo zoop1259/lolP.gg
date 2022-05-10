@@ -99,6 +99,30 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
         show(viewController, sender: nil)
     }
     
+    //게시글 가져오기.
+//    func getBoardData() {
+//        ref.child("board").observeSingleEvent(of: .value) { snapshot in
+//            guard let userData = snapshot.value as? [String:Any] else { return }
+//
+//            let userdata = try! JSONSerialization.data(withJSONObject: Array(userData.values), options: [])
+//
+//            do {
+//                let decoder = JSONDecoder()
+//                let usingData = try decoder.decode([FBUser].self, from: userdata)
+//                self.fbuser = usingData
+//                print("저장된 FBUser: \(self.fbuser)")
+//
+//                for i in usingData {
+//                    self.fbusernickName = i.nickName
+//                    print("이름이 이상해...\(self.fbusernickName)")
+//                }
+//
+//            } catch let error {
+//                print("유저닉 에러 \(error.localizedDescription)")
+//            }
+//
+//    }
+    
 }
 
 class CommunityCell: UITableViewCell {
