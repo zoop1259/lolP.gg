@@ -16,6 +16,11 @@ struct Board:Codable {
     
 }
 
+struct FBUser:Codable {
+    
+    let nickName: String
+    
+}
 
 
 //
