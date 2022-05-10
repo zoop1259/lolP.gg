@@ -632,6 +632,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="커뮤니티" id="ZN8-jT-lXW"/>
                     <connections>
+                        <outlet property="detailtableView" destination="obE-3I-Pfn" id="d3C-B5-9H7"/>
                         <outlet property="detailtitleLabel" destination="vv7-XM-shA" id="egi-dy-qYV"/>
                     </connections>
                 </viewController>

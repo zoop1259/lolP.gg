@@ -17,6 +17,9 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
     var ref = Database.database().reference()
     var titleList = [String]()
     var boardList: [Board] = []
+    var autoidList: [FBAutoid] = []
+    
+    var testarr = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +39,7 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewWillAppear(_ animated: Bool) {
         ref.child("board").observeSingleEvent(of: .value) { snapshot in
+            //self.getAutoId()
             self.getBoardData()
         }
     }
@@ -84,18 +88,17 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
         cell.titleLabel.text = boardList[indexPath.row].title
         cell.dateLabel.text = boardList[indexPath.row].writeDate
         cell.userLabel.text = boardList[indexPath.row].nickName
-        
-        //cell.commentLabel //댓글수 라벨 추후에...
+        //cell.commentLabel //댓글수라벨은 추후에...
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let viewController = self.storyboard?.instantiateViewController(identifier: "CommuDetailViewController") as? CommuDetailViewController else { return }
-        
-        viewController.detailTitle = titleList[indexPath.row]
-        
         //이동! = 얘는 이동을 수동으로 시켜줘야함.
+        viewController.commuKey = self.testarr
+        
+        
         show(viewController, sender: nil)
     }
     
@@ -104,10 +107,13 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
         ref.child("board").observeSingleEvent(of: .value) { snapshot in
             guard let value = snapshot.value as? [String:Any] else { return }
             
+            for i in value.keys {
+                self.testarr = i
+            }
+            print(self.testarr)
+            
             let boarddata = try! JSONSerialization.data(withJSONObject: Array(value.values), options: [])
-
-            print("게시글 데이타 ---> \(value.values)")
-
+            //print("게시글 데이터 ---> \(value.values)")
             do {
                 let decoder = JSONDecoder()
                 let usingBoardData = try decoder.decode([Board].self, from: boarddata)
@@ -121,6 +127,7 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
 }
+
 
 class CommunityCell: UITableViewCell {
     

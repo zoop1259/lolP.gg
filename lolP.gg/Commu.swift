@@ -7,15 +7,17 @@
 
 import Foundation
 
+struct FBAutoid:Codable {
+    let fbautoid: String
+}
+
 struct Board:Codable {
-    
     let title: String
     let nickName: String
     let text: String
     let uid: String
     let writeDate: String
     let recordTime: Int
-    
 }
 
 struct FBUser:Codable {
