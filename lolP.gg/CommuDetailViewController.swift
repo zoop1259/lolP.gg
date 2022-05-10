@@ -21,11 +21,13 @@ class CommuDetailViewController : UIViewController, UITableViewDataSource, UITab
     //게시글 key값 받아오자.
     var commuKey : String?
     
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         getDetailBoard()
     }
     
+    // MARK: - 게시글 받아오기
     func getDetailBoard() {
         
         //키값으로 게시글 찾기.
@@ -51,7 +53,7 @@ class CommuDetailViewController : UIViewController, UITableViewDataSource, UITab
         }
     }
     
-    //테이블뷰 설정
+    // MARK: - 테이블뷰 설정
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
@@ -67,7 +69,8 @@ class CommuDetailViewController : UIViewController, UITableViewDataSource, UITab
     
 }
 
-//이건 디테일셀
+
+// MARK: - 셀 클래스들
 class DetailCommuCell: UITableViewCell {
     @IBOutlet weak var detailtitleLabel: UILabel!
     @IBOutlet weak var detailnickName: UILabel!
