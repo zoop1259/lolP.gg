@@ -95,8 +95,10 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
     
     //게시글 가져오기.
     func getBoardData() {
-        ref.child("board").observeSingleEvent(of: .value) { snapshot in
+        ref.child("board").child("create").observeSingleEvent(of: .value) { snapshot in
             guard let value = snapshot.value as? [String:Any] else { return }
+            
+            
             
             for snapshotkey in value.keys {
                 self.testarr = snapshotkey
