@@ -31,13 +31,12 @@ class CommuDetailViewController : UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         detailcommutableView.dataSource = self
+        detailcommutableView.delegate = self
         
         detailcommutableView.estimatedRowHeight = 100.0
         detailcommutableView.rowHeight = UITableView.automaticDimension
         
         //getDetailBoard() //댓글 받아올 것.
-        
-
         
     }
     
@@ -87,9 +86,16 @@ class CommuDetailViewController : UIViewController, UITableViewDataSource, UITab
         return cell
     }
     
+    //섹션 수
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+    
+    //셀 오토사이징
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
+    
     
     
 }
@@ -107,4 +113,6 @@ class DetailCommuCell: UITableViewCell {
 
 class DetailCommentCell: UITableViewCell {
     @IBOutlet weak var detailcommentLabel: UILabel!
+    @IBOutlet weak var detailcommentnickNameLabel: UILabel!
+    @IBOutlet weak var detailcommentdateLabel: UILabel!
 }
