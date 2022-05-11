@@ -96,7 +96,12 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
         guard let viewController = self.storyboard?.instantiateViewController(identifier: "CommuDetailViewController") as? CommuDetailViewController else { return }
         //이동! = 얘는 이동을 수동으로 시켜줘야함.
         viewController.commuKey = self.testarr
+        print("커뮤디테일에 보낼 값 : \(self.testarr)")
         
+        viewController.detailtitle = boardList[indexPath.row].title
+        viewController.detailtext = boardList[indexPath.row].text
+        viewController.detailwriteDate = boardList[indexPath.row].writeDate
+        viewController.detailnickName = boardList[indexPath.row].nickName
         
         show(viewController, sender: nil)
     }

@@ -26,6 +26,7 @@ class CommuCreateViewController : UIViewController {
     }
     
     @IBAction func addBtn(_ sender: Any) {
+        
         //로그인정보부터 불러오기.
         guard let user = Auth.auth().currentUser else { return }
         
@@ -78,5 +79,8 @@ class CommuCreateViewController : UIViewController {
                                                    
                                                         ])
         }
+        //push형식으로 뷰컨트롤러를 띄운다면 pop으로 바꾸어 dismiss해야한다.
+        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
 }

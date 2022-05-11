@@ -24,9 +24,9 @@ struct DetailBoard:Codable {
     let title: String
     let nickName: String
     let text: String
-    let uid: String
+    //let uid: String
     let writeDate: String
-    let recordTime: Int
+    //let recordTime: Int
 }
 
 struct FBUser:Codable {

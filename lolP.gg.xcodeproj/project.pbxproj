@@ -117,8 +117,8 @@
 				C52177C927590FAA00E1BA62 /* SceneDelegate.swift */,
 				C5C8110228109F680088CE74 /* Commu.swift */,
 				C52177DF2759101600E1BA62 /* CommuDetailViewController.swift */,
-				C52177DD2759101600E1BA62 /* CommuTableViewController.swift */,
 				C5730C2427BAED5A00DF2520 /* CommuCreateViewController.swift */,
+				C52177DD2759101600E1BA62 /* CommuTableViewController.swift */,
 			);
 			path = lolP.gg;
 			sourceTree = "<group>";
