@@ -18,23 +18,10 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
     var titleList = [String]()
     var boardList: [Board] = []
     var autoidList: [FBAutoid] = []
-    
-    var testarr = String()
+    var testarr = String() //키 값을 확인하기 string
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //셀의 높이를 정하자, 오토매틱디멘션을 쓰면 알아서 정해줌.
-//        self.commuTableView.rowHeight = UITableView.automaticDimension
-        
-        //디멘션만 걸어도 되는데 높이를 예측해보기 위한 코드
-//        self.commuTableView.estimatedRowHeight = 120
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,10 +98,9 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
         ref.child("board").observeSingleEvent(of: .value) { snapshot in
             guard let value = snapshot.value as? [String:Any] else { return }
             
-            for i in value.keys {
-                self.testarr = i
+            for snapshotkey in value.keys {
+                self.testarr = snapshotkey
             }
-            print(self.testarr)
             
             let boarddata = try! JSONSerialization.data(withJSONObject: Array(value.values), options: [])
             //print("게시글 데이터 ---> \(value.values)")
@@ -122,6 +108,7 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
                 let decoder = JSONDecoder()
                 let usingBoardData = try decoder.decode([Board].self, from: boarddata)
                 self.boardList = usingBoardData
+                self.boardList.sort(by: {$0.recordTime > $1.recordTime})
                 DispatchQueue.main.async {
                     self.commuTableView.reloadData()
                 }
@@ -131,7 +118,6 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
 }
-
 
 class CommunityCell: UITableViewCell {
     
