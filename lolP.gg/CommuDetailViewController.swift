@@ -14,11 +14,8 @@ class CommuDetailViewController : UIViewController, UITableViewDataSource, UITab
 
     @IBOutlet weak var detailcommutableView: UITableView!
 
-    
     var ref = Database.database().reference()
     var detailBoard: [DetailBoard] = []
-    
-    
     
     //게시글 key값 받아오자. 주후에 댓글에 쓸것.
     var commuKey : String?
@@ -46,38 +43,6 @@ class CommuDetailViewController : UIViewController, UITableViewDataSource, UITab
         //키값으로 게시글 찾기.
         if let commukey = commuKey {
             print("받은 커뮤키값 : \(commukey)")
-//
-//            //데이터 저장. 별명이없는자는 일단 apple로그인 때문.
-//            self.ref.child("board").child(commukey).setValue([
-//                "title" : self.titleLabel.text as Any,
-//                "text" : self.textLabel.text as Any,
-//                "recordTime" : ServerValue.timestamp(),
-//                "uid" : user.uid,
-//                "nickName" : self.fbusernickName
-//                            ?? "별명이없는자",
-//                "writeDate" : writedateString
-//                                                        ])
-            
-//            ref.child("board").child(commukey).observeSingleEvent(of: .value) { snapshot in
-//                guard let value = snapshot.value as? [String:Any] else { return }
-//
-//                let commudetaildata = try! JSONSerialization.data(withJSONObject:    Array(value.values), options: [])
-//             print("게시글 데이터 ---> \(value.values)")
-//                do {
-//                    let decoder = JSONDecoder()
-//                    let usingcommudetailData = try decoder.decode(DetailBoard.self, from: commudetaildata)
-//
-//                    print(usingcommudetailData)
-//
-//                    DispatchQueue.main.async {
-//                        self.detailcommutableView.reloadData()
-//                    }
-//
-//                    print("--->커뮤디테일 : \(self.detailBoard)")
-//                } catch let error {
-//                    print("게시글 로드 에러 : \(error.localizedDescription)")
-//                }
-//            }
             
             ref.child("board").child("create").observeSingleEvent(of: .value) { snapshot in
                 guard let value = snapshot.value as? [String:Any] else { return }
@@ -101,9 +66,7 @@ class CommuDetailViewController : UIViewController, UITableViewDataSource, UITab
                     print("정확한 에러 원인 : \(String(describing: error))")
                 }
             }
-            
         }
-        
     }
     
     // MARK: - 테이블뷰 설정
@@ -119,7 +82,7 @@ class CommuDetailViewController : UIViewController, UITableViewDataSource, UITab
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "detailCommuCell", for: indexPath) as? DetailCommuCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCommuCell", for: indexPath) as? DetailCommuCell else {
         return UITableViewCell()
         }
         cell.detailtitleLabel.text = self.detailtitle
@@ -132,6 +95,14 @@ class CommuDetailViewController : UIViewController, UITableViewDataSource, UITab
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
+    
+    //댓글VC에 값 넘기기
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        guard let VC = segue.destination as? CommuCommentViewController else { return }
+//        
+//        VC.detailAutokey = self.commuKey
+//    }
+    
 }
 
 

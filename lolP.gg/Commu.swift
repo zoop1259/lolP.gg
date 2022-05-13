@@ -29,6 +29,14 @@ struct DetailBoard:Codable {
     //let recordTime: Int
 }
 
+struct CommentsBoard:Codable {
+    let text: String
+    let nickName: String
+    let writeDate: String
+    let recordTime: Int
+    let uid: String
+}
+
 /*
  //모든데이터
  struct MainData: Codable {
