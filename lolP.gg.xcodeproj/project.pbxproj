@@ -13,7 +13,6 @@
 		C510A6EF28311F5300A0B2FC /* CommuCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C510A6ED28311F5300A0B2FC /* CommuCommentCell.swift */; };
 		C510A6F028311F5300A0B2FC /* CommuCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C510A6EE28311F5300A0B2FC /* CommuCommentCell.xib */; };
 		C511C9B4282BD36B004C1CD6 /* CommuDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C511C9B3282BD36B004C1CD6 /* CommuDetailViewController.swift */; };
-		C511C9DA282C8E71004C1CD6 /* CommuCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C511C9D9282C8E71004C1CD6 /* CommuCommentViewController.swift */; };
 		C52177C827590FAA00E1BA62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177C727590FAA00E1BA62 /* AppDelegate.swift */; };
 		C52177CA27590FAA00E1BA62 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177C927590FAA00E1BA62 /* SceneDelegate.swift */; };
 		C52177CC27590FAA00E1BA62 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177CB27590FAA00E1BA62 /* ViewController.swift */; };
@@ -40,7 +39,6 @@
 		C510A6ED28311F5300A0B2FC /* CommuCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommuCommentCell.swift; sourceTree = "<group>"; };
 		C510A6EE28311F5300A0B2FC /* CommuCommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommuCommentCell.xib; sourceTree = "<group>"; };
 		C511C9B3282BD36B004C1CD6 /* CommuDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommuDetailViewController.swift; sourceTree = "<group>"; };
-		C511C9D9282C8E71004C1CD6 /* CommuCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommuCommentViewController.swift; sourceTree = "<group>"; };
 		C52177C427590FAA00E1BA62 /* lolP.gg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lolP.gg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C52177C727590FAA00E1BA62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C52177C927590FAA00E1BA62 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -113,6 +111,7 @@
 		C52177C627590FAA00E1BA62 /* lolP.gg */ = {
 			isa = PBXGroup;
 			children = (
+				C588B62B2831657900FF8D05 /* Community */,
 				C5B7B99728214D74002EE221 /* ChampDetail */,
 				C585CC1528279E67000629EE /* FirebaseManager */,
 				C5B7B99828214DAD002EE221 /* Login */,
@@ -123,17 +122,8 @@
 				C585CC1C2827B92F000629EE /* GoogleService-Info.plist */,
 				C52177D227590FAC00E1BA62 /* LaunchScreen.storyboard */,
 				C52177CD27590FAA00E1BA62 /* Main.storyboard */,
-				C510A6E92831161200A0B2FC /* CommuDetailCell.swift */,
-				C510A6EA2831161300A0B2FC /* CommuDetailCell.xib */,
-				C510A6ED28311F5300A0B2FC /* CommuCommentCell.swift */,
-				C510A6EE28311F5300A0B2FC /* CommuCommentCell.xib */,
 				C52177C727590FAA00E1BA62 /* AppDelegate.swift */,
 				C52177C927590FAA00E1BA62 /* SceneDelegate.swift */,
-				C5C8110228109F680088CE74 /* Commu.swift */,
-				C511C9B3282BD36B004C1CD6 /* CommuDetailViewController.swift */,
-				C52177DD2759101600E1BA62 /* CommuTableViewController.swift */,
-				C5730C2427BAED5A00DF2520 /* CommuCreateViewController.swift */,
-				C511C9D9282C8E71004C1CD6 /* CommuCommentViewController.swift */,
 			);
 			path = lolP.gg;
 			sourceTree = "<group>";
@@ -143,6 +133,30 @@
 			children = (
 			);
 			path = FirebaseManager;
+			sourceTree = "<group>";
+		};
+		C588B62B2831657900FF8D05 /* Community */ = {
+			isa = PBXGroup;
+			children = (
+				C588B62C2831659800FF8D05 /* Community Cell */,
+				C5C8110228109F680088CE74 /* Commu.swift */,
+				C511C9B3282BD36B004C1CD6 /* CommuDetailViewController.swift */,
+				C52177DD2759101600E1BA62 /* CommuTableViewController.swift */,
+				C5730C2427BAED5A00DF2520 /* CommuCreateViewController.swift */,
+			);
+			name = Community;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		C588B62C2831659800FF8D05 /* Community Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C510A6E92831161200A0B2FC /* CommuDetailCell.swift */,
+				C510A6EA2831161300A0B2FC /* CommuDetailCell.xib */,
+				C510A6ED28311F5300A0B2FC /* CommuCommentCell.swift */,
+				C510A6EE28311F5300A0B2FC /* CommuCommentCell.xib */,
+			);
+			path = "Community Cell";
 			sourceTree = "<group>";
 		};
 		C5B7B99628214D56002EE221 /* Main */ = {
@@ -293,7 +307,6 @@
 			files = (
 				C52178452768215F00E1BA62 /* ChampInfo.swift in Sources */,
 				C5730C2527BAED5A00DF2520 /* CommuCreateViewController.swift in Sources */,
-				C511C9DA282C8E71004C1CD6 /* CommuCommentViewController.swift in Sources */,
 				C52177CC27590FAA00E1BA62 /* ViewController.swift in Sources */,
 				C5C8110328109F680088CE74 /* Commu.swift in Sources */,
 				C510A6EF28311F5300A0B2FC /* CommuCommentCell.swift in Sources */,
