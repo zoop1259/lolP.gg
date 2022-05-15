@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		6E70A01CA01C25EB7D4157C4 /* Pods_lolP_gg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB41DC524ACDE1404DAEC41 /* Pods_lolP_gg.framework */; };
+		C510A6EB2831161300A0B2FC /* CommuDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C510A6E92831161200A0B2FC /* CommuDetailCell.swift */; };
+		C510A6EC2831161300A0B2FC /* CommuDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C510A6EA2831161300A0B2FC /* CommuDetailCell.xib */; };
+		C510A6EF28311F5300A0B2FC /* CommuCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C510A6ED28311F5300A0B2FC /* CommuCommentCell.swift */; };
+		C510A6F028311F5300A0B2FC /* CommuCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C510A6EE28311F5300A0B2FC /* CommuCommentCell.xib */; };
+		C510A6F328311F7500A0B2FC /* CommuButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C510A6F128311F7500A0B2FC /* CommuButtonCell.swift */; };
+		C510A6F428311F7500A0B2FC /* CommuButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C510A6F228311F7500A0B2FC /* CommuButtonCell.xib */; };
 		C511C9B4282BD36B004C1CD6 /* CommuDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C511C9B3282BD36B004C1CD6 /* CommuDetailViewController.swift */; };
 		C511C9DA282C8E71004C1CD6 /* CommuCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C511C9D9282C8E71004C1CD6 /* CommuCommentViewController.swift */; };
 		C52177C827590FAA00E1BA62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177C727590FAA00E1BA62 /* AppDelegate.swift */; };
@@ -31,6 +37,12 @@
 /* Begin PBXFileReference section */
 		129FA7CD3FED30DE909476C0 /* Pods-lolP.gg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lolP.gg.release.xcconfig"; path = "Target Support Files/Pods-lolP.gg/Pods-lolP.gg.release.xcconfig"; sourceTree = "<group>"; };
 		1EB41DC524ACDE1404DAEC41 /* Pods_lolP_gg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lolP_gg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C510A6E92831161200A0B2FC /* CommuDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommuDetailCell.swift; sourceTree = "<group>"; };
+		C510A6EA2831161300A0B2FC /* CommuDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommuDetailCell.xib; sourceTree = "<group>"; };
+		C510A6ED28311F5300A0B2FC /* CommuCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommuCommentCell.swift; sourceTree = "<group>"; };
+		C510A6EE28311F5300A0B2FC /* CommuCommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommuCommentCell.xib; sourceTree = "<group>"; };
+		C510A6F128311F7500A0B2FC /* CommuButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommuButtonCell.swift; sourceTree = "<group>"; };
+		C510A6F228311F7500A0B2FC /* CommuButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommuButtonCell.xib; sourceTree = "<group>"; };
 		C511C9B3282BD36B004C1CD6 /* CommuDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommuDetailViewController.swift; sourceTree = "<group>"; };
 		C511C9D9282C8E71004C1CD6 /* CommuCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommuCommentViewController.swift; sourceTree = "<group>"; };
 		C52177C427590FAA00E1BA62 /* lolP.gg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lolP.gg.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,12 +127,18 @@
 				C585CC1C2827B92F000629EE /* GoogleService-Info.plist */,
 				C52177D227590FAC00E1BA62 /* LaunchScreen.storyboard */,
 				C52177CD27590FAA00E1BA62 /* Main.storyboard */,
+				C510A6E92831161200A0B2FC /* CommuDetailCell.swift */,
+				C510A6EA2831161300A0B2FC /* CommuDetailCell.xib */,
+				C510A6ED28311F5300A0B2FC /* CommuCommentCell.swift */,
+				C510A6EE28311F5300A0B2FC /* CommuCommentCell.xib */,
+				C510A6F128311F7500A0B2FC /* CommuButtonCell.swift */,
+				C510A6F228311F7500A0B2FC /* CommuButtonCell.xib */,
 				C52177C727590FAA00E1BA62 /* AppDelegate.swift */,
 				C52177C927590FAA00E1BA62 /* SceneDelegate.swift */,
 				C5C8110228109F680088CE74 /* Commu.swift */,
+				C511C9B3282BD36B004C1CD6 /* CommuDetailViewController.swift */,
 				C511C9D9282C8E71004C1CD6 /* CommuCommentViewController.swift */,
 				C5730C2427BAED5A00DF2520 /* CommuCreateViewController.swift */,
-				C511C9B3282BD36B004C1CD6 /* CommuDetailViewController.swift */,
 				C52177DD2759101600E1BA62 /* CommuTableViewController.swift */,
 			);
 			path = lolP.gg;
@@ -221,8 +239,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C510A6F428311F7500A0B2FC /* CommuButtonCell.xib in Resources */,
 				C52177D427590FAC00E1BA62 /* LaunchScreen.storyboard in Resources */,
+				C510A6F028311F5300A0B2FC /* CommuCommentCell.xib in Resources */,
 				C585CC1D2827B92F000629EE /* GoogleService-Info.plist in Resources */,
+				C510A6EC2831161300A0B2FC /* CommuDetailCell.xib in Resources */,
 				C52177D127590FAC00E1BA62 /* Assets.xcassets in Resources */,
 				C52177CF27590FAA00E1BA62 /* Main.storyboard in Resources */,
 			);
@@ -282,6 +303,8 @@
 				C511C9DA282C8E71004C1CD6 /* CommuCommentViewController.swift in Sources */,
 				C52177CC27590FAA00E1BA62 /* ViewController.swift in Sources */,
 				C5C8110328109F680088CE74 /* Commu.swift in Sources */,
+				C510A6EF28311F5300A0B2FC /* CommuCommentCell.swift in Sources */,
+				C510A6EB2831161300A0B2FC /* CommuDetailCell.swift in Sources */,
 				C597267D279544690048C7CA /* ChampSkillInfo.swift in Sources */,
 				C511C9B4282BD36B004C1CD6 /* CommuDetailViewController.swift in Sources */,
 				C52177C827590FAA00E1BA62 /* AppDelegate.swift in Sources */,
@@ -290,6 +313,7 @@
 				C5A30C4A2773154000B2D4D3 /* SignUpViewController.swift in Sources */,
 				C52177CA27590FAA00E1BA62 /* SceneDelegate.swift in Sources */,
 				C5A30C482772F38200B2D4D3 /* LoginDetailView.swift in Sources */,
+				C510A6F328311F7500A0B2FC /* CommuButtonCell.swift in Sources */,
 				C597267B278C8EFA0048C7CA /* ChampDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -69,7 +69,7 @@ class CommuCreateViewController : UIViewController {
             }
             
             //데이터 저장. 별명이없는자는 일단 apple로그인 때문.
-            self.ref.child("board").child(keyValue).setValue(["title" : self.titleLabel.text as Any,
+            self.ref.child("board").child("create").child(keyValue).setValue(["title" : self.titleLabel.text as Any,
                                           "text" : self.textLabel.text as Any,
                                           "recordTime" : ServerValue.timestamp(),
                                           "uid" : user.uid,
