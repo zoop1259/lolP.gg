@@ -18,6 +18,9 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
     var titleList = [String]()
     var boardList: [Board] = []
     var autoidList: [FBAutoid] = []
+    var keyarr = [String]()
+    var keystring = String()
+    
     var testarr = String() //키 값을 확인하기 string
     
     override func viewDidLoad() {
@@ -82,9 +85,8 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let viewController = self.storyboard?.instantiateViewController(identifier: "CommuDetailViewController") as? CommuDetailViewController else { return }
         //이동! = 얘는 이동을 수동으로 시켜줘야함.
-        viewController.commuKey = self.testarr
-        print("커뮤디테일에 보낼 값 : \(self.testarr)")
-        
+        //viewController.commuKey = self.testarr
+        viewController.commuKey = boardList[indexPath.row].keyValue
         viewController.detailtitle = boardList[indexPath.row].title
         viewController.detailtext = boardList[indexPath.row].text
         viewController.detailwriteDate = boardList[indexPath.row].writeDate
@@ -97,15 +99,12 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
     func getBoardData() {
         ref.child("board").child("create").observeSingleEvent(of: .value) { snapshot in
             guard let value = snapshot.value as? [String:Any] else { return }
-            
-            
-            
             for snapshotkey in value.keys {
                 self.testarr = snapshotkey
             }
-            
             let boarddata = try! JSONSerialization.data(withJSONObject: Array(value.values), options: [])
             //print("게시글 데이터 ---> \(value.values)")
+            
             do {
                 let decoder = JSONDecoder()
                 let usingBoardData = try decoder.decode([Board].self, from: boarddata)

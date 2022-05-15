@@ -372,6 +372,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="W1z-Fs-dqI">
+                            <rect key="frame" x="0.0" y="110.5" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ih7-rw-dgS">
+                                    <rect key="frame" x="10" y="10" width="317" height="24"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VYu-uz-NF3">
+                                    <rect key="frame" x="337" y="10" width="67" height="24"/>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                    <connections>
+                                        <action selector="writeComment:" destination="CUi-L8-rmE" eventType="touchUpInside" id="8V0-23-4me"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="ih7-rw-dgS" secondAttribute="bottom" constant="10" id="6lh-Qc-8NH"/>
+                                <constraint firstItem="ih7-rw-dgS" firstAttribute="top" secondItem="W1z-Fs-dqI" secondAttribute="top" constant="10" id="Edo-xl-7JG"/>
+                                <constraint firstItem="VYu-uz-NF3" firstAttribute="leading" secondItem="ih7-rw-dgS" secondAttribute="trailing" constant="10" id="K6z-sT-CCe"/>
+                                <constraint firstItem="ih7-rw-dgS" firstAttribute="leading" secondItem="W1z-Fs-dqI" secondAttribute="leading" constant="10" id="NzU-Ta-1vR"/>
+                                <constraint firstAttribute="bottom" secondItem="VYu-uz-NF3" secondAttribute="bottom" constant="10" id="Ois-KU-c0M"/>
+                                <constraint firstAttribute="trailing" secondItem="VYu-uz-NF3" secondAttribute="trailing" constant="10" id="Ore-Vp-XBt"/>
+                                <constraint firstItem="VYu-uz-NF3" firstAttribute="top" secondItem="W1z-Fs-dqI" secondAttribute="top" constant="10" id="rc8-Ia-qkB"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="flS-Rb-Sej">
                                 <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
@@ -387,13 +416,15 @@
                             <outlet property="delegate" destination="CUi-L8-rmE" id="YbM-Ob-Vic"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="oud-o2-Z0q"/>
                     <connections>
+                        <outlet property="commenttextField" destination="ih7-rw-dgS" id="YOr-gb-EM2"/>
                         <outlet property="detailcommutableView" destination="8Bz-81-ddI" id="PED-mi-7FK"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TN2-Fg-OhK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1001" y="1192"/>
+            <point key="canvasLocation" x="1007" y="1233"/>
         </scene>
         <!--글 작성-->
         <scene sceneID="YFQ-2m-2KA">
@@ -915,17 +946,17 @@
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="AccentColor"/>
     <resources>
-        <image name="bubble.right" catalog="system" width="32" height="32"/>
-        <image name="bubble.right.fill" catalog="system" width="32" height="32"/>
-        <image name="checkmark" catalog="system" width="32" height="32"/>
-        <image name="doc.richtext.fill" catalog="system" width="32" height="32"/>
+        <image name="bubble.right" catalog="system" width="128" height="110"/>
+        <image name="bubble.right.fill" catalog="system" width="128" height="110"/>
+        <image name="checkmark" catalog="system" width="128" height="114"/>
+        <image name="doc.richtext.fill" catalog="system" width="115" height="128"/>
         <image name="google_icon" width="25" height="25"/>
-        <image name="house" catalog="system" width="32" height="32"/>
-        <image name="house.fill" catalog="system" width="32" height="32"/>
-        <image name="pencil" catalog="system" width="32" height="32"/>
-        <image name="person.fill" catalog="system" width="32" height="32"/>
-        <image name="person.fill.xmark" catalog="system" width="32" height="32"/>
-        <image name="text.bubble" catalog="system" width="32" height="32"/>
+        <image name="house" catalog="system" width="128" height="106"/>
+        <image name="house.fill" catalog="system" width="128" height="106"/>
+        <image name="pencil" catalog="system" width="128" height="113"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="person.fill.xmark" catalog="system" width="128" height="88"/>
+        <image name="text.bubble" catalog="system" width="128" height="110"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

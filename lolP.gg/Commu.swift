@@ -18,15 +18,15 @@ struct Board:Codable {
     let uid: String
     let writeDate: String
     let recordTime: Int
+    let keyValue: String
 }
 
 struct DetailBoard:Codable {
     let title: String
     let nickName: String
     let text: String
-    //let uid: String
     let writeDate: String
-    //let recordTime: Int
+    let keyValue: String
 }
 
 struct CommentsBoard:Codable {

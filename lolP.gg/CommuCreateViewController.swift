@@ -75,8 +75,9 @@ class CommuCreateViewController : UIViewController {
                                           "uid" : user.uid,
                                           "nickName" : self.fbusernickName
                                                        ?? "별명이없는자",
-                                        "writeDate" : writedateString
-                                                   
+                                        "writeDate" : writedateString,
+                                                                              "keyValue" : keyValue
+                                          
                                                         ])
         }
         //push형식으로 뷰컨트롤러를 띄운다면 pop으로 바꾸어 dismiss해야한다.
