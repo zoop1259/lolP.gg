@@ -60,6 +60,7 @@ class LoginDetailView: UIViewController {
         if let user = Auth.auth().currentUser {
             userId.text = ("\(user.uid)")
             userEmail.text = ("\(user.email ?? "이메일로그인이 아님")")
+        
             //userName.text = ("\()")
 //            userName.text = ("\(user.name ?? "유저")")
         }

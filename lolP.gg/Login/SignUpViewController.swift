@@ -114,11 +114,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
                if let user = result?.user {
                    
-                   //실시간db 이렇게하면 데이터가 덮어써짐;;;
-//                      self.ref.child("users").setValue(["uid": user.uid,
-//                                                        "ninkname": nickName])
                    self.ref.child("users/\(user.uid)/nickName").setValue(nickName)
-                   //self.ref.child(\(user.uid)).setValue([])
                    
                     let confirm = UIAlertController(title: "Complete", message: "\(email) 회원가입이     완료되었습니다.", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default) {_ in
