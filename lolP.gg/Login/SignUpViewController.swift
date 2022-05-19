@@ -49,7 +49,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         txtPasswordConfirm.delegate = self
         txtNickName.delegate = self
         
-        
     }
     
     //라이브러리 업로드버튼
@@ -90,6 +89,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     self.view.makeToast("비어있는 항목이 있습니다.", duration: 1.0, position: .center)
                     return
                 }
+        
+        //이걸 뺄지. 색깔을 뺄지.
         guard let pwRange = txtPassword.text, (pwRange.count >= 8) else {
             self.view.makeToast("비밀번호는 8자 이상 입력해주세요.", duration: 1.0, position: .center)
             return
@@ -133,6 +134,26 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        txtPassword.layer.borderWidth = 1.0
+        txtPasswordConfirm.layer.borderWidth = 1.0
+        
+        if txtPassword.text!.count < 8 {
+            txtPassword.layer.borderColor = UIColor.red.cgColor
+        } else {
+            txtPassword.layer.borderColor = UIColor.green.cgColor
+        }
+        
+        if txtPasswordConfirm.text!.count < 8 {
+            txtPasswordConfirm.layer.borderColor = UIColor.red.cgColor
+        } else {
+            txtPasswordConfirm.layer.borderColor = UIColor.green.cgColor
+        }
+            
+        return true
+    }
+    
 }
 
 //회원가입 에러핸들링.
