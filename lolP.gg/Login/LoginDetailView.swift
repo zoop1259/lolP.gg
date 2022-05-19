@@ -21,14 +21,29 @@ class LoginDetailView: UIViewController {
     @IBOutlet var passwordReset: UIButton!
     @IBOutlet var userImg: UIImageView!
     
+    let storage = Storage.storage().reference() //스토리지 레퍼런스 초기화
+    public typealias UploadPictureCompletion = (Result<String, Error>) -> Void
+    let imagePickerController = UIImagePickerController()
+    var selectedImage: UIImage?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // The user's ID, unique to the Firebase project. Do NOT use
-        // this value to authenticate with your backend server, if
-        // you have one. Use User.getToken() instead.
         
         //let ref = Firestore.firestore().collection("users")
     
+        //프로필 사진 ui설정
+        userImg.contentMode = .scaleAspectFit
+        userImg.image = UIImage(systemName: "person")
+        userImg.tintColor = .white
+        userImg.layer.masksToBounds = true
+        userImg.layer.cornerRadius = userImg.frame.height/2
+        userImg.layer.borderWidth = 2
+        userImg.layer.borderColor = UIColor.white.cgColor
+        
+        //이미지 눌렀을때
+        userImg.isUserInteractionEnabled = true
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapChangeProfilePic))
+        userImg.addGestureRecognizer(gesture)
         
         //로그인 확인.
         if let user = Auth.auth().currentUser {
@@ -52,6 +67,12 @@ class LoginDetailView: UIViewController {
         task.resume()
     }
     
+    //프로필사진 변경?
+    @objc private func didTapChangeProfilePic() {
+        presentPhotoActionSheet()
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -59,7 +80,7 @@ class LoginDetailView: UIViewController {
         //그러나 이 방식은 애플로그인단계에서 이메일가리기로 로그인을하면 문제가 생긴다.
         if let user = Auth.auth().currentUser {
             userId.text = ("\(user.uid)")
-            userEmail.text = ("\(user.email ?? "이메일로그인이 아님")")
+            userEmail.text = ("\(user.email ?? "이메일가린 애플유저")")
         
             //userName.text = ("\()")
 //            userName.text = ("\(user.name ?? "유저")")
@@ -102,6 +123,88 @@ class LoginDetailView: UIViewController {
         }
     }
 }
+
+extension LoginDetailView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+    func presentPhotoActionSheet() {
+        let actionSheet = UIAlertController(title: "프로필 사진",
+                                            message: "업로드 방법을 선택해 주세요.",
+                                            preferredStyle: .actionSheet)
+        //아래서부터 위로.(스택)
+        actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "카메라 촬영", style: .default, handler: {[weak self] _ in self?.presentCamera()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "라이브러리", style: .default, handler: {[weak self] _ in
+            self?.presentLibrary()
+        }))
+
+        present(actionSheet, animated: true)
+
+    }
+
+    func presentCamera() {
+        let picker = UIImagePickerController()
+        picker.sourceType = .camera
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true)
+    }
+
+    func presentLibrary() {
+        let picker = UIImagePickerController()
+        picker.sourceType = .photoLibrary
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true)
+    }
+
+    //사용자가 사진을 찍거나 사진을 선택할 때 호출된다.
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//        picker.dismiss(animated: true, completion: nil)
+//        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
+//            return
+//        }
+//        guard let imageData = image.pngData() else {
+//            return
+//        }
+//        /*
+//         /Desktop/file.png
+//         */
+//
+//        //여기 해제
+//        storage.child("images/file.png").putData(imageData,
+//                                                 metadata: nil,
+//                                                 completion: {_, error in
+//            guard error == nil else {
+//                print("업로드 실패")
+//                return
+//            }
+//            self.storage.child("images/file.png").downloadURL(completion: {url, error in
+//                guard let url = url, error == nil else {
+//                    return
+//                }
+//                let urlString = url.absoluteString
+//                DispatchQueue.main.async {
+//                    //self.label.text = urlString
+//                    self.imgProfilePicture.image = image
+//                }
+//                print("Download URL: \(urlString)")
+//                UserDefaults.standard.set(urlString, forKey: "url")
+//            })
+//        })
+//
+//
+//        //upload image data
+//        // get download url
+//        //save download url to userDefaults
+//    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+
 
 
 /*
