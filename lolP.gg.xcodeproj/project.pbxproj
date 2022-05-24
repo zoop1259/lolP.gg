@@ -113,7 +113,6 @@
 			children = (
 				C588B62B2831657900FF8D05 /* Community */,
 				C5B7B99728214D74002EE221 /* ChampDetail */,
-				C585CC1528279E67000629EE /* FirebaseManager */,
 				C5B7B99828214DAD002EE221 /* Login */,
 				C5B7B99628214D56002EE221 /* Main */,
 				C52178CA276BB3F300E1BA62 /* lolP.gg.entitlements */,
@@ -126,13 +125,6 @@
 				C52177C927590FAA00E1BA62 /* SceneDelegate.swift */,
 			);
 			path = lolP.gg;
-			sourceTree = "<group>";
-		};
-		C585CC1528279E67000629EE /* FirebaseManager */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = FirebaseManager;
 			sourceTree = "<group>";
 		};
 		C588B62B2831657900FF8D05 /* Community */ = {

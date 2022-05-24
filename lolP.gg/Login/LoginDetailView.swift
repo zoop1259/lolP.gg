@@ -49,22 +49,6 @@ class LoginDetailView: UIViewController {
         if let user = Auth.auth().currentUser {
             print("당신의 \(user.uid), email: \(user.email ?? "no email")")
         }
-        
-        //프로필 이미지 받아오기.
-        guard let urlString = UserDefaults.standard.value(forKey: "url") as? String,
-        let url = URL(string: urlString) else {
-            return
-        }
-        let task = URLSession.shared.dataTask(with:url, completionHandler: { data, _, error in
-            guard let data = data, error == nil else {
-                return
-            }
-            DispatchQueue.main.async {
-                let image = UIImage(data: data)
-                self.userImg.image = image
-            }
-        })
-        task.resume()
     }
     
     //프로필사진 변경?
@@ -85,11 +69,28 @@ class LoginDetailView: UIViewController {
             //userName.text = ("\()")
 //            userName.text = ("\(user.name ?? "유저")")
         }
-        
         //이메일 초기화
         let isEmailSignIn = Auth.auth().currentUser?.providerData[0].providerID == "password"
         //이메일 로그인이 아니라면 비밀번호 변경 버튼은 사라져야 한다.
         passwordReset.isHidden = !isEmailSignIn
+    }
+    
+    func changenickName() {
+        //프로필 이미지 받아오기.
+        guard let urlString = UserDefaults.standard.value(forKey: "url") as? String,
+        let url = URL(string: urlString) else {
+            return
+        }
+        let task = URLSession.shared.dataTask(with:url, completionHandler: { data, _, error in
+            guard let data = data, error == nil else {
+                return
+            }
+            DispatchQueue.main.async {
+                let image = UIImage(data: data)
+                self.userImg.image = image
+            }
+        })
+        task.resume()
     }
     
     
