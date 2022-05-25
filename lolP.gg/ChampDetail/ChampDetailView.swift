@@ -13,14 +13,12 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet var detailImg: UIImageView! //VC의 챔피언 이미지
     @IBOutlet var detailName: UILabel! //VC의 챔피언 이름
 
+    var spell : [Spell] = []
+    
     var VCImg : String? //vc에서 넘겨받은 챔피언 썸네일
     var VCName : String? //vc에서 넘겨받은 챔피언 이름
     var VCVersion : String? // vc에서 넘겨받은 최신버전
-    
-    var skillName = [String]() //스킬이름을 저장할 배열
-    var skillDesc = [String]() //스킬설명을 저장할 배열
-    var skillImg = [String]()  //스킬이미지 주소를 사용하기 위해 저장할 string배열
-    
+
     var urlString = "url정보담을 변수"
 
     public override func viewDidLoad() {
@@ -63,7 +61,6 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
             var result: MainSkillData?
             do {
                 result = try JSONDecoder().decode(MainSkillData.self, from: data)
-                //let spell = result?.SkillData.Spell.CodingKeys.skillid
             }
             catch {
                 print("Failed to decode with error: \(error)")
@@ -71,19 +68,10 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
             guard let final = result else {
                 return
             }
-                
 //            스킬의 이름, 정보, 이미지 관련 데이터를 배열에 저장.
             for (_, skillnames) in final.data {
                 let sub = skillnames.spells
-                for loop in sub {
-                    self.skillName.append(loop.skillname)
-                    self.skillDesc.append(loop.spellDescription)
-                    self.skillImg.append(loop.skillid)
-                    //print(loop.skillid)
-                    //print(loop.skillname)
-                    //print(loop.spellDescription)
-                }
-                print("스킬의 개수 : \(self.skillName.count)")
+                self.spell = sub
             }
 //            메인에서 일을 시킴. reloadData를 사용하기 떄문에 맨 마지막에 사용
             DispatchQueue.main.async {
@@ -96,20 +84,19 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //스킬수만큼 카운트
-        return skillName.count
+        return self.spell.count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = DetailTableView.dequeueReusableCell(withIdentifier: "champSkill", for: indexPath) as! ChampSkill
         //스킬이름
-        cell.skillName.text = skillName[indexPath.row]
+        cell.skillName.text = self.spell[indexPath.row].name
         //스킬설명
-        cell.skillDesc.text = skillDesc[indexPath.row].description
-        
+        cell.skillDesc.text = self.spell[indexPath.row].description
         //스킬이미지
         // 섬네일 경로를 인자값으로 하는 URL객체를 생성
         if let vcversion = VCVersion {
-            let url: URL! = URL(string: "https://ddragon.leagueoflegends.com/cdn/\(vcversion)/img/spell/\(skillImg[indexPath.row]).png")
+            let url: URL! = URL(string: "https://ddragon.leagueoflegends.com/cdn/\(vcversion)/img/spell/\(self.spell[indexPath.row].id).png")
             // 이미지를 읽어와 Data객체에 저장
             let imageData = try! Data(contentsOf: url)
             // UIImage객체를 생성하여 아울렛 변수의 image 속성에 대입

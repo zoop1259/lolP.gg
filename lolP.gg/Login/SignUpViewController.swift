@@ -151,18 +151,6 @@ extension UIViewController{
 
         }
     }
-    /*
-     권고하는 파이어베이스 에러핸들링 방식이라 한다.
-     
-     if let errorCode : AuthErrorCode = AuthErrorCode(rawValue: error!._code)
-     {
-         print("-> errorCode -> \(errorCode.rawValue)")
-         if AuthErrorCode.emailAlreadyInUse.rawValue == errorCode.rawValue
-         {
-         }
-     }
-     
-     */
 }
 
 

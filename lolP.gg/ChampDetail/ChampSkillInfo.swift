@@ -20,26 +20,5 @@ struct SkillData: Codable {
 
 // MARK: - Spell
 struct Spell: Codable {
-    let skillid, skillname, spellDescription: String
-    //let image: SkillImage
-
-    enum CodingKeys: String, CodingKey {
-        case skillid = "id"
-        case skillname = "name"
-        case spellDescription = "description"
-    }
-    
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        skillid = try values.decode(String.self, forKey: .skillid)
-        skillname = try values.decode(String.self, forKey: .skillname)
-        spellDescription = try values.decode(String.self, forKey: .spellDescription)
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(skillid, forKey: .skillid)
-        try container.encode(skillname, forKey: .skillname)
-        try container.encode(spellDescription, forKey: .spellDescription)
-    }
+    let id, name, description: String
 }
