@@ -113,6 +113,9 @@ class LoginDetailView: UIViewController {
         Auth.auth().sendPasswordReset(withEmail: email, completion: nil)
     }
     //닉네임변경 버튼 눌렀을떄 VC를 만들어야함.
+    //닉네임을 변경하면 displayName에 닉네임을 저장한다.
+    //이렇게하면 좀 더 쉬운 닉네임 설정이 가능했겠지만... 닉네임은 그냥 db에 저장한것으로 불러오는게 좋을거같다.
+    //
     @IBAction func nickNameUpdateBtn(_ sender: Any) {
         let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
         changeRequest?.displayName = "토끼"
@@ -159,6 +162,9 @@ extension LoginDetailView: UIImagePickerControllerDelegate, UINavigationControll
         present(picker, animated: true)
     }
 
+    //사진은 store에 저장해서 photoURL변수에 URL을 저장해서 불러오는 것이다.
+    //등록한 url을 받아오는 방법을 해보려고했으나 store는 하나의 프로젝트만 가능했다고 했기 때문에
+    //이 프로젝트에서 끝내야한다.
     //사용자가 사진을 찍거나 사진을 선택할 때 호출된다.
 //    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
 //        picker.dismiss(animated: true, completion: nil)
