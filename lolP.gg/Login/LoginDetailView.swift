@@ -201,9 +201,10 @@ extension LoginDetailView: UIImagePickerControllerDelegate, UINavigationControll
 //        })
 //
 //
-//        //upload image data
-//        // get download url
-//        //save download url to userDefaults
+//        //upload image data 구현했다.
+//        // get download url 이걸 스토어에있는 url을 받아올방법을 알아내야한다.
+//        //save download url to userDefaults 이렇게하면.. 다른아이디로 로그인했을떄도 고려해야하기 때문에
+//        //photoURL을 사용해서 저장하여 불러오는방법을 택해야한다.
 //    }
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -215,7 +216,7 @@ extension LoginDetailView: UIImagePickerControllerDelegate, UINavigationControll
 
 
 /*
- //회원탈퇴
+ //회원탈퇴 : 버튼에 연결만 하면된다.
  private func loadDeleteFirebase()
      {
          let user = Auth.auth().currentUser
@@ -228,7 +229,6 @@ extension LoginDetailView: UIImagePickerControllerDelegate, UINavigationControll
                  }
                  return
              }
- ㄱ..
              return
          })
      }
