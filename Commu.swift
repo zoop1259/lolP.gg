@@ -24,6 +24,7 @@ struct Board:Codable {
     let writeDate: String
     let recordTime: Int
     let keyValue: String
+    //let commentCount: Int
 }
 
 struct DetailBoard:Codable {
@@ -32,6 +33,7 @@ struct DetailBoard:Codable {
     let text: String
     let writeDate: String
     let keyValue: String
+    //let commentCount: Int
 }
 
 struct CommentsBoard:Codable {

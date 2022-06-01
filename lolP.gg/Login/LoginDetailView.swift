@@ -112,19 +112,23 @@ class LoginDetailView: UIViewController {
         //비밀번호를 재설정할 수 있는 이메일로 넘어간다.
         Auth.auth().sendPasswordReset(withEmail: email, completion: nil)
     }
+    
     //닉네임변경 버튼 눌렀을떄 VC를 만들어야함.
     //닉네임을 변경하면 displayName에 닉네임을 저장한다.
     //이렇게하면 좀 더 쉬운 닉네임 설정이 가능했겠지만... 닉네임은 그냥 db에 저장한것으로 불러오는게 좋을거같다.
     //
     @IBAction func nickNameUpdateBtn(_ sender: Any) {
-        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-        changeRequest?.displayName = "토끼"
-        changeRequest?.commitChanges { _ in
-            //UITextField를 사용해서 입력받은 값을 넣는게 좋을것이다.
-            //버튼을 누르면 토끼가들어감. 나중엔 표시를 저렇게 개발해야한다.>> 없으면 이메일을, 그것도 없으면 그냥 고객으로 표시
-            let displayName = Auth.auth().currentUser?.displayName ?? Auth.auth().currentUser?.email ?? "고객"
-            self.userName.text = ("\(displayName)")
-        }
+        
+        
+        
+//        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+//        changeRequest?.displayName = "토끼"
+//        changeRequest?.commitChanges { _ in
+//            //UITextField를 사용해서 입력받은 값을 넣는게 좋을것이다.
+//            //버튼을 누르면 토끼가들어감. 나중엔 표시를 저렇게 개발해야한다.>> 없으면 이메일을, 그것도 없으면 그냥 고객으로 표시
+//            let displayName = Auth.auth().currentUser?.displayName ?? Auth.auth().currentUser?.email ?? "고객"
+//            self.userName.text = ("\(displayName)")
+//        }
     }
 }
 

@@ -15,11 +15,8 @@ class CommuDetailViewController : UITableViewController {
     @IBOutlet var detailcommutableView: UITableView!
     @IBOutlet weak var commenttextField: UITextField!
     
-    
     var ref = Database.database().reference()
     var detailBoard: [DetailBoard] = []
-    
-    
     
     //게시글 key값 받아오자. 주후에 댓글에 쓸것.
     var commuKey : String?
@@ -90,17 +87,16 @@ class CommuDetailViewController : UITableViewController {
             } catch let error {
                 print("유저닉 에러 \(error.localizedDescription)")
             }
-            
+      
             if let commukey = self.commuKey {
-
+                
                 self.ref.child("board").child("create").child(commukey).child("comment").child(keyValue).setValue([
                                           "text" : self.commenttextField.text as Any,
                                           "recordTime" : ServerValue.timestamp(),
                                           "uid" : user.uid,
                                           "nickName" : self.commufbusernickName
                                                        ?? "별명이없는자",
-                                        "writeDate" : writedateString
-
+                                        "writeDate" : writedateString,
                                                         ])
             }
         }
