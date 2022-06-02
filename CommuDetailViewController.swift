@@ -88,10 +88,6 @@ class CommuDetailViewController : UITableViewController {
             guard let userData = snapshot.value as? [String:Any] else { return }
             
             let userdata = try! JSONSerialization.data(withJSONObject: Array(userData.values), options: [])
-
-            print("data1 : \(userdata)")
-            print("\(userData.values)")
-            
             do {
                 let decoder = JSONDecoder()
                 let usingData = try decoder.decode([FBUser].self, from: userdata)
@@ -100,15 +96,12 @@ class CommuDetailViewController : UITableViewController {
 
                 for i in usingData {
                     self.commufbusernickName = i.nickName
-                    print("이름이 이상해...\(self.commufbusernickName)")
+                    print("작정자 닉네임. : \(self.commufbusernickName)")
                 }
-                
             } catch let error {
                 print("유저닉 에러 \(error.localizedDescription)")
             }
-            
             if let commukey = self.commuKey {
-            
                 self.ref.child("board").child("create").child(commukey).child("comment").child(keyValue).setValue([
                                           "text" : self.commenttextField.text as Any,
                                           "recordTime" : ServerValue.timestamp(),
@@ -119,11 +112,9 @@ class CommuDetailViewController : UITableViewController {
                 ])
                 //댓글 업로드와 동시에 댓글카운트 수 늘리기.
                 self.ref.child("board").child("create").child(commukey).updateChildValues(["commentCount" : self.countingComment + 1])
-                
             }
         }
     }
-    
     
     // MARK: - 게시물 읽기.
     func getDetailBoard() {

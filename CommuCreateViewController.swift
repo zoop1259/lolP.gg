@@ -10,7 +10,7 @@ import FirebaseDatabase
 import FirebaseAuth
 import Toast_Swift
 
-class CommuCreateViewController : UIViewController {
+class CommuCreateViewController : UIViewController, UITextViewDelegate {
     
     @IBOutlet var titleLabel: UITextField!
     @IBOutlet var textLabel: UITextView!
@@ -23,7 +23,31 @@ class CommuCreateViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
+        placeholderSetting()
+    
     }
+    
+    func placeholderSetting() {
+        textLabel.delegate = self
+        textLabel.text = "내용을 입력해주세요."
+        textLabel.textColor = UIColor.lightGray
+    }
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.label
+        }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "내용을 제대로 입력해주세요."
+            textView.textColor = UIColor.lightGray
+        }
+    }
+    
+    
+    
+    
     
     @IBAction func addBtn(_ sender: Any) {
         
@@ -85,3 +109,18 @@ class CommuCreateViewController : UIViewController {
         dismiss(animated: true, completion: nil)
     }
 }
+
+//extension CommuCreateViewController: UITextViewDelegate {
+//    func textViewDidBeginEditing(_ textView: UITextView) {
+//        guard textView.textColor == .placeholderText else { return }
+//        textView.textColor = .label
+//        textView.text = nil
+//    }
+//
+//    func textViewDidEndEditing(_ textView: UITextView) {
+//        if textView.text.isEmpty {
+//            textView.text = "내용을 입력해주세요."
+//            textView.textColor = .placeholderText
+//        }
+//    }
+//}
