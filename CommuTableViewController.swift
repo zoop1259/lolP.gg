@@ -20,7 +20,6 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
     var autoidList: [FBAutoid] = []
     var keyarr = [String]()
     var keystring = String()
-    
     var testarr = String() //키 값을 확인하기 string
     
     override func viewDidLoad() {
@@ -78,6 +77,14 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
         cell.titleLabel.text = boardList[indexPath.row].title
         cell.dateLabel.text = boardList[indexPath.row].writeDate
         cell.userLabel.text = boardList[indexPath.row].nickName
+        
+        print(boardList[indexPath.row].commentCount)
+        
+        let commentText: String = "\(boardList[indexPath.row].commentCount)"
+        print(commentText)
+        
+        //cell.commentLabel.text = boardList[indexPath.row].commentCount
+        cell.commentLabel.text = commentText
         
         return cell
     }

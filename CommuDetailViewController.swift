@@ -115,11 +115,11 @@ class CommuDetailViewController : UITableViewController {
                                           "uid" : user.uid,
                                           "nickName" : self.commufbusernickName
                                                        ?? "별명이없는자",
-                                        "writeDate" : writedateString,
-                                          "commentCount" : self.countingComment + 1
-//이건 좋아요수를 체크할 수는 있긴한데... 차일드 카운트를 셀수있는걸 찾아봐야함.
-//                                          "commentCount" : ServerValue.increment(1)
+                                        "writeDate" : writedateString
                 ])
+                //댓글 업로드와 동시에 댓글카운트 수 늘리기.
+                self.ref.child("board").child("create").child(commukey).updateChildValues(["commentCount" : self.countingComment + 1])
+                
             }
         }
     }
