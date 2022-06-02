@@ -32,6 +32,9 @@ class CommuDetailViewController : UITableViewController {
     //댓글 관련
     var commentsBoard: [CommentsBoard] = []
     
+    //댓글 수
+    var countingComment = 0
+    
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,9 +49,25 @@ class CommuDetailViewController : UITableViewController {
         detailcommutableView.estimatedRowHeight = 100.0
         getDetailBoard() //게시글 받아올 것.
         getComment() // 댓글 받아올 것.
+        commentCount() //댓글수
         
+        //메인에서 미리 읽은 카운트수
+        print("메인에서의 카운팅 \(self.countingComment)")
     }
     
+    //댓글 카운트
+    func commentCount() {
+        if let commukey = self.commuKey {
+            
+            
+            
+            
+            
+        }
+    }
+    
+    
+    //글쓰기 버튼
     @IBAction func writeComment(_ sender: UIButton) {
         //로그인정보부터 불러오기.
         guard let user = Auth.auth().currentUser else { return }
@@ -87,9 +106,9 @@ class CommuDetailViewController : UITableViewController {
             } catch let error {
                 print("유저닉 에러 \(error.localizedDescription)")
             }
-      
+            
             if let commukey = self.commuKey {
-                
+            
                 self.ref.child("board").child("create").child(commukey).child("comment").child(keyValue).setValue([
                                           "text" : self.commenttextField.text as Any,
                                           "recordTime" : ServerValue.timestamp(),
@@ -97,7 +116,10 @@ class CommuDetailViewController : UITableViewController {
                                           "nickName" : self.commufbusernickName
                                                        ?? "별명이없는자",
                                         "writeDate" : writedateString,
-                                                        ])
+                                          "commentCount" : self.countingComment + 1
+//이건 좋아요수를 체크할 수는 있긴한데... 차일드 카운트를 셀수있는걸 찾아봐야함.
+//                                          "commentCount" : ServerValue.increment(1)
+                ])
             }
         }
     }
@@ -134,6 +156,16 @@ class CommuDetailViewController : UITableViewController {
         if let commukey = commuKey {
             print("받은 커뮤키값 : \(commukey)")
             ref.child("board").child("create").child(commukey).child("comment").observeSingleEvent(of: .value) { snapshot in
+                
+                //카운트 수
+                print("댓글 수 : \(snapshot.childrenCount)")
+//                //댓글 수를 보내보려했으나...
+//                let sentCount = snapshot.childrenCount
+//                let preVC = self.presentingViewController
+//                if let vc = preVC as? CommuTableViewController {
+//                    vc.paramComment = sentCount
+//                }
+                
                 guard let value = snapshot.value as? [String:Any] else { return }
                 let commucommentdata = try! JSONSerialization.data(withJSONObject:    Array(value.values), options: [])
                 //print("댓글 데이터 ---> \(value.values)")
@@ -143,6 +175,9 @@ class CommuDetailViewController : UITableViewController {
                     
                     self.commentsBoard = usingcommentData
                     self.commentsBoard.sort(by: {$0.recordTime > $1.recordTime})
+                    self.countingComment = Int(snapshot.childrenCount)
+                    print("댓글수 저장용 프린트 : \(self.countingComment)")
+                    
                     DispatchQueue.main.async {
                         self.detailcommutableView.reloadData()
                     }
@@ -190,3 +225,23 @@ class CommuDetailViewController : UITableViewController {
         }
     }
 }
+
+
+
+/*
+ 게시글 삭제 구현준비.
+ //실시간 db삭제
+ //option1 구현
+//            let cardID = creditCardList[indexPath.row].id
+//            ref.child("Item\(cardID)").removeValue()
+ 
+ //option2 구현 .. 특정패스를 모를떄.
+//            ref.queryOrdered(byChild: "id").queryEqual(toValue: cardID).observe(.value) {[weak self] snapshot in
+//                guard let self = self,
+//                      let value = snapshot.value as? [String: [String:Any]],
+//                      //first는 키의 첫번쨰 값을 가져온다.
+//                      let key = value.keys.first else { return }
+//
+//                self.ref.child("\(key)/isSelected").setValue(true)
+//            }
+ */

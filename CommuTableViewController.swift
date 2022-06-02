@@ -32,6 +32,7 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
             //self.getAutoId()
             self.getBoardData()
         }
+        
     }
     
     
@@ -77,8 +78,6 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
         cell.titleLabel.text = boardList[indexPath.row].title
         cell.dateLabel.text = boardList[indexPath.row].writeDate
         cell.userLabel.text = boardList[indexPath.row].nickName
-        //cell.commentLabel.text = boardList[indexPath.row].commentCount
-        //cell.commentLabel //댓글수라벨은 추후에...
         
         return cell
     }
