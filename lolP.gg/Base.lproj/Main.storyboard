@@ -376,15 +376,15 @@
                             <rect key="frame" x="0.0" y="110.5" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ih7-rw-dgS">
-                                    <rect key="frame" x="10" y="10" width="317" height="24"/>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="댓글 입력" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ih7-rw-dgS">
+                                    <rect key="frame" x="10" y="10" width="335.5" height="24"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VYu-uz-NF3">
-                                    <rect key="frame" x="337" y="10" width="67" height="24"/>
+                                    <rect key="frame" x="355.5" y="10" width="48.5" height="24"/>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" title="작성"/>
                                     <connections>
                                         <action selector="writeComment:" destination="CUi-L8-rmE" eventType="touchUpInside" id="8V0-23-4me"/>
                                     </connections>

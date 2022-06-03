@@ -31,7 +31,6 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
             //self.getAutoId()
             self.getBoardData()
         }
-        
     }
     
     
@@ -62,10 +61,6 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     // MARK: - Table view data source
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 0
-//    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return boardList.count
@@ -78,10 +73,8 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
         cell.dateLabel.text = boardList[indexPath.row].writeDate
         cell.userLabel.text = boardList[indexPath.row].nickName
         
-        print(boardList[indexPath.row].commentCount)
-        
         let commentText: String = "\(boardList[indexPath.row].commentCount)"
-        print(commentText)
+        print("댓글 수 : \(commentText)")
         
         //cell.commentLabel.text = boardList[indexPath.row].commentCount
         cell.commentLabel.text = commentText
@@ -126,7 +119,7 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
 }
-
+//MARK: - Cell
 class CommunityCell: UITableViewCell {
     
     @IBOutlet var titleLabel: UILabel!

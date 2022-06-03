@@ -48,26 +48,18 @@ class CommuDetailViewController : UITableViewController {
         detailcommutableView.delegate = self
         detailcommutableView.estimatedRowHeight = 100.0
         getDetailBoard() //게시글 받아올 것.
-        getComment() // 댓글 받아올 것.
-        commentCount() //댓글수
+        getComment() // 댓글 받아오기
         
-        //메인에서 미리 읽은 카운트수
-        print("메인에서의 카운팅 \(self.countingComment)")
     }
     
-    //댓글 카운트
-    func commentCount() {
-        if let commukey = self.commuKey {
-            
-            
-            
-            
-            
-        }
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        ref.child("board").child("create").observeSingleEvent(of: .value) { snapshot in
+//
+//        }
+//    }
     
-    
-    //글쓰기 버튼
+    //MARK: - 댓글쓰기
     @IBAction func writeComment(_ sender: UIButton) {
         //로그인정보부터 불러오기.
         guard let user = Auth.auth().currentUser else { return }
@@ -75,8 +67,8 @@ class CommuDetailViewController : UITableViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "yy-MM-dd"
         let writedateString = formatter.string(from: Date())
-        print(writedateString)
-      
+        //print(writedateString) //날짜 출력
+        
         //board다음에 autoid를 넣는것.
         guard let keyValue = ref.child("board").childByAutoId().key else { return }
         guard let text = self.commenttextField.text, !text.isEmpty else {
@@ -112,6 +104,18 @@ class CommuDetailViewController : UITableViewController {
                 ])
                 //댓글 업로드와 동시에 댓글카운트 수 늘리기.
                 self.ref.child("board").child("create").child(commukey).updateChildValues(["commentCount" : self.countingComment + 1])
+                //그리고 텍스트필드 지우기.
+                self.commenttextField.text = ""
+                
+                //메서드 자체를 불러와야 댓글이 새로고침된다.
+                self.getComment()
+                
+//                //왜 리로딩이 안되는걸까
+//                DispatchQueue.main.async {
+//                    self.detailcommutableView.reloadData()
+                //댓글 섹션 리로드 하기...애니메이션이 보이는데 댓글이 읽히지 않는다는건...
+//                    self.detailcommutableView.reloadSections(IndexSet(1...1), with: .left)
+//                }
             }
         }
     }
@@ -120,7 +124,7 @@ class CommuDetailViewController : UITableViewController {
     func getDetailBoard() {
         //키값으로 게시글 찾기.
         if let commukey = commuKey {
-            print("받은 커뮤키값 : \(commukey)")
+            print("getDetailBoard의 커뮤키값 : \(commukey)")
             ref.child("board").child("create").observeSingleEvent(of: .value) { snapshot in
                 guard let value = snapshot.value as? [String:Any] else { return }
 
@@ -145,18 +149,12 @@ class CommuDetailViewController : UITableViewController {
     func getComment() {
         //키값으로 게시글 찾기.
         if let commukey = commuKey {
-            print("받은 커뮤키값 : \(commukey)")
+            print("getComment의 커뮤키값 : \(commukey)")
             ref.child("board").child("create").child(commukey).child("comment").observeSingleEvent(of: .value) { snapshot in
                 
                 //카운트 수
                 print("댓글 수 : \(snapshot.childrenCount)")
-//                //댓글 수를 보내보려했으나...
-//                let sentCount = snapshot.childrenCount
-//                let preVC = self.presentingViewController
-//                if let vc = preVC as? CommuTableViewController {
-//                    vc.paramComment = sentCount
-//                }
-                
+           
                 guard let value = snapshot.value as? [String:Any] else { return }
                 let commucommentdata = try! JSONSerialization.data(withJSONObject:    Array(value.values), options: [])
                 //print("댓글 데이터 ---> \(value.values)")

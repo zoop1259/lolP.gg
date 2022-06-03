@@ -18,7 +18,6 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
     var ref: DatabaseReference!
     var fbuser: [FBUser] = []
     var fbusernickName: String = ""
-    //var fbuserwriteDate: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +26,7 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
     
     }
     
+    //UILabel Placeholder
     func placeholderSetting() {
         textLabel.delegate = self
         textLabel.text = "내용을 입력해주세요."
@@ -44,10 +44,6 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
             textView.textColor = UIColor.lightGray
         }
     }
-    
-    
-    
-    
     
     @IBAction func addBtn(_ sender: Any) {
         
@@ -109,18 +105,3 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
         dismiss(animated: true, completion: nil)
     }
 }
-
-//extension CommuCreateViewController: UITextViewDelegate {
-//    func textViewDidBeginEditing(_ textView: UITextView) {
-//        guard textView.textColor == .placeholderText else { return }
-//        textView.textColor = .label
-//        textView.text = nil
-//    }
-//
-//    func textViewDidEndEditing(_ textView: UITextView) {
-//        if textView.text.isEmpty {
-//            textView.text = "내용을 입력해주세요."
-//            textView.textColor = .placeholderText
-//        }
-//    }
-//}
