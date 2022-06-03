@@ -11,6 +11,11 @@ struct FBAutoid:Codable {
     let fbautoid: String
 }
 
+struct Nicknamefind:Codable {
+    let users:[String:FBUser]
+}
+
+
 struct UserProfile:Codable {
     let nickName: String
     //let photourl: String

@@ -50,6 +50,7 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
         //로그인정보부터 불러오기.
         guard let user = Auth.auth().currentUser else { return }
         
+
         //작성날짜 구하기 위해서.
         let formatter = DateFormatter()
         formatter.dateFormat = "yy-MM-dd"
@@ -63,22 +64,21 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
                   self.view.makeToast("모든 내용을 작성해주세요.", duration: 1.0, position: .center)
                   return
               }
-           
+        
         //닉네임을 가져오기 위한 함수다.
         ref.child("users").observeSingleEvent(of: .value) { snapshot in
             guard let userData = snapshot.value as? [String:Any] else { return }
+            //users - > uid -> nickname
             
             let userdata = try! JSONSerialization.data(withJSONObject: Array(userData.values), options: [])
-
-            print("data1 : \(userdata)")
-            print("\(userData.values)")
-            
             do {
                 let decoder = JSONDecoder()
                 let usingData = try decoder.decode([FBUser].self, from: userdata)
                 self.fbuser = usingData
                 print("저장된 FBUser: \(self.fbuser)")
 
+                //self.fbusernickName =
+                
                 for i in usingData {
                     self.fbusernickName = i.nickName
                     print("이름이 이상해...\(self.fbusernickName)")

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6E70A01CA01C25EB7D4157C4 /* Pods_lolP_gg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB41DC524ACDE1404DAEC41 /* Pods_lolP_gg.framework */; };
+		C503E135284A3DEB005A371D /* FirebaseStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C503E134284A3DEB005A371D /* FirebaseStorageManager.swift */; };
 		C510A6EB2831161300A0B2FC /* CommuDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C510A6E92831161200A0B2FC /* CommuDetailCell.swift */; };
 		C510A6EC2831161300A0B2FC /* CommuDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C510A6EA2831161300A0B2FC /* CommuDetailCell.xib */; };
 		C510A6EF28311F5300A0B2FC /* CommuCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C510A6ED28311F5300A0B2FC /* CommuCommentCell.swift */; };
@@ -34,6 +35,7 @@
 /* Begin PBXFileReference section */
 		129FA7CD3FED30DE909476C0 /* Pods-lolP.gg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lolP.gg.release.xcconfig"; path = "Target Support Files/Pods-lolP.gg/Pods-lolP.gg.release.xcconfig"; sourceTree = "<group>"; };
 		1EB41DC524ACDE1404DAEC41 /* Pods_lolP_gg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lolP_gg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C503E134284A3DEB005A371D /* FirebaseStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageManager.swift; sourceTree = "<group>"; };
 		C510A6E92831161200A0B2FC /* CommuDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommuDetailCell.swift; sourceTree = "<group>"; };
 		C510A6EA2831161300A0B2FC /* CommuDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommuDetailCell.xib; sourceTree = "<group>"; };
 		C510A6ED28311F5300A0B2FC /* CommuCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommuCommentCell.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				C52177DE2759101600E1BA62 /* LoginPopupViewController.swift */,
 				C5A30C472772F38200B2D4D3 /* LoginDetailView.swift */,
 				C5A30C492773154000B2D4D3 /* SignUpViewController.swift */,
+				C503E134284A3DEB005A371D /* FirebaseStorageManager.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				C510A6EB2831161300A0B2FC /* CommuDetailCell.swift in Sources */,
 				C597267D279544690048C7CA /* ChampSkillInfo.swift in Sources */,
 				C511C9B4282BD36B004C1CD6 /* CommuDetailViewController.swift in Sources */,
+				C503E135284A3DEB005A371D /* FirebaseStorageManager.swift in Sources */,
 				C52177C827590FAA00E1BA62 /* AppDelegate.swift in Sources */,
 				C52177E12759101600E1BA62 /* LoginPopupViewController.swift in Sources */,
 				C52177E02759101600E1BA62 /* CommuTableViewController.swift in Sources */,

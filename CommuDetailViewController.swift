@@ -63,6 +63,13 @@ class CommuDetailViewController : UITableViewController {
     @IBAction func writeComment(_ sender: UIButton) {
         //로그인정보부터 불러오기.
         guard let user = Auth.auth().currentUser else { return }
+
+
+        //임시 닉네임
+        let usernick = user.uid
+
+        
+        
         //작성날짜 구하기 위해서.
         let formatter = DateFormatter()
         formatter.dateFormat = "yy-MM-dd"
@@ -76,8 +83,49 @@ class CommuDetailViewController : UITableViewController {
                   return
               }
         
+        ref.child("users").observeSingleEvent(of: .value, andPreviousSiblingKeyWith: {
+            (snapshot, error) in
+            
+            let nicknames = snapshot.value as? [String: Any] ?? [:]
+            
+            //이방법이다!!! 유레카
+            if let nickkey = nicknames[usernick] as? [String:Any] {
+                print(nickkey)
+            }
+            
+            let getto = nicknames.values
+            let gettos = Array(nicknames)
+            print("이번엔 과연...: \(getto)")
+            
+            for i in getto {
+                
+            }
+            
+            DispatchQueue.main.async {
+                self.detailcommutableView.reloadData()
+            }
+            
+            
+        })
+        
+        
+        
+        //////
+        
         ref.child("users").observeSingleEvent(of: .value) { snapshot in
             guard let userData = snapshot.value as? [String:Any] else { return }
+            //print("이게 userdata : \(userData)")
+            
+//            let using = try! JSONSerialization.data(withJSONObject: userData, options: [])
+//            print("using : \(using)")
+//            do {
+//                let decoder = JSONDecoder()
+//                let usingnick = try decoder.decode([Nicknamefind].self, from : using)
+//                print("이것은 usingnick :\(usingnick)")
+//            } catch let error {
+//                print("닉네임찾기 에러 :\(error.localizedDescription)")
+//            }
+            
             
             let userdata = try! JSONSerialization.data(withJSONObject: Array(userData.values), options: [])
             do {
@@ -86,9 +134,11 @@ class CommuDetailViewController : UITableViewController {
                 self.commufbuser = usingData
                 print("저장된 FBUser: \(self.commufbuser)")
 
+                
+                
                 for i in usingData {
                     self.commufbusernickName = i.nickName
-                    print("작정자 닉네임. : \(self.commufbusernickName)")
+                    print("comments작성자 닉네임. : \(self.commufbusernickName)")
                 }
             } catch let error {
                 print("유저닉 에러 \(error.localizedDescription)")

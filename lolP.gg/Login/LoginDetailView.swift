@@ -12,6 +12,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
+import PhotosUI
 
 class LoginDetailView: UIViewController {
     
@@ -69,31 +70,40 @@ class LoginDetailView: UIViewController {
             //userName.text = ("\()")
 //            userName.text = ("\(user.name ?? "유저")")
         }
+        changeuserImg()
+        
         //이메일 초기화
         let isEmailSignIn = Auth.auth().currentUser?.providerData[0].providerID == "password"
         //이메일 로그인이 아니라면 비밀번호 변경 버튼은 사라져야 한다.
         passwordReset.isHidden = !isEmailSignIn
     }
-    
-    func changenickName() {
-        //프로필 이미지 받아오기.
-        guard let urlString = UserDefaults.standard.value(forKey: "url") as? String,
-        let url = URL(string: urlString) else {
-            return
+  
+//MARK: - 이미지변경
+    func changeuserImg() {
+        guard let urlString = UserDefaults.standard.string(forKey: "ImageUrl") else { return }
+        
+        FirebaseStorageManager.downloadImage(urlString: urlString) { [weak self] image in
+            self?.userImg.image = image
         }
-        let task = URLSession.shared.dataTask(with:url, completionHandler: { data, _, error in
-            guard let data = data, error == nil else {
-                return
-            }
-            DispatchQueue.main.async {
-                let image = UIImage(data: data)
-                self.userImg.image = image
-            }
-        })
-        task.resume()
+        
+        //프로필 이미지 받아오기.
+//        guard let urlString = UserDefaults.standard.value(forKey: "url") as? String,
+//        let url = URL(string: urlString) else {
+//            return
+//        }
+//        let task = URLSession.shared.dataTask(with:url, completionHandler: { data, _, error in
+//            guard let data = data, error == nil else {
+//                return
+//            }
+//            DispatchQueue.main.async {
+//                let image = UIImage(data: data)
+//                self.userImg.image = image
+//            }
+//        })
+//        task.resume()
     }
     
-    
+//MARK: - 로그아웃버튼
     @IBAction func logoutBtn(_ sender: Any) {
         do {
             try FirebaseAuth.Auth.auth().signOut()
@@ -106,20 +116,21 @@ class LoginDetailView: UIViewController {
     }
     
     
-    //나중에 이걸 다른 VC로 묶을지...
+//MARK: - 암호 변경
     @IBAction func tappasswordResetBtn(_ sender: UIButton) {
         let email = Auth.auth().currentUser?.email ?? ""
         //비밀번호를 재설정할 수 있는 이메일로 넘어간다.
         Auth.auth().sendPasswordReset(withEmail: email, completion: nil)
     }
     
-    //닉네임변경 버튼 눌렀을떄 VC를 만들어야함.
-    //닉네임을 변경하면 displayName에 닉네임을 저장한다.
-    //이렇게하면 좀 더 쉬운 닉네임 설정이 가능했겠지만... 닉네임은 그냥 db에 저장한것으로 불러오는게 좋을거같다.
-    //
+//MARK: - 닉네임 변경
     @IBAction func nickNameUpdateBtn(_ sender: Any) {
         
-        
+        //닉네임변경 버튼 눌렀을떄 VC를 만들어야함.
+        //닉네임을 변경하면 displayName에 닉네임을 저장한다.
+        //이렇게하면 좀 더 쉬운 닉네임 설정이 가능했겠지만... 닉네임은 그냥 db에 저장한것으로 불러오는게 좋을거같다.
+        //
+
         
 //        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
 //        changeRequest?.displayName = "토끼"
@@ -132,6 +143,9 @@ class LoginDetailView: UIViewController {
     }
 }
 
+
+
+//MARK: - 이미지피커
 extension LoginDetailView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     func presentPhotoActionSheet() {
@@ -166,51 +180,26 @@ extension LoginDetailView: UIImagePickerControllerDelegate, UINavigationControll
         present(picker, animated: true)
     }
 
-    //사진은 store에 저장해서 photoURL변수에 URL을 저장해서 불러오는 것이다.
-    //등록한 url을 받아오는 방법을 해보려고했으나 store는 하나의 프로젝트만 가능했다고 했기 때문에
-    //이 프로젝트에서 끝내야한다.
-    //사용자가 사진을 찍거나 사진을 선택할 때 호출된다.
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        picker.dismiss(animated: true, completion: nil)
-//        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
-//            return
-//        }
-//        guard let imageData = image.pngData() else {
-//            return
-//        }
-//        /*
-//         /Desktop/file.png
-//         */
-//
-//        //여기 해제
-//        storage.child("images/file.png").putData(imageData,
-//                                                 metadata: nil,
-//                                                 completion: {_, error in
-//            guard error == nil else {
-//                print("업로드 실패")
-//                return
-//            }
-//            self.storage.child("images/file.png").downloadURL(completion: {url, error in
-//                guard let url = url, error == nil else {
-//                    return
-//                }
-//                let urlString = url.absoluteString
-//                DispatchQueue.main.async {
-//                    //self.label.text = urlString
-//                    self.imgProfilePicture.image = image
-//                }
-//                print("Download URL: \(urlString)")
-//                UserDefaults.standard.set(urlString, forKey: "url")
-//            })
-//        })
-//
-//
-//        //upload image data 구현했다.
-//        // get download url 이걸 스토어에있는 url을 받아올방법을 알아내야한다.
-//        //save download url to userDefaults 이렇게하면.. 다른아이디로 로그인했을떄도 고려해야하기 때문에
-//        //photoURL을 사용해서 저장하여 불러오는방법을 택해야한다.
+//    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+//        picker.dismiss(animated: true) // 1
+//        let itemProvider = results.first?.itemProvider // 2
+//        if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
+//            itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in DispatchQueue.main.async { self.imageView.image = image as? UIImage  } }
+//    }
 //    }
 
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
+              let user = Auth.auth().currentUser else { return }
+        
+        FirebaseStorageManager.uploadImage(image: selectedImage, pathRoot: user.uid) { url in
+            if let url = url {
+                UserDefaults.standard.set(url.absoluteString, forKey: "ImageUrl")
+            }
+        }
+        
+        picker.dismiss(animated: true)
+    }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
