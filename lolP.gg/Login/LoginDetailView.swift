@@ -30,9 +30,6 @@ class LoginDetailView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //let ref = Firestore.firestore().collection("users")
-    
         //프로필 사진 ui설정
         userImg.contentMode = .scaleAspectFit
         userImg.image = UIImage(systemName: "person")
@@ -139,12 +136,11 @@ class LoginDetailView: UIViewController {
             self.getnickName()
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (cancel) in
-            
+            //alert.dismiss(animated: true, completion: nil)
         }
         alert.addAction(cancel)
         alert.addAction(ok)
         self.present(alert, animated: true, completion: nil)
-    
     }
     
 //MARK: - 닉네임 가져오기.
@@ -216,11 +212,21 @@ extension LoginDetailView: UIImagePickerControllerDelegate, UINavigationControll
         guard let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
               let user = Auth.auth().currentUser else { return }
         
-        FirebaseStorageManager.uploadImage(image: selectedImage, pathRoot: user.uid) { url in
-            if let url = url {
-                UserDefaults.standard.set(url.absoluteString, forKey: "ImageUrl")
+//        FirebaseStorageManager.uploadImage(image: selectedImage, pathRoot: user.uid) { url in
+//            if let url = url {
+//                UserDefaults.standard.set(url.absoluteString, forKey: "ImageUrl")
+//            }
+//        }
+        let image = self.userImg.image?.jpegData(compressionQuality: 0.1)
+        Storage.storage().reference().child("userImages").child(user.uid).putData(image!, metadata: nil) { (data, err) in
+            
+            print("data fetch")
+            Storage.storage().reference().child("userImages").child(user.uid).downloadURL { (url, err) in
+                print("url fetch")
+                Database.database().reference().child("users").child(user.uid).updateChildValues(["profileImageUrl":url?.absoluteString])
             }
         }
+        
         
         picker.dismiss(animated: true)
     }
