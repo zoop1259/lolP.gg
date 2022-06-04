@@ -32,7 +32,8 @@ class LoginDetailView: UIViewController {
         super.viewDidLoad()
         //프로필 사진 ui설정
         userImg.contentMode = .scaleAspectFit
-        userImg.image = UIImage(systemName: "person")
+//        userImg.image = UIImage(systemName: "person")
+        userImg.image = UIImage(systemName: "book")
         userImg.tintColor = .white
         userImg.layer.masksToBounds = true
         userImg.layer.cornerRadius = userImg.frame.height/2
@@ -58,7 +59,7 @@ class LoginDetailView: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        print("디테일화면 나온당")
         //로그인이 이메일로 환영하기 위함
         //그러나 이 방식은 애플로그인단계에서 이메일가리기로 로그인을하면 문제가 생긴다.
         if let user = Auth.auth().currentUser {
@@ -78,28 +79,27 @@ class LoginDetailView: UIViewController {
   
 //MARK: - 이미지변경
     func changeuserImg() {
-//        guard let user = Auth.auth().currentUser else { return }
-//
-//        ref.child("users").observeSingleEvent(of: .value, andPreviousSiblingKeyWith: {
-//            (snapshot, error) in
-//            let profileimg = snapshot.value as? [String: Any] ?? [:]
-//            //닉네임가져오기
-//            if let urldata = profileimg[user.uid] as? [String:Any] {
-//                //let getimg = geturl.values
-//                if let urlstring = urldata["profileImageUrl"] as? String {
-//                    print(urlstring)
-//
-//                    if let url = URL(string: urlstring) {
-//                        if let data = try? Data(contentsOf: url) {
-//                            self.userImg.image = UIImage(data: data)
-//                        }
-//                    }
-//
-////                    let image = UIImage(data: getimg)
-////                    self.userImg.image = image
-//                }
-//            }
-//        })
+        guard let user = Auth.auth().currentUser else { return }
+
+        ref.child("users").observeSingleEvent(of: .value, andPreviousSiblingKeyWith: {
+            (snapshot, error) in
+            let profileimg = snapshot.value as? [String: Any] ?? [:]
+            //닉네임가져오기
+            if let urldata = profileimg[user.uid] as? [String:Any] {
+                //let getimg = geturl.values
+                if let urlstring = urldata["profileImageUrl"] as? String {
+                    print(urlstring)
+
+                    if let url = URL(string: urlstring) {
+                        if let data = try? Data(contentsOf: url) {
+                            DispatchQueue.main.async {
+                                self.userImg.image = UIImage(data: data)
+                            }
+                        }
+                    }
+                }
+            }
+        })
         //프로필 이미지 받아오기.
 //        guard let urlString = UserDefaults.standard.value(forKey: "url") as? String,
 //        let url = URL(string: urlString) else {
@@ -224,7 +224,9 @@ extension LoginDetailView: UIImagePickerControllerDelegate, UINavigationControll
         guard let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
               let user = Auth.auth().currentUser else { return }
         
-        let image = self.userImg.image?.jpegData(compressionQuality: 0.1)
+        
+        //let image = self.userImg.image?.jpegData(compressionQuality: 0.1)
+        let image = selectedImage.jpegData(compressionQuality: 0.1)
         Storage.storage().reference().child("userImages").child(user.uid).putData(image!, metadata: nil) { (data, err) in
             
             print("data fetch")
@@ -232,6 +234,7 @@ extension LoginDetailView: UIImagePickerControllerDelegate, UINavigationControll
 //                print("url fetch")
                 print("url이 db에 저장됨 : \(url)")
                 Database.database().reference().child("users").child(user.uid).updateChildValues(["profileImageUrl":url?.absoluteString])
+                self.changeuserImg()
             }
         }
         picker.dismiss(animated: true)
