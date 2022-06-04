@@ -83,11 +83,10 @@ class LoginPopupViewController: UIViewController {
           guard error == nil else { return }
 
           guard let email = user?.profile?.email,
-                let nickName = user?.profile?.givenName else {
+                let nickName = user?.profile?.givenName,
+                let pic = user?.profile?.imageURL(withDimension: 150) else {
                     return
                 }
-
-          let pic = user?.profile?.imageURL(withDimension: 150)
           print("구글이미지 url : \(pic)")
           
           //self.db.collection("users").document(email).setData(["nickName" : nickName])

@@ -16,14 +16,12 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
     @IBOutlet var textLabel: UITextView!
     
     var ref: DatabaseReference!
-    var fbuser: [FBUser] = []
-    var fbusernickName: String = ""
+    var fbusernickName: String = "별명이없는자"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
         placeholderSetting()
-    
     }
     
     //UILabel Placeholder
@@ -50,7 +48,6 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
         //로그인정보부터 불러오기.
         guard let user = Auth.auth().currentUser else { return }
         
-
         //작성날짜 구하기 위해서.
         let formatter = DateFormatter()
         formatter.dateFormat = "yy-MM-dd"
@@ -64,29 +61,40 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
                   self.view.makeToast("모든 내용을 작성해주세요.", duration: 1.0, position: .center)
                   return
               }
-        
-        //닉네임을 가져오기 위한 함수다.
-        ref.child("users").observeSingleEvent(of: .value) { snapshot in
-            guard let userData = snapshot.value as? [String:Any] else { return }
-            //users - > uid -> nickname
-            
-            let userdata = try! JSONSerialization.data(withJSONObject: Array(userData.values), options: [])
-            do {
-                let decoder = JSONDecoder()
-                let usingData = try decoder.decode([FBUser].self, from: userdata)
-                self.fbuser = usingData
-                print("저장된 FBUser: \(self.fbuser)")
-
-                //self.fbusernickName =
-                
-                for i in usingData {
-                    self.fbusernickName = i.nickName
-                    print("이름이 이상해...\(self.fbusernickName)")
+        ref.child("users").observeSingleEvent(of: .value, andPreviousSiblingKeyWith: {
+            (snapshot, error) in
+            let nicknames = snapshot.value as? [String: Any] ?? [:]
+            //닉네임가져오기
+            if let nickkey = nicknames[user.uid] as? [String:Any] {
+                let getnick = nickkey.values
+                if let gettnick = nickkey["nickName"] as? String {
+                    print(gettnick)
+                    self.fbusernickName = gettnick
                 }
-                
-            } catch let error {
-                print("유저닉 에러 \(error.localizedDescription)")
             }
+        })
+        //게시글 등록!
+        ref.child("users").observeSingleEvent(of: .value) { snapshot in
+//            guard let userData = snapshot.value as? [String:Any] else { return }
+//            //users - > uid -> nickname
+            
+//            let userdata = try! JSONSerialization.data(withJSONObject: Array(userData.values), options: [])
+//            do {
+//                let decoder = JSONDecoder()
+//                let usingData = try decoder.decode([FBUser].self, from: userdata)
+//                self.fbuser = usingData
+//                print("저장된 FBUser: \(self.fbuser)")
+//
+//                //self.fbusernickName =
+//
+//                for i in usingData {
+//                    self.fbusernickName = i.nickName
+//                    print("이름이 이상해...\(self.fbusernickName)")
+//                }
+//
+//            } catch let error {
+//                print("유저닉 에러 \(error.localizedDescription)")
+//            }
             
             //데이터 저장. 별명이없는자는 일단 apple로그인 때문.
             self.ref.child("board").child("create").child(keyValue).setValue([
@@ -94,7 +102,7 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
                 "text" : self.textLabel.text as Any,
                 "recordTime" : ServerValue.timestamp(),
                 "uid" : user.uid,
-                "nickName" : self.fbusernickName ?? "별명이없는자",
+                "nickName" : self.fbusernickName,
                 "writeDate" : writedateString,
                 "keyValue" : keyValue,
                 "commentCount" : 0

@@ -20,9 +20,7 @@ class CommuDetailViewController : UITableViewController {
     
     //게시글 key값 받아오자. 주후에 댓글에 쓸것.
     var commuKey : String?
-    var commufbuser: [FBUser] = []
-    var commufbusernickName: String = ""
-    var getnick: String = ""
+    var getnick: String = "별명이없는자"
     
     //게시글 값 받아오기
     var detailtitle : String?
@@ -64,10 +62,6 @@ class CommuDetailViewController : UITableViewController {
     @IBAction func writeComment(_ sender: UIButton) {
         //로그인정보부터 불러오기.
         guard let user = Auth.auth().currentUser else { return }
-
-//        //임시 닉네임
-//        let usernick = user.uid
-        
         //작성날짜 구하기 위해서.
         let formatter = DateFormatter()
         formatter.dateFormat = "yy-MM-dd"
@@ -84,54 +78,45 @@ class CommuDetailViewController : UITableViewController {
         //유저닉 얻기.
         ref.child("users").observeSingleEvent(of: .value, andPreviousSiblingKeyWith: {
             (snapshot, error) in
-            
             let nicknames = snapshot.value as? [String: Any] ?? [:]
-            
-            //이방법이다!!! 유레카
+            //닉네임가져오기
             if let nickkey = nicknames[user.uid] as? [String:Any] {
-                print(nickkey)
                 let getnick = nickkey.values
-                
                 if let gettnick = nickkey["nickName"] as? String {
-                   print(gettnick)
+                    print(gettnick)
+                    self.getnick = gettnick
                 }
-                
-                print("닉네임만 빼와야하는데 : \(getnick)")
-                
             }
-            
-            
-
             DispatchQueue.main.async {
                 self.detailcommutableView.reloadData()
             }
         })
         
-        
         ref.child("users").observeSingleEvent(of: .value) { snapshot in
-            guard let userData = snapshot.value as? [String:Any] else { return }
-            
-            let userdata = try! JSONSerialization.data(withJSONObject: Array(userData.values), options: [])
-            do {
-                let decoder = JSONDecoder()
-                let usingData = try decoder.decode([FBUser].self, from: userdata)
-                self.commufbuser = usingData
-                print("저장된 FBUser: \(self.commufbuser)")
-
-                for i in usingData {
-                    self.commufbusernickName = i.nickName
-                    print("comments작성자 닉네임. : \(self.commufbusernickName)")
-                }
-            } catch let error {
-                print("유저닉 에러 \(error.localizedDescription)")
-            }
+//            guard let userData = snapshot.value as? [String:Any] else { return }
+//
+//            let userdata = try! JSONSerialization.data(withJSONObject: Array(userData.values), options: [])
+//            do {
+//                let decoder = JSONDecoder()
+//                let usingData = try decoder.decode([FBUser].self, from: userdata)
+//                self.commufbuser = usingData
+//                print("저장된 FBUser: \(self.commufbuser)")
+//
+//                for i in usingData {
+//                    self.commufbusernickName = i.nickName
+//                    print("comments작성자 닉네임. : \(self.commufbusernickName)")
+//                }
+//            } catch let error {
+//                print("유저닉 에러 \(error.localizedDescription)")
+//            }
             if let commukey = self.commuKey {
                 self.ref.child("board").child("create").child(commukey).child("comment").child(keyValue).setValue([
                                           "text" : self.commenttextField.text as Any,
                                           "recordTime" : ServerValue.timestamp(),
                                           "uid" : user.uid,
-                                          "nickName" : self.commufbusernickName
-                                                       ?? "별명이없는자",
+//                                          "nickName" : self.commufbusernickName
+//                                                       ?? "별명이없는자",
+                                          "nickName" : self.getnick,
                                         "writeDate" : writedateString
                 ])
                 //댓글 업로드와 동시에 댓글카운트 수 늘리기.
@@ -185,7 +170,7 @@ class CommuDetailViewController : UITableViewController {
             ref.child("board").child("create").child(commukey).child("comment").observeSingleEvent(of: .value) { snapshot in
                 
                 //카운트 수
-                print("댓글 수 : \(snapshot.childrenCount)")
+                //print("댓글 수 : \(snapshot.childrenCount)")
            
                 guard let value = snapshot.value as? [String:Any] else { return }
                 let commucommentdata = try! JSONSerialization.data(withJSONObject:    Array(value.values), options: [])

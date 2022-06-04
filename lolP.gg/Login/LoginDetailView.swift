@@ -22,6 +22,7 @@ class LoginDetailView: UIViewController {
     @IBOutlet var passwordReset: UIButton!
     @IBOutlet var userImg: UIImageView!
     
+    var ref = Database.database().reference() //db
     let storage = Storage.storage().reference() //스토리지 레퍼런스 초기화
     public typealias UploadPictureCompletion = (Result<String, Error>) -> Void
     let imagePickerController = UIImagePickerController()
@@ -66,10 +67,10 @@ class LoginDetailView: UIViewController {
         if let user = Auth.auth().currentUser {
             userId.text = ("\(user.uid)")
             userEmail.text = ("\(user.email ?? "이메일가린 애플유저")")
-        
             //userName.text = ("\()")
 //            userName.text = ("\(user.name ?? "유저")")
         }
+        getnickName()
         changeuserImg()
         
         //이메일 초기화
@@ -81,10 +82,14 @@ class LoginDetailView: UIViewController {
 //MARK: - 이미지변경
     func changeuserImg() {
         guard let urlString = UserDefaults.standard.string(forKey: "ImageUrl") else { return }
-        
+
         FirebaseStorageManager.downloadImage(urlString: urlString) { [weak self] image in
             self?.userImg.image = image
         }
+        
+        //구글로그인은 이미지를 제공하는데 말이지...
+        //let user = Auth.auth().currentUser
+        //let pic = user?.profile?.imageURL(withDimension: 150)
         
         //프로필 이미지 받아오기.
 //        guard let urlString = UserDefaults.standard.value(forKey: "url") as? String,
@@ -125,22 +130,41 @@ class LoginDetailView: UIViewController {
     
 //MARK: - 닉네임 변경
     @IBAction func nickNameUpdateBtn(_ sender: Any) {
-        
-        //닉네임변경 버튼 눌렀을떄 VC를 만들어야함.
-        //닉네임을 변경하면 displayName에 닉네임을 저장한다.
-        //이렇게하면 좀 더 쉬운 닉네임 설정이 가능했겠지만... 닉네임은 그냥 db에 저장한것으로 불러오는게 좋을거같다.
-        //
+        guard let user = Auth.auth().currentUser else { return }
 
-        
-//        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-//        changeRequest?.displayName = "토끼"
-//        changeRequest?.commitChanges { _ in
-//            //UITextField를 사용해서 입력받은 값을 넣는게 좋을것이다.
-//            //버튼을 누르면 토끼가들어감. 나중엔 표시를 저렇게 개발해야한다.>> 없으면 이메일을, 그것도 없으면 그냥 고객으로 표시
-//            let displayName = Auth.auth().currentUser?.displayName ?? Auth.auth().currentUser?.email ?? "고객"
-//            self.userName.text = ("\(displayName)")
-//        }
+        let alert = UIAlertController(title: "닉네임 변경", message: "닉네임을 입력해주세요.",preferredStyle: .alert)
+        alert.addTextField()
+        let ok = UIAlertAction(title: "OK", style: .default) { (ok) in
+            self.ref.child("users").child(user.uid).updateChildValues(["nickName" : alert.textFields?[0].text])
+            self.getnickName()
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (cancel) in
+            
+        }
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
+    
     }
+    
+//MARK: - 닉네임 가져오기.
+    func getnickName() {
+        guard let user = Auth.auth().currentUser else { return }
+        
+        ref.child("users").observeSingleEvent(of: .value, andPreviousSiblingKeyWith: {
+            (snapshot, error) in
+            let nicknames = snapshot.value as? [String: Any] ?? [:]
+            //닉네임가져오기
+            if let nickkey = nicknames[user.uid] as? [String:Any] {
+                let getnick = nickkey.values
+                if let gettnick = nickkey["nickName"] as? String {
+                    print(gettnick)
+                    self.userName.text = gettnick
+                }
+            }
+        })
+    }
+    
 }
 
 
