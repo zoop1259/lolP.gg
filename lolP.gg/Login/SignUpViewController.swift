@@ -148,7 +148,6 @@ extension UIViewController{
             let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
             alert.addAction(okAction)
             self.present(alert, animated: true, completion: nil)
-
         }
     }
 }
