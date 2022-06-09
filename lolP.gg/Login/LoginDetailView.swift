@@ -28,6 +28,7 @@ class LoginDetailView: UIViewController {
     let imagePickerController = UIImagePickerController()
     var selectedImage: UIImage?
     
+    //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         //프로필 사진 ui설정
@@ -50,13 +51,7 @@ class LoginDetailView: UIViewController {
             print("당신의 \(user.uid), email: \(user.email ?? "no email")")
         }
     }
-    
-    //프로필사진 변경?
-    @objc private func didTapChangeProfilePic() {
-        presentPhotoActionSheet()
-    }
-    
-    
+    //MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("디테일화면 나온당")
@@ -77,7 +72,12 @@ class LoginDetailView: UIViewController {
         passwordReset.isHidden = !isEmailSignIn
     }
   
-//MARK: - 이미지변경
+    
+    //MARK: - 이미지변경
+    @objc private func didTapChangeProfilePic() {
+        presentPhotoActionSheet()
+    }
+    
     func changeuserImg() {
         guard let user = Auth.auth().currentUser else { return }
 
@@ -100,21 +100,6 @@ class LoginDetailView: UIViewController {
                 }
             }
         })
-        //프로필 이미지 받아오기.
-//        guard let urlString = UserDefaults.standard.value(forKey: "url") as? String,
-//        let url = URL(string: urlString) else {
-//            return
-//        }
-//        let task = URLSession.shared.dataTask(with:url, completionHandler: { data, _, error in
-//            guard let data = data, error == nil else {
-//                return
-//            }
-//            DispatchQueue.main.async {
-//                let image = UIImage(data: data)
-//                self.userImg.image = image
-//            }
-//        })
-//        task.resume()
     }
     
 //MARK: - 로그아웃버튼
@@ -212,14 +197,6 @@ extension LoginDetailView: UIImagePickerControllerDelegate, UINavigationControll
         present(picker, animated: true)
     }
 
-//    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-//        picker.dismiss(animated: true) // 1
-//        let itemProvider = results.first?.itemProvider // 2
-//        if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
-//            itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in DispatchQueue.main.async { self.imageView.image = image as? UIImage  } }
-//    }
-//    }
-
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
               let user = Auth.auth().currentUser else { return }
@@ -245,7 +222,7 @@ extension LoginDetailView: UIImagePickerControllerDelegate, UINavigationControll
 }
 
 
-
+//MARK: - 회원탈퇴
 /*
  //회원탈퇴 : 버튼에 연결만 하면된다.
  private func loadDeleteFirebase()

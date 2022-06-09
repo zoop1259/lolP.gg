@@ -61,6 +61,7 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
                   self.view.makeToast("모든 내용을 작성해주세요.", duration: 1.0, position: .center)
                   return
               }
+        //닉네임 가져오기.
         ref.child("users").observeSingleEvent(of: .value, andPreviousSiblingKeyWith: {
             (snapshot, error) in
             let nicknames = snapshot.value as? [String: Any] ?? [:]
@@ -75,28 +76,7 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
         })
         //게시글 등록!
         ref.child("users").observeSingleEvent(of: .value) { snapshot in
-//            guard let userData = snapshot.value as? [String:Any] else { return }
-//            //users - > uid -> nickname
-            
-//            let userdata = try! JSONSerialization.data(withJSONObject: Array(userData.values), options: [])
-//            do {
-//                let decoder = JSONDecoder()
-//                let usingData = try decoder.decode([FBUser].self, from: userdata)
-//                self.fbuser = usingData
-//                print("저장된 FBUser: \(self.fbuser)")
-//
-//                //self.fbusernickName =
-//
-//                for i in usingData {
-//                    self.fbusernickName = i.nickName
-//                    print("이름이 이상해...\(self.fbusernickName)")
-//                }
-//
-//            } catch let error {
-//                print("유저닉 에러 \(error.localizedDescription)")
-//            }
-            
-            //데이터 저장. 별명이없는자는 일단 apple로그인 때문.
+            //데이터 저장.
             self.ref.child("board").child("create").child(keyValue).setValue([
                 "title" : self.titleLabel.text as Any,
                 "text" : self.textLabel.text as Any,

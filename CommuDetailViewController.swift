@@ -51,13 +51,6 @@ class CommuDetailViewController : UITableViewController {
         
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        ref.child("board").child("create").observeSingleEvent(of: .value) { snapshot in
-//
-//        }
-//    }
-    
     //MARK: - 댓글쓰기
     @IBAction func writeComment(_ sender: UIButton) {
         //로그인정보부터 불러오기.
@@ -91,31 +84,13 @@ class CommuDetailViewController : UITableViewController {
                 self.detailcommutableView.reloadData()
             }
         })
-        
+        //닉네임 가져오기.
         ref.child("users").observeSingleEvent(of: .value) { snapshot in
-//            guard let userData = snapshot.value as? [String:Any] else { return }
-//
-//            let userdata = try! JSONSerialization.data(withJSONObject: Array(userData.values), options: [])
-//            do {
-//                let decoder = JSONDecoder()
-//                let usingData = try decoder.decode([FBUser].self, from: userdata)
-//                self.commufbuser = usingData
-//                print("저장된 FBUser: \(self.commufbuser)")
-//
-//                for i in usingData {
-//                    self.commufbusernickName = i.nickName
-//                    print("comments작성자 닉네임. : \(self.commufbusernickName)")
-//                }
-//            } catch let error {
-//                print("유저닉 에러 \(error.localizedDescription)")
-//            }
             if let commukey = self.commuKey {
                 self.ref.child("board").child("create").child(commukey).child("comment").child(keyValue).setValue([
                                           "text" : self.commenttextField.text as Any,
                                           "recordTime" : ServerValue.timestamp(),
                                           "uid" : user.uid,
-//                                          "nickName" : self.commufbusernickName
-//                                                       ?? "별명이없는자",
                                           "nickName" : self.getnick,
                                         "writeDate" : writedateString
                 ])

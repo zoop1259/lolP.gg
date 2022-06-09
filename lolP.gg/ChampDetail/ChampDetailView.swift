@@ -21,8 +21,22 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
 
     var urlString = "url정보담을 변수"
 
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        activityIndicator.center = self.view.center
+        activityIndicator.color = UIColor.red
+//        activityIndicator.stopAnimating()
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = UIActivityIndicatorView.Style.white
+        return activityIndicator
+    } ()
+
+    
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.addSubview(self.activityIndicator)
         
         //vc는 ViewController의 약자
         if let vcname = VCName {
@@ -30,6 +44,8 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
             self.detailName.text = vcname
             print("챔프디테일에서의 vcname값 : \(vcname)")
         }
+        
+        self.activityIndicator.startAnimating()
         
         //챔프 썸네일과 스킬이미지 url 생성
         if let vcimg = VCImg {
@@ -69,15 +85,15 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
                 return
             }
 //            스킬의 이름, 정보, 이미지 관련 데이터를 배열에 저장.
-            for (_, skillnames) in final.data {
-                let sub = skillnames.spells
-                self.spell = sub
+            for (skillKey, skillValue) in final.data {
+                let spells = skillValue.spells
+                self.spell = spells
             }
 //            메인에서 일을 시킴. reloadData를 사용하기 떄문에 맨 마지막에 사용
             DispatchQueue.main.async {
                 self.DetailTableView.reloadData()
+                self.activityIndicator.stopAnimating()
             }
-                                              
         })
         task.resume()
     }

@@ -136,6 +136,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                             //버전도 담기
                             self.newVersion = newversion
                             //async하여 데이터 메인에서 돌게
+//                            OperationQueue.main.addOperation {
+//                                self.collectionViewMain.reloadData()
+//                            }
                             DispatchQueue.main.async {
                                 self.collectionViewMain.reloadData()
                             }
@@ -181,7 +184,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     func searchBarIsEmpty() -> Bool {
-      // Returns true if the text is empty or nil
       return searchController.searchBar.text?.isEmpty ?? true
     }
       
@@ -189,7 +191,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
       filteredChamp = champion.filter({( champion : ChampData) -> Bool in
         return champion.name.lowercased().contains(searchText.lowercased())
       })
-
       collectionViewMain.reloadData()
     }
 }
