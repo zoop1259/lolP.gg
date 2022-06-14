@@ -249,7 +249,7 @@ class CommuDetailViewController : UITableViewController {
         show(vc, sender: nil)
     }
     
-    
+    //깃 확인중.
 }
 
 
