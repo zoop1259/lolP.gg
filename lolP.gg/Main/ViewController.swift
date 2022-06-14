@@ -24,7 +24,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         champData()
     }
 
-    //MARK: -- Collection View delegate
+    //MARK: -- 컬렉션뷰 델리게이트
     //셀 수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.isFiltering ? self.filteredChamp.count : self.champion.count
@@ -53,7 +53,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         return cell
     }
     
-    //MARK: -- prepare method 데이터 넘겨주기.
+    //MARK: -- 데이터 넘겨주기.
     //셀 눌렀을 때
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("\(indexPath.item + 1)번째 셀의 챔피언")
@@ -94,7 +94,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         show(controller, sender: nil)
     }
   
-    //데이터 API
+    //MARK: - 데이터파싱
     func champData() {
         
         if let urls = URL(string: "https://ddragon.leagueoflegends.com/api/versions.json") {

@@ -432,32 +432,8 @@
                     <view key="view" contentMode="scaleToFill" id="USg-QP-AC0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NvK-7p-Q4y">
-                                <rect key="frame" x="10" y="54" width="394" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="------" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vbZ-qJ-x8R">
-                                <rect key="frame" x="10" y="85" width="394" height="767"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="nIi-Zq-ebq"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="NvK-7p-Q4y" firstAttribute="top" secondItem="nIi-Zq-ebq" secondAttribute="top" constant="10" id="Av8-VX-BZl"/>
-                            <constraint firstItem="nIi-Zq-ebq" firstAttribute="bottom" secondItem="vbZ-qJ-x8R" secondAttribute="bottom" constant="10" id="LcW-HV-7H6"/>
-                            <constraint firstItem="vbZ-qJ-x8R" firstAttribute="top" secondItem="NvK-7p-Q4y" secondAttribute="bottom" constant="10" id="cvF-fo-vh7"/>
-                            <constraint firstItem="nIi-Zq-ebq" firstAttribute="trailing" secondItem="NvK-7p-Q4y" secondAttribute="trailing" constant="10" id="ehq-nv-MkV"/>
-                            <constraint firstItem="nIi-Zq-ebq" firstAttribute="trailing" secondItem="vbZ-qJ-x8R" secondAttribute="trailing" constant="10" id="rkT-og-kqj"/>
-                            <constraint firstItem="NvK-7p-Q4y" firstAttribute="leading" secondItem="nIi-Zq-ebq" secondAttribute="leading" constant="10" id="u4E-O0-fM3"/>
-                            <constraint firstItem="vbZ-qJ-x8R" firstAttribute="leading" secondItem="nIi-Zq-ebq" secondAttribute="leading" constant="10" id="vmq-7D-ciM"/>
-                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GIj-HF-nkW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
