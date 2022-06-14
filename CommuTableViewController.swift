@@ -91,7 +91,8 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
         viewController.detailtext = boardList[indexPath.row].text
         viewController.detailwriteDate = boardList[indexPath.row].writeDate
         viewController.detailnickName = boardList[indexPath.row].nickName
-        
+        viewController.detailuid = boardList[indexPath.row].uid
+        //디테일뷰call
         show(viewController, sender: nil)
     }
     

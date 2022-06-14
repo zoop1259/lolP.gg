@@ -27,17 +27,33 @@ class CommuDetailViewController : UITableViewController {
     var detailtext : String?
     var detailwriteDate : String?
     var detailnickName : String?
-    
-    //댓글 관련
+    var detailuid : String?
+    //댓글
     var commentsBoard: [CommentsBoard] = []
-    
     //댓글 수
     var countingComment = 0
+    
+    //바버튼 생성,설정
+    lazy var rightButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "수정", style: .plain, target: self, action: #selector(buttonPressed(_:)))
+        return button
+    }()
+
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "게시글"
+        let checkUser = Auth.auth().currentUser?.uid
+        //이메일 초기화
+        if checkUser == detailuid  {
+            //작성자가 아니면 수정버튼은 사라져야한다.
+            self.navigationItem.rightBarButtonItem = self.rightButton
+        } else {
+            self.navigationItem.rightBarButtonItem = nil
+        }
         
+        //셀등록.
         tableView.register(CommuDetailCell.nib(), forCellReuseIdentifier: CommuDetailCell.identifier)
         tableView.register(CommuCommentCell.nib(), forCellReuseIdentifier: CommuCommentCell.identifier)
         
@@ -205,6 +221,14 @@ class CommuDetailViewController : UITableViewController {
             return cell
         }
     }
+    
+    @objc private func buttonPressed(_ sender: Any) {
+        print("탭바아이템눌림")
+        //if let button = sender as? UIBarButtonItem {
+        //}
+    }
+    
+    
 }
 
 

@@ -33,8 +33,7 @@ class LoginDetailView: UIViewController {
         super.viewDidLoad()
         //프로필 사진 ui설정
         userImg.contentMode = .scaleAspectFit
-//        userImg.image = UIImage(systemName: "person")
-        userImg.image = UIImage(systemName: "book")
+        userImg.image = UIImage(systemName: "person")
         userImg.tintColor = .white
         userImg.layer.masksToBounds = true
         userImg.layer.cornerRadius = userImg.frame.height/2
@@ -157,7 +156,6 @@ class LoginDetailView: UIViewController {
             }
         })
     }
-    
 }
 
 

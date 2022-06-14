@@ -416,7 +416,6 @@
                             <outlet property="delegate" destination="CUi-L8-rmE" id="YbM-Ob-Vic"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="oud-o2-Z0q"/>
                     <connections>
                         <outlet property="commenttextField" destination="ih7-rw-dgS" id="YOr-gb-EM2"/>
                         <outlet property="detailcommutableView" destination="8Bz-81-ddI" id="PED-mi-7FK"/>
@@ -424,7 +423,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TN2-Fg-OhK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1007" y="1233"/>
+            <point key="canvasLocation" x="2942" y="518"/>
         </scene>
         <!--글 작성-->
         <scene sceneID="YFQ-2m-2KA">
@@ -474,7 +473,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ltu-F0-64f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3071.0144927536235" y="837.72321428571422"/>
+            <point key="canvasLocation" x="2033" y="518"/>
         </scene>
         <!--Login Popup View Controller-->
         <scene sceneID="UFU-VS-pUD">
@@ -590,7 +589,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pxe-pH-4C1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3069.5652173913045" y="81.696428571428569"/>
+            <point key="canvasLocation" x="1007" y="-957"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="neU-UJ-bAx">
@@ -793,7 +792,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wWw-ew-rKu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3914.4927536231885" y="-588.61607142857144"/>
+            <point key="canvasLocation" x="2941" y="-958"/>
         </scene>
         <!--Login Detail View-->
         <scene sceneID="NMc-BO-exA">
@@ -926,11 +925,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wts-rN-H9w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3905.7971014492755" y="81.696428571428569"/>
+            <point key="canvasLocation" x="2032" y="-958"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Yw3-o2-HH9"/>
+        <segue reference="CUv-J5-WLN"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="AccentColor"/>
     <resources>

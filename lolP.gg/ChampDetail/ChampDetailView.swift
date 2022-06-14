@@ -21,12 +21,12 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
 
     var urlString = "url정보담을 변수"
 
+    //인디케이터 생성
     lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         activityIndicator.center = self.view.center
         activityIndicator.color = UIColor.red
-//        activityIndicator.stopAnimating()
         activityIndicator.hidesWhenStopped = true
         activityIndicator.style = UIActivityIndicatorView.Style.white
         return activityIndicator
@@ -36,6 +36,7 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        //인디케이터 추
         self.view.addSubview(self.activityIndicator)
         
         //vc는 ViewController의 약자

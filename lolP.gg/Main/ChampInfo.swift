@@ -11,7 +11,7 @@ struct MainData: Codable {
     let data: [String: ChampData]
 }
    
-// MARK: - ChampData
+//원하는데이터
 struct ChampData: Codable {
     let id, key, name: String
 }

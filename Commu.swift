@@ -13,7 +13,6 @@ struct FBAutoid:Codable {
 
 struct UserProfile:Codable {
     let nickName: String
-    //let photourl: String
 }
 
 struct Board:Codable {

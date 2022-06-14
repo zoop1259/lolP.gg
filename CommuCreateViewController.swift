@@ -16,6 +16,7 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
     @IBOutlet var textLabel: UITextView!
     
     var ref: DatabaseReference!
+    //닉네임설정을 안한자를 위한..
     var fbusernickName: String = "별명이없는자"
     
     override func viewDidLoad() {
@@ -67,10 +68,10 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
             let nicknames = snapshot.value as? [String: Any] ?? [:]
             //닉네임가져오기
             if let nickkey = nicknames[user.uid] as? [String:Any] {
-                let getnick = nickkey.values
-                if let gettnick = nickkey["nickName"] as? String {
-                    print(gettnick)
-                    self.fbusernickName = gettnick
+                //let getnick = nickkey.values
+                if let getnick = nickkey["nickName"] as? String {
+                    print(getnick)
+                    self.fbusernickName = getnick
                 }
             }
         })
