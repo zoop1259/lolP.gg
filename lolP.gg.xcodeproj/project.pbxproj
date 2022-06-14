@@ -8,10 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6E70A01CA01C25EB7D4157C4 /* Pods_lolP_gg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB41DC524ACDE1404DAEC41 /* Pods_lolP_gg.framework */; };
-		C510A6EB2831161300A0B2FC /* CommuDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C510A6E92831161200A0B2FC /* CommuDetailCell.swift */; };
-		C510A6EC2831161300A0B2FC /* CommuDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C510A6EA2831161300A0B2FC /* CommuDetailCell.xib */; };
-		C510A6EF28311F5300A0B2FC /* CommuCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C510A6ED28311F5300A0B2FC /* CommuCommentCell.swift */; };
-		C510A6F028311F5300A0B2FC /* CommuCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C510A6EE28311F5300A0B2FC /* CommuCommentCell.xib */; };
 		C511C9B4282BD36B004C1CD6 /* CommuDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C511C9B3282BD36B004C1CD6 /* CommuDetailViewController.swift */; };
 		C52177C827590FAA00E1BA62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177C727590FAA00E1BA62 /* AppDelegate.swift */; };
 		C52177CA27590FAA00E1BA62 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177C927590FAA00E1BA62 /* SceneDelegate.swift */; };
@@ -23,6 +19,10 @@
 		C52177E12759101600E1BA62 /* LoginPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177DE2759101600E1BA62 /* LoginPopupViewController.swift */; };
 		C52178452768215F00E1BA62 /* ChampInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52178442768215F00E1BA62 /* ChampInfo.swift */; };
 		C5730C2527BAED5A00DF2520 /* CommuCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5730C2427BAED5A00DF2520 /* CommuCreateViewController.swift */; };
+		C574C5322858F62700031641 /* CommuCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C574C52E2858F62700031641 /* CommuCommentCell.xib */; };
+		C574C5332858F62700031641 /* CommuDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C574C52F2858F62700031641 /* CommuDetailCell.swift */; };
+		C574C5342858F62700031641 /* CommuCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C574C5302858F62700031641 /* CommuCommentCell.swift */; };
+		C574C5352858F62700031641 /* CommuDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C574C5312858F62700031641 /* CommuDetailCell.xib */; };
 		C585CC1D2827B92F000629EE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C585CC1C2827B92F000629EE /* GoogleService-Info.plist */; };
 		C59589E22858DB9100AE9CFD /* CommuUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59589E12858DB9100AE9CFD /* CommuUpdateViewController.swift */; };
 		C597267B278C8EFA0048C7CA /* ChampDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C597267A278C8EFA0048C7CA /* ChampDetailView.swift */; };
@@ -35,10 +35,6 @@
 /* Begin PBXFileReference section */
 		129FA7CD3FED30DE909476C0 /* Pods-lolP.gg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lolP.gg.release.xcconfig"; path = "Target Support Files/Pods-lolP.gg/Pods-lolP.gg.release.xcconfig"; sourceTree = "<group>"; };
 		1EB41DC524ACDE1404DAEC41 /* Pods_lolP_gg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lolP_gg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C510A6E92831161200A0B2FC /* CommuDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommuDetailCell.swift; sourceTree = "<group>"; };
-		C510A6EA2831161300A0B2FC /* CommuDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommuDetailCell.xib; sourceTree = "<group>"; };
-		C510A6ED28311F5300A0B2FC /* CommuCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommuCommentCell.swift; sourceTree = "<group>"; };
-		C510A6EE28311F5300A0B2FC /* CommuCommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommuCommentCell.xib; sourceTree = "<group>"; };
 		C511C9B3282BD36B004C1CD6 /* CommuDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommuDetailViewController.swift; sourceTree = "<group>"; };
 		C52177C427590FAA00E1BA62 /* lolP.gg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lolP.gg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C52177C727590FAA00E1BA62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -53,6 +49,10 @@
 		C52178442768215F00E1BA62 /* ChampInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampInfo.swift; sourceTree = "<group>"; };
 		C52178CA276BB3F300E1BA62 /* lolP.gg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = lolP.gg.entitlements; sourceTree = "<group>"; };
 		C5730C2427BAED5A00DF2520 /* CommuCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommuCreateViewController.swift; sourceTree = "<group>"; };
+		C574C52E2858F62700031641 /* CommuCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommuCommentCell.xib; sourceTree = "<group>"; };
+		C574C52F2858F62700031641 /* CommuDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommuDetailCell.swift; sourceTree = "<group>"; };
+		C574C5302858F62700031641 /* CommuCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommuCommentCell.swift; sourceTree = "<group>"; };
+		C574C5312858F62700031641 /* CommuDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommuDetailCell.xib; sourceTree = "<group>"; };
 		C585CC1C2827B92F000629EE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C59589E12858DB9100AE9CFD /* CommuUpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommuUpdateViewController.swift; sourceTree = "<group>"; };
 		C597267A278C8EFA0048C7CA /* ChampDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampDetailView.swift; sourceTree = "<group>"; };
@@ -139,17 +139,16 @@
 				C5730C2427BAED5A00DF2520 /* CommuCreateViewController.swift */,
 				C59589E12858DB9100AE9CFD /* CommuUpdateViewController.swift */,
 			);
-			name = Community;
-			path = ..;
+			path = Community;
 			sourceTree = "<group>";
 		};
 		C588B62C2831659800FF8D05 /* Community Cell */ = {
 			isa = PBXGroup;
 			children = (
-				C510A6E92831161200A0B2FC /* CommuDetailCell.swift */,
-				C510A6EA2831161300A0B2FC /* CommuDetailCell.xib */,
-				C510A6ED28311F5300A0B2FC /* CommuCommentCell.swift */,
-				C510A6EE28311F5300A0B2FC /* CommuCommentCell.xib */,
+				C574C5302858F62700031641 /* CommuCommentCell.swift */,
+				C574C52E2858F62700031641 /* CommuCommentCell.xib */,
+				C574C52F2858F62700031641 /* CommuDetailCell.swift */,
+				C574C5312858F62700031641 /* CommuDetailCell.xib */,
 			);
 			path = "Community Cell";
 			sourceTree = "<group>";
@@ -243,9 +242,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C52177D427590FAC00E1BA62 /* LaunchScreen.storyboard in Resources */,
-				C510A6F028311F5300A0B2FC /* CommuCommentCell.xib in Resources */,
 				C585CC1D2827B92F000629EE /* GoogleService-Info.plist in Resources */,
-				C510A6EC2831161300A0B2FC /* CommuDetailCell.xib in Resources */,
+				C574C5352858F62700031641 /* CommuDetailCell.xib in Resources */,
+				C574C5322858F62700031641 /* CommuCommentCell.xib in Resources */,
 				C52177D127590FAC00E1BA62 /* Assets.xcassets in Resources */,
 				C52177CF27590FAA00E1BA62 /* Main.storyboard in Resources */,
 			);
@@ -304,9 +303,9 @@
 				C5730C2527BAED5A00DF2520 /* CommuCreateViewController.swift in Sources */,
 				C52177CC27590FAA00E1BA62 /* ViewController.swift in Sources */,
 				C5C8110328109F680088CE74 /* Commu.swift in Sources */,
-				C510A6EF28311F5300A0B2FC /* CommuCommentCell.swift in Sources */,
-				C510A6EB2831161300A0B2FC /* CommuDetailCell.swift in Sources */,
 				C597267D279544690048C7CA /* ChampSkillInfo.swift in Sources */,
+				C574C5342858F62700031641 /* CommuCommentCell.swift in Sources */,
+				C574C5332858F62700031641 /* CommuDetailCell.swift in Sources */,
 				C511C9B4282BD36B004C1CD6 /* CommuDetailViewController.swift in Sources */,
 				C52177C827590FAA00E1BA62 /* AppDelegate.swift in Sources */,
 				C52177E12759101600E1BA62 /* LoginPopupViewController.swift in Sources */,
