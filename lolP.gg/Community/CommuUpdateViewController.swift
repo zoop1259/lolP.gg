@@ -21,19 +21,8 @@ class CommuUpdateViewController : UIViewController {
     var updatetext: String?
     var ref = Database.database().reference()
     
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 25)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let updatetextField: UITextField = {
-        let textField = UITextField()
-        textField.font = UIFont.systemFont(ofSize: 20)
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var uptextView: UITextView!
     
     //바버튼 생성,설정
     lazy var updateButton: UIBarButtonItem = {
@@ -45,30 +34,20 @@ class CommuUpdateViewController : UIViewController {
         super.viewDidLoad()
         self.title = "수정하기"
         //UI등록
-        view.addSubview(titleLabel)
-        view.addSubview(updatetextField)
         self.navigationItem.rightBarButtonItem = self.updateButton
-        
-        //UIConstraints
-        titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
-        updatetextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
-        updatetextField.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: 10).isActive = true
-        updatetextField.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: -10).isActive = true
 
         //UIData load
         if let updatetitle = updatetitle {
             titleLabel.text = updatetitle
         }
         if let updatetext = updatetext {
-            updatetextField.text = updatetext
+            uptextView.text = updatetext
         }
     }
     
     @objc private func updateButton(_ sender: Any) {
         print("수정버튼눌림")
-        guard let text = self.updatetextField.text, !text.isEmpty else {
+        guard let text = self.uptextView.text, !text.isEmpty else {
                   self.view.makeToast("내용 작성해주세요.",
                                       duration: 1.0, position: .center)
             return
@@ -78,10 +57,11 @@ class CommuUpdateViewController : UIViewController {
         
         if let commukey = commukey {
             self.ref.child("board").child("create").child(commukey).updateChildValues(["text" : text])
-            NotificationCenter.default.post(name: Notification.Name("willDismiss"), object: self.updatetextField.text)
+            NotificationCenter.default.post(name: Notification.Name("willDismiss"), object: self.uptextView.text)
             navigationController?.popViewController(animated: true)
         }
     }
+
 }
 
 

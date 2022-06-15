@@ -372,22 +372,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="tXL-Vf-LbF">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="텍스트" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ll-in-HEI">
-                                    <rect key="frame" x="186" y="11" width="45" height="21"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="W1z-Fs-dqI">
-                            <rect key="frame" x="0.0" y="154.5" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="110.5" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="댓글 입력" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ih7-rw-dgS">
@@ -417,7 +403,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="flS-Rb-Sej">
-                                <rect key="frame" x="0.0" y="88.5" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="flS-Rb-Sej" id="XQ2-cl-to0">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -433,7 +419,6 @@
                     <connections>
                         <outlet property="commenttextField" destination="ih7-rw-dgS" id="YOr-gb-EM2"/>
                         <outlet property="detailcommutableView" destination="8Bz-81-ddI" id="PED-mi-7FK"/>
-                        <outlet property="imsiLabel" destination="7ll-in-HEI" id="6wS-Fs-HF9"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TN2-Fg-OhK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -447,13 +432,41 @@
                     <view key="view" contentMode="scaleToFill" id="USg-QP-AC0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="제목" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pa1-DW-SDr">
+                                <rect key="frame" x="5" y="49" width="404" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="내용" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ccA-Fv-SKc">
+                                <rect key="frame" x="5" y="89" width="404" height="768"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="nIi-Zq-ebq"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="pa1-DW-SDr" firstAttribute="leading" secondItem="nIi-Zq-ebq" secondAttribute="leading" constant="5" id="2Pe-z4-fx0"/>
+                            <constraint firstItem="nIi-Zq-ebq" firstAttribute="trailing" secondItem="ccA-Fv-SKc" secondAttribute="trailing" constant="5" id="2qS-Yy-Eiy"/>
+                            <constraint firstItem="nIi-Zq-ebq" firstAttribute="bottom" secondItem="ccA-Fv-SKc" secondAttribute="bottom" constant="5" id="XG0-zU-z86"/>
+                            <constraint firstItem="nIi-Zq-ebq" firstAttribute="trailing" secondItem="pa1-DW-SDr" secondAttribute="trailing" constant="5" id="ac2-mG-kdn"/>
+                            <constraint firstItem="pa1-DW-SDr" firstAttribute="top" secondItem="nIi-Zq-ebq" secondAttribute="top" constant="5" id="dYw-bV-eTi"/>
+                            <constraint firstItem="ccA-Fv-SKc" firstAttribute="leading" secondItem="nIi-Zq-ebq" secondAttribute="leading" constant="5" id="fls-G1-GyI"/>
+                            <constraint firstItem="ccA-Fv-SKc" firstAttribute="top" secondItem="pa1-DW-SDr" secondAttribute="bottom" constant="10" id="nRF-F6-Ajj"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="titleLabel" destination="pa1-DW-SDr" id="wkz-E7-sl2"/>
+                        <outlet property="uptextView" destination="ccA-Fv-SKc" id="Rgn-Y1-md9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GIj-HF-nkW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3846" y="518"/>
+            <point key="canvasLocation" x="3844.9275362318845" y="517.63392857142856"/>
         </scene>
         <!--글 작성-->
         <scene sceneID="YFQ-2m-2KA">

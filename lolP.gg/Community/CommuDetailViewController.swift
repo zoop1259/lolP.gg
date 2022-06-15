@@ -12,8 +12,6 @@ import FirebaseDatabase
 
 class CommuDetailViewController : UITableViewController {
     
-    @IBOutlet weak var imsiLabel: UILabel!
-    
     @IBOutlet var detailcommutableView: UITableView!
     @IBOutlet weak var commenttextField: UITextField!
     
@@ -65,35 +63,25 @@ class CommuDetailViewController : UITableViewController {
         detailcommutableView.delegate = self
         detailcommutableView.estimatedRowHeight = 100.0
         //메서드 call
-        getDetailBoard() //게시글 받아올 것.
+        //getDetailBoard() //게시글 받아올 것.
         getComment() // 댓글 받아오기
-        
-        if let detailtext = detailtext {
-            imsiLabel.text = detailtext
-        }
         
         //노티등록
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notification.Name("willDismiss"), object: nil)
-        
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
-    
     
      @objc func reloadTableView(_ notification: Notification){
-//         guard let textlabel = tableView.dequeueReusableCell(withIdentifier: "CommuDetailCell") as? CommuDetailCell else { return }
-         
+
          let getValue = notification.object as! String
          print("getValue : \(getValue)")
          
-         self.imsiLabel.text = getValue
+         self.detailtext = getValue
+         //getDetailBoard()
          
-//         DispatchQueue.main.async {
-//             self.tableView.reloadData()
-//         }
+         DispatchQueue.main.async {
+             self.detailcommutableView.reloadData()
+         }
+         
      }
     
     //MARK: - 댓글쓰기
@@ -239,6 +227,7 @@ class CommuDetailViewController : UITableViewController {
             cell.detailtextLabel.text = self.detailtext
             cell.detailnicknameLabel.text = self.detailnickName
             cell.detaildateLabel.text = self.detailwriteDate
+            
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "CommuCommentCell", for: indexPath) as? CommuCommentCell else {
@@ -275,7 +264,6 @@ class CommuDetailViewController : UITableViewController {
         vc.updatetext = self.detailtext
         vc.updatetitle = self.detailtitle
         show(vc, sender: nil)
-//        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }
