@@ -101,8 +101,7 @@
                         <barButtonItem key="backBarButtonItem" title="이전" id="vsS-87-Ezr"/>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="person.fill" catalog="system" id="x2A-cc-yYq">
                             <connections>
-                                <action selector="profileButton:" destination="SiN-vO-sZa" id="MyP-Ct-EI3"/>
-                                <segue destination="sHQ-jS-J6h" kind="presentation" identifier="popupView" modalPresentationStyle="automatic" id="CUv-J5-WLN"/>
+                                <action selector="profileBtn:" destination="SiN-vO-sZa" id="Qc4-Av-CDk"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -352,7 +351,7 @@
                         <barButtonItem key="backBarButtonItem" title="이전" id="HaK-RP-3DZ"/>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="person.fill" catalog="system" id="CTo-7T-Gaa">
                             <connections>
-                                <segue destination="sHQ-jS-J6h" kind="presentation" identifier="popupView" modalPresentationStyle="automatic" id="Yw3-o2-HH9"/>
+                                <action selector="profileBtn:" destination="WZ8-PQ-I3i" id="XxH-kJ-B9C"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -521,13 +520,13 @@
         <!--Login Popup View Controller-->
         <scene sceneID="UFU-VS-pUD">
             <objects>
-                <viewController storyboardIdentifier="popup" id="sHQ-jS-J6h" customClass="LoginPopupViewController" customModule="lolP_gg" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginPopupViewController" id="sHQ-jS-J6h" customClass="LoginPopupViewController" customModule="lolP_gg" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Fjh-IA-Drl">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Qw-2x-30p">
-                                <rect key="frame" x="77" y="196" width="260" height="450"/>
+                                <rect key="frame" x="77" y="223" width="260" height="450"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="xIB-Ap-jZE">
                                         <rect key="frame" x="20" y="108" width="220" height="314"/>
@@ -644,8 +643,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="rxk-po-luP" kind="relationship" relationship="viewControllers" id="zZw-As-Lbb"/>
                         <segue destination="G0D-li-eIR" kind="relationship" relationship="viewControllers" id="qTi-I7-DIA"/>
+                        <segue destination="rxk-po-luP" kind="relationship" relationship="viewControllers" id="zZw-As-Lbb"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sVS-kD-bQx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -971,9 +970,6 @@
             <point key="canvasLocation" x="2032" y="-958"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="CUv-J5-WLN"/>
-    </inferredMetricsTieBreakers>
     <color key="tintColor" name="AccentColor"/>
     <resources>
         <image name="bubble.right" catalog="system" width="128" height="110"/>

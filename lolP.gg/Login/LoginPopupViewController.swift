@@ -39,12 +39,6 @@ class LoginPopupViewController: UIViewController {
         appleloginBtn.addTarget(self, action: #selector(LoginPopupViewController.appleLogInButtonTapped), for: .touchDown)
 
     }
-    //로그인이 되어있는 상태면 바로 디테일화면으로.
-    override func viewWillAppear(_ animated: Bool) {
-        if Auth.auth().currentUser != nil {
-            self.showDetailViewController()
-            }
-    }
     
     //이메일 로그인 버튼 눌렀을때
     @IBAction func btnActSubmit(_ sender: UIButton) {
@@ -67,7 +61,6 @@ class LoginPopupViewController: UIViewController {
             }
         }
     }
-    
     
     //애플 버튼 눌렀을때
     @objc func appleLogInButtonTapped() {
