@@ -11,7 +11,9 @@ import FirebaseAuth
 import FirebaseDatabase
 
 class CommuDetailViewController : UITableViewController {
-
+    
+    @IBOutlet weak var imsiLabel: UILabel!
+    
     @IBOutlet var detailcommutableView: UITableView!
     @IBOutlet weak var commenttextField: UITextField!
     
@@ -66,6 +68,10 @@ class CommuDetailViewController : UITableViewController {
         getDetailBoard() //게시글 받아올 것.
         getComment() // 댓글 받아오기
         
+        if let detailtext = detailtext {
+            imsiLabel.text = detailtext
+        }
+        
         //노티등록
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notification.Name("willDismiss"), object: nil)
         
@@ -73,7 +79,7 @@ class CommuDetailViewController : UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.detailcommutableView.reloadData()
+        
     }
     
     
@@ -83,9 +89,11 @@ class CommuDetailViewController : UITableViewController {
          let getValue = notification.object as! String
          print("getValue : \(getValue)")
          
-         DispatchQueue.main.async {
-             self.tableView.reloadData()
-         }
+         self.imsiLabel.text = getValue
+         
+//         DispatchQueue.main.async {
+//             self.tableView.reloadData()
+//         }
      }
     
     //MARK: - 댓글쓰기
