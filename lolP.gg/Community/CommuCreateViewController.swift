@@ -89,8 +89,7 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
                 "commentCount" : 0
                                                         ])
         }
-        //push형식으로 뷰컨트롤러를 띄운다면 pop으로 바꾸어 dismiss해야한다.
+        //화면 pop
         navigationController?.popViewController(animated: true)
-        dismiss(animated: true, completion: nil)
     }
 }

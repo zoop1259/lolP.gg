@@ -62,10 +62,31 @@ class CommuDetailViewController : UITableViewController {
         detailcommutableView.dataSource = self
         detailcommutableView.delegate = self
         detailcommutableView.estimatedRowHeight = 100.0
+        //메서드 call
         getDetailBoard() //게시글 받아올 것.
         getComment() // 댓글 받아오기
         
+        //노티등록
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notification.Name("willDismiss"), object: nil)
+        
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.detailcommutableView.reloadData()
+    }
+    
+    
+     @objc func reloadTableView(_ notification: Notification){
+//         guard let textlabel = tableView.dequeueReusableCell(withIdentifier: "CommuDetailCell") as? CommuDetailCell else { return }
+         
+         let getValue = notification.object as! String
+         print("getValue : \(getValue)")
+         
+         DispatchQueue.main.async {
+             self.tableView.reloadData()
+         }
+     }
     
     //MARK: - 댓글쓰기
     @IBAction func writeComment(_ sender: UIButton) {
@@ -239,7 +260,6 @@ class CommuDetailViewController : UITableViewController {
         header.textLabel?.textColor = UIColor.white
     }
     
-    
     @objc private func buttonPressed(_ sender: Any) {
         print("탭바아이템눌림")
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "CommuUpdateViewController") as! CommuUpdateViewController
@@ -247,27 +267,7 @@ class CommuDetailViewController : UITableViewController {
         vc.updatetext = self.detailtext
         vc.updatetitle = self.detailtitle
         show(vc, sender: nil)
+//        self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    //깃 확인중.
 }
-
-
-//
-/*
- 게시글 삭제 구현준비.
- //실시간 db삭제
- //option1 구현
-//            let cardID = creditCardList[indexPath.row].id
-//            ref.child("Item\(cardID)").removeValue()
- 
- //option2 구현 .. 특정패스를 모를떄.
-//            ref.queryOrdered(byChild: "id").queryEqual(toValue: cardID).observe(.value) {[weak self] snapshot in
-//                guard let self = self,
-//                      let value = snapshot.value as? [String: [String:Any]],
-//                      //first는 키의 첫번쨰 값을 가져온다.
-//                      let key = value.keys.first else { return }
-//
-//                self.ref.child("\(key)/isSelected").setValue(true)
-//            }
- */

@@ -19,6 +19,7 @@ class CommuUpdateViewController : UIViewController {
     var commukey: String?
     var updatetitle: String?
     var updatetext: String?
+    var ref = Database.database().reference()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -67,8 +68,39 @@ class CommuUpdateViewController : UIViewController {
     
     @objc private func updateButton(_ sender: Any) {
         print("수정버튼눌림")
-        navigationController?.popViewController(animated: true)
-        dismiss(animated: true, completion: nil)
+        guard let text = self.updatetextField.text, !text.isEmpty else {
+                  self.view.makeToast("내용 작성해주세요.",
+                                      duration: 1.0, position: .center)
+            return
+        }
+        
+        //let vc = self.storyboard?.instantiateViewController(withIdentifier: "CommuDetailViewController") as! CommuDetailViewController
+        
+        if let commukey = commukey {
+            self.ref.child("board").child("create").child(commukey).updateChildValues(["text" : text])
+            NotificationCenter.default.post(name: Notification.Name("willDismiss"), object: self.updatetextField.text)
+            navigationController?.popViewController(animated: true)
+        }
     }
 }
 
+
+
+
+/*
+ 게시글 삭제 구현준비.
+ //실시간 db삭제
+ //option1 구현
+//            let cardID = creditCardList[indexPath.row].id
+//            ref.child("Item\(cardID)").removeValue()
+ 
+ //option2 구현 .. 특정패스를 모를떄.
+//            ref.queryOrdered(byChild: "id").queryEqual(toValue: cardID).observe(.value) {[weak self] snapshot in
+//                guard let self = self,
+//                      let value = snapshot.value as? [String: [String:Any]],
+//                      //first는 키의 첫번쨰 값을 가져온다.
+//                      let key = value.keys.first else { return }
+//
+//                self.ref.child("\(key)/isSelected").setValue(true)
+//            }
+ */
