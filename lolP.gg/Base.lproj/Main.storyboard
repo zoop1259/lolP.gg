@@ -844,7 +844,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EwW-67-qGd">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EwW-67-qGd">
                                 <rect key="frame" x="57" y="198" width="300" height="500"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pPg-xq-ooI" userLabel="프로필 Image">
@@ -963,6 +963,7 @@
                         <outlet property="userId" destination="cfz-eb-5ed" id="lTl-Sn-pRp"/>
                         <outlet property="userImg" destination="pPg-xq-ooI" id="4jJ-lU-vQv"/>
                         <outlet property="userName" destination="PKf-xd-PjG" id="LaS-ph-oFw"/>
+                        <outlet property="userView" destination="EwW-67-qGd" id="u3K-Uk-zRa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wts-rN-H9w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

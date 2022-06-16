@@ -16,6 +16,7 @@ import PhotosUI
 
 class LoginDetailView: UIViewController {
     
+    @IBOutlet weak var userView: UIView!
     @IBOutlet var userId: UILabel!
     @IBOutlet var userName: UILabel!
     @IBOutlet var userEmail: UILabel!
@@ -28,11 +29,23 @@ class LoginDetailView: UIViewController {
     let imagePickerController = UIImagePickerController()
     var selectedImage: UIImage?
     
+    //인디케이터 생성
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        activityIndicator.center = self.view.center
+        activityIndicator.color = UIColor.red
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = UIActivityIndicatorView.Style.medium
+        return activityIndicator
+    } ()
+    
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.addSubview(self.activityIndicator)
         //프로필 사진 ui설정
-        userImg.contentMode = .scaleAspectFit
+        userImg.contentMode = .scaleAspectFill
         userImg.image = UIImage(systemName: "person")
         userImg.tintColor = .white
         userImg.layer.masksToBounds = true
@@ -53,6 +66,8 @@ class LoginDetailView: UIViewController {
     //MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.activityIndicator.startAnimating()
+        
         print("디테일화면 나온당")
         //로그인이 이메일로 환영하기 위함
         //그러나 이 방식은 애플로그인단계에서 이메일가리기로 로그인을하면 문제가 생긴다.
@@ -90,6 +105,8 @@ class LoginDetailView: UIViewController {
                             if let data = try? Data(contentsOf: url) {
                                 DispatchQueue.main.async {
                                     self.userImg.image = UIImage(data: data)
+                                    self.activityIndicator.stopAnimating()
+                                    self.userView.isHidden = false
                                 }
                             }
                         }
@@ -149,7 +166,9 @@ class LoginDetailView: UIViewController {
                     let getnick = nickkey.values
                     if let gettnick = nickkey["nickName"] as? String {
                         print(gettnick)
-                        self.userName.text = gettnick
+                        DispatchQueue.main.async {
+                            self.userName.text = gettnick
+                        }
                     }
                 }
             })
@@ -206,6 +225,8 @@ extension LoginDetailView: UIImagePickerControllerDelegate, UINavigationControll
             print("data fetch")
             Storage.storage().reference().child("userImages").child(user.uid).downloadURL { (url, err) in
 //                print("url fetch")
+                
+                
                 print("url이 db에 저장됨 : \(url)")
                 Database.database().reference().child("users").child(user.uid).updateChildValues(["profileImageUrl":url?.absoluteString])
                 self.changeuserImg()
