@@ -22,7 +22,17 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
+        configureContentsTextView()
         placeholderSetting()
+    }
+    
+    //MARK: - UIConfigure
+    private func configureContentsTextView() {
+        let borderColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0)
+        //layer관련 색상을 변경할때에는 .cgColor를 해주어야 한다.
+        self.textLabel.layer.borderColor = borderColor.cgColor
+        self.textLabel.layer.borderWidth = 0.5
+        self.textLabel.layer.cornerRadius = 5.0
     }
     
     //UILabel Placeholder

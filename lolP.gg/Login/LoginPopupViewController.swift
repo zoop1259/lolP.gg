@@ -40,7 +40,7 @@ class LoginPopupViewController: UIViewController {
 
     }
     
-    //이메일 로그인 버튼 눌렀을때
+    //MARK: - 이메일 로그인 버튼
     @IBAction func btnActSubmit(_ sender: UIButton) {
         guard let userEmail = txtuserLoginEmail.text else { return }
         guard let userPassword = txtuserLoginPassword.text else  { return }
@@ -62,12 +62,12 @@ class LoginPopupViewController: UIViewController {
         }
     }
     
-    //애플 버튼 눌렀을때
+    //MARK: - 애플 로그인 버튼
     @objc func appleLogInButtonTapped() {
         startSignInWithAppleFlow()
     }
     
-    //구글 버튼 눌렀을 때
+    //MARK: - 구글 로그인 버튼
     @IBAction func googleLoginBtnAction(_ sender: UIButton) {
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
         let signInConfig = GIDConfiguration.init(clientID: clientID)
@@ -95,11 +95,12 @@ class LoginPopupViewController: UIViewController {
         }
     }
     
+    //회원가입 버튼
     @IBAction func signUpBtn(_ sender: UIButton) {
         showSignUpViewController()
     }
     
-    
+    //MARK: - 정보화면 띄우기
     private func showDetailViewController() {
         let mystoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let detailViewController = mystoryboard.instantiateViewController(identifier: "LoginDetailView")
@@ -112,6 +113,7 @@ class LoginPopupViewController: UIViewController {
         }
     }
     
+    //MARK: - 회원가입창 띄우기
     private func showSignUpViewController() {
         let mystoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let signUpViewController = mystoryboard.instantiateViewController(identifier: "SignUpViewController")

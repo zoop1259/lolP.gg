@@ -63,13 +63,13 @@ class CommuDetailViewController : UITableViewController {
         detailcommutableView.delegate = self
         detailcommutableView.estimatedRowHeight = 100.0
         //메서드 call
-        //getDetailBoard() //게시글 받아올 것.
         getComment() // 댓글 받아오기
         
         //노티등록
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notification.Name("willDismiss"), object: nil)
     }
     
+    //MARK: - 글 수정했을때 노티 적용하기.
      @objc func reloadTableView(_ notification: Notification){
 
          let getValue = notification.object as! String
@@ -87,7 +87,15 @@ class CommuDetailViewController : UITableViewController {
     //MARK: - 댓글쓰기
     @IBAction func writeComment(_ sender: UIButton) {
         //로그인정보부터 불러오기.
-        guard let user = Auth.auth().currentUser else { return }
+        guard let user = Auth.auth().currentUser else {
+            let confirm = UIAlertController(title: "로그인이 필요합니다.", message: "로그인 해주세요.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) {_ in
+                self.dismiss(animated: true, completion: nil)
+            }
+            confirm.addAction(okAction)
+            self.present(confirm, animated: false, completion: nil)
+            return
+        }
         //작성날짜 구하기 위해서.
         let formatter = DateFormatter()
         formatter.dateFormat = "yy-MM-dd"
@@ -223,9 +231,15 @@ class CommuDetailViewController : UITableViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "CommuDetailCell", for: indexPath) as? CommuDetailCell else {
             return UITableViewCell()
             }
-            cell.detailtitleLabel.text = self.detailtitle
-            cell.detailtextLabel.text = self.detailtext
-            cell.detailnicknameLabel.text = self.detailnickName
+            
+            let titleLabel = "제목 : " + self.detailtitle!
+            let textLabel = "내용 : " + self.detailtext!
+            let nicknameLabel = "닉네임 : " + self.detailnickName!
+            
+            //cell.detailtitleLabel.text =  self.detailtitle
+            cell.detailtitleLabel.text = titleLabel
+            cell.detailtextLabel.text = textLabel
+            cell.detailnicknameLabel.text = nicknameLabel
             cell.detaildateLabel.text = self.detailwriteDate
             
             return cell

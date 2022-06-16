@@ -32,6 +32,7 @@ class CommuUpdateViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureContentsTextView()
         self.title = "수정하기"
         //UI등록
         self.navigationItem.rightBarButtonItem = self.updateButton
@@ -44,6 +45,21 @@ class CommuUpdateViewController : UIViewController {
             uptextView.text = updatetext
         }
     }
+    
+    //MARK: - UIConfigure
+    private func configureContentsTextView() {
+        let borderColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0)
+        //layer관련 색상을 변경할때에는 .cgColor를 해주어야 한다.
+        self.titleLabel.layer.borderColor = borderColor.cgColor
+        self.titleLabel.layer.borderWidth = 0.5
+        self.titleLabel.layer.cornerRadius = 5.0
+        
+        self.uptextView.layer.borderColor = borderColor.cgColor
+        self.uptextView.layer.borderWidth = 0.5
+        self.uptextView.layer.cornerRadius = 5.0
+    }
+    
+    
     
     @objc private func updateButton(_ sender: Any) {
         print("수정버튼눌림")

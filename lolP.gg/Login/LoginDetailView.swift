@@ -59,8 +59,6 @@ class LoginDetailView: UIViewController {
         if let user = Auth.auth().currentUser {
             userId.text = ("\(user.uid)")
             userEmail.text = ("\(user.email ?? "이메일가린 애플유저")")
-            //userName.text = ("\()")
-//            userName.text = ("\(user.name ?? "유저")")
         }
         getnickName()
         changeuserImg()
@@ -79,26 +77,26 @@ class LoginDetailView: UIViewController {
     
     func changeuserImg() {
         guard let user = Auth.auth().currentUser else { return }
-
-        ref.child("users").observeSingleEvent(of: .value, andPreviousSiblingKeyWith: {
-            (snapshot, error) in
-            let profileimg = snapshot.value as? [String: Any] ?? [:]
-            //닉네임가져오기
-            if let urldata = profileimg[user.uid] as? [String:Any] {
-                //let getimg = geturl.values
-                if let urlstring = urldata["profileImageUrl"] as? String {
-                    print(urlstring)
-
-                    if let url = URL(string: urlstring) {
-                        if let data = try? Data(contentsOf: url) {
-                            DispatchQueue.main.async {
-                                self.userImg.image = UIImage(data: data)
+        DispatchQueue.global().async {
+            self.ref.child("users").observeSingleEvent(of: .value, andPreviousSiblingKeyWith: {
+                (snapshot, error) in
+                let profileimg = snapshot.value as? [String: Any] ?? [:]
+                //닉네임가져오기
+                if let urldata = profileimg[user.uid] as? [String:Any] {
+                    //let getimg = geturl.values
+                    if let urlstring = urldata["profileImageUrl"] as? String {
+                        print(urlstring)
+                        if let url = URL(string: urlstring) {
+                            if let data = try? Data(contentsOf: url) {
+                                DispatchQueue.main.async {
+                                    self.userImg.image = UIImage(data: data)
+                                }
                             }
                         }
                     }
                 }
-            }
-        })
+            })
+        }
     }
     
 //MARK: - 로그아웃버튼
@@ -142,19 +140,20 @@ class LoginDetailView: UIViewController {
 //MARK: - 닉네임 가져오기.
     func getnickName() {
         guard let user = Auth.auth().currentUser else { return }
-        
-        ref.child("users").observeSingleEvent(of: .value, andPreviousSiblingKeyWith: {
-            (snapshot, error) in
-            let nicknames = snapshot.value as? [String: Any] ?? [:]
-            //닉네임가져오기
-            if let nickkey = nicknames[user.uid] as? [String:Any] {
-                let getnick = nickkey.values
-                if let gettnick = nickkey["nickName"] as? String {
-                    print(gettnick)
-                    self.userName.text = gettnick
+        DispatchQueue.global().async {
+            self.ref.child("users").observeSingleEvent(of: .value, andPreviousSiblingKeyWith: {
+                (snapshot, error) in
+                let nicknames = snapshot.value as? [String: Any] ?? [:]
+                //닉네임가져오기
+                if let nickkey = nicknames[user.uid] as? [String:Any] {
+                    let getnick = nickkey.values
+                    if let gettnick = nickkey["nickName"] as? String {
+                        print(gettnick)
+                        self.userName.text = gettnick
+                    }
                 }
-            }
-        })
+            })
+        }
     }
 }
 
