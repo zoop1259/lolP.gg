@@ -9,7 +9,8 @@ import UIKit
 
 public class ChampDetailView : UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet var DetailTableView: UITableView!
+    @IBOutlet weak var detailView: UIView!
+    @IBOutlet weak var detailTableView: UITableView!
     @IBOutlet var detailImg: UIImageView! //VC의 챔피언 이미지
     @IBOutlet var detailName: UILabel! //VC의 챔피언 이름
 
@@ -32,11 +33,10 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
         return activityIndicator
     } ()
 
-    
-    
     public override func viewDidLoad() {
         super.viewDidLoad()
-        //인디케이터 추
+        configureContentsTextView()
+        //인디케이터 추가
         self.view.addSubview(self.activityIndicator)
         
         //vc는 ViewController의 약자
@@ -62,9 +62,19 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
                }
             }
         }
-        DetailTableView.rowHeight  = UITableView.automaticDimension
+        detailTableView.rowHeight  = UITableView.automaticDimension
     }
     
+    //MARK: - UIConfigure
+    private func configureContentsTextView() {
+        let borderColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0)
+        //layer관련 색상을 변경할때에는 .cgColor를 해주어야 한다.
+        self.detailView.layer.borderColor = borderColor.cgColor
+        self.detailView.layer.borderWidth = 0.5
+        self.detailView.layer.cornerRadius = 5.0
+    }
+    
+    //MARK: - 스킬받아오기
     func getSkill() {
  
         //챔피언의 이름을 받아서 urlString을 완성시켜야함.
@@ -92,7 +102,7 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
             }
 //            메인에서 일을 시킴. reloadData를 사용하기 떄문에 맨 마지막에 사용
             DispatchQueue.main.async {
-                self.DetailTableView.reloadData()
+                self.detailTableView.reloadData()
                 self.activityIndicator.stopAnimating()
             }
         })
@@ -105,7 +115,7 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = DetailTableView.dequeueReusableCell(withIdentifier: "champSkill", for: indexPath) as! ChampSkill
+        let cell = detailTableView.dequeueReusableCell(withIdentifier: "champSkill", for: indexPath) as! ChampSkill
         //스킬이름
         cell.skillName.text = self.spell[indexPath.row].name
         //스킬설명

@@ -33,7 +33,6 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    
     //로그인이 되었는지 확인하고 로그인이 되었으면 글쓰기 화면으로.
     @IBAction func tapWriteBtn(_ sender: UIButton) {
         if Auth.auth().currentUser != nil {
@@ -96,7 +95,7 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
         show(viewController, sender: nil)
     }
     
-    //게시글 가져오기.
+    //MARK: - 게시글 가져오기.
     func getBoardData() {
         ref.child("board").child("create").observeSingleEvent(of: .value) { snapshot in
             guard let value = snapshot.value as? [String:Any] else { return }
