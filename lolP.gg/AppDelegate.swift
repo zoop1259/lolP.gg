@@ -24,23 +24,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("당신의 \(user.uid), email: \(user.email ?? "no email")")
         }
         //애플로그인
-        let appleIDProvider = ASAuthorizationAppleIDProvider()
-        appleIDProvider.getCredentialState(forUserID: "aa") {
-            (credentialState, error) in
-            switch credentialState {
-            case .authorized:
-                let vc = self.presentingViewController as! LoginDetailView
-                present(vc, animated: true, completion: nil)
-                print("해당 ID는 연동되어 있습니다.")
-                break
-            case .revoked, .notFound:
-                print("해당 ID는 연동되어있지 않습니다.")
-                break
-            default:
-                print("해당 ID를 찾을 수 없습니다.")
-                break
-            }
-        }
+//        let appleIDProvider = ASAuthorizationAppleIDProvider()
+//        appleIDProvider.getCredentialState(forUserID: "001540.c6835251bfef490db3f9d543bfc71a7a.1133") {
+//            (credentialState, error) in
+//            switch credentialState {
+//            case .authorized:
+//
+//                print("해당 ID는 연동되어 있습니다.")
+//                break
+//            case .revoked:
+//                print("리보크")
+//                break
+//            case .notFound:
+//                print("해당 ID는 연동되어있지 않습니다.")
+//                break
+//            default:
+//                print("해당 ID를 찾을 수 없습니다.")
+//                break
+//            }
+//        }
         
         //네비게이션 바 색변경.
         let standard = UINavigationBarAppearance()

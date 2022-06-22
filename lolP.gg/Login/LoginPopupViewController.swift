@@ -18,6 +18,11 @@ import FirebaseDatabase
 @available(iOS 13.0,*) //IOS13이상 가능하기 떄문에 사용해야 한다.
 class LoginPopupViewController: UIViewController {
     
+    //로그인 에러떄문에 사용하는 임십 ㅕㄴ수
+    var user1 = ""
+    var uid1 = ""
+    
+    
     let ref: DatabaseReference! = Database.database().reference()
     
     @IBOutlet var popup: UIView!
@@ -32,14 +37,6 @@ class LoginPopupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //13 이상에서만 버튼사용해야한다.
-        if #available(iOS 13.0, *)
-        {
-            appleloginBtn.isHidden = false
-        } else {
-            appleloginBtn.isHidden = true
-        }
         
         loginBtn.layer.cornerRadius = 3
         googleloginBtn.layer.cornerRadius = 3
@@ -101,6 +98,7 @@ class LoginPopupViewController: UIViewController {
               self.showDetailViewController()
             }
         }
+        
     }
     
     //회원가입 버튼
@@ -148,6 +146,9 @@ extension LoginPopupViewController: ASAuthorizationControllerDelegate {
             let idToken = credential.identityToken!
             let tokeStr = String(data: idToken, encoding: .utf8)
          
+            self.user1 = userIdentifier
+            self.uid1 = tokeStr ?? "없다"
+            
             print("User ID : \(userIdentifier)")
             print("User Email : \(email ?? "")")
             print("User Name : \((fullName?.givenName ?? "") + (fullName?.familyName ?? ""))")
@@ -166,10 +167,28 @@ extension LoginPopupViewController: ASAuthorizationControllerDelegate {
             
             let credenTial = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
             
-            Auth.auth().signIn(with: credenTial) {_,_ in
-                // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
-                print("로그인 됨")
-                self.showDetailViewController()
+            //애플로그인
+            let appleIDProvider = ASAuthorizationAppleIDProvider()
+            appleIDProvider.getCredentialState(forUserID: userIdentifier) {
+                (credentialState, error) in
+                switch credentialState {
+                case .authorized:
+                    DispatchQueue.main.async {
+                        Auth.auth().signIn(with: credenTial) {_,_ in
+                            // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
+                            print("로그인 됨")
+                            self.showDetailViewController()
+                        }
+                    }
+                    print("해당 ID는 연동되어 있습니다.")
+                    break
+                case .revoked, .notFound:
+                    print("해당 ID는 연동되어있지 않습니다.")
+                    break
+                default:
+                    print("해당 ID를 찾을 수 없습니다.")
+                    break
+                }
             }
             break
         default:
@@ -177,6 +196,8 @@ extension LoginPopupViewController: ASAuthorizationControllerDelegate {
         }
     }
 
+
+    
     //에러가 있을 때
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print("AppleID Credential failed with error: \(error.localizedDescription)")

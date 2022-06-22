@@ -72,7 +72,6 @@ class LoginDetailView: UIViewController {
         
         print("디테일화면 나온당")
         //로그인이 이메일로 환영하기 위함
-        //그러나 이 방식은 애플로그인단계에서 이메일가리기로 로그인을하면 문제가 생긴다.
         if let user = Auth.auth().currentUser {
             userId.text = ("\(user.uid)")
             userEmail.text = ("\(user.email ?? "이메일가린 애플유저")")

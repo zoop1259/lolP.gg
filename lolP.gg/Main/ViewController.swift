@@ -154,6 +154,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     //MARK: - 로그인창.
     @IBAction func profileBtn(_ sender: Any) {
+//        self.showLoginPopupViewController()
         if Auth.auth().currentUser != nil {
             print("유저정보화면")
             self.showDetailViewController()
