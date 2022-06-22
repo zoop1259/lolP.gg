@@ -14,7 +14,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     //챔피언컬렉션뷰
     @IBOutlet var collectionViewMain: UICollectionView!
     
-    
     var keyboardDismissTabGesture : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: nil)
     
     let searchController = UISearchController()
@@ -178,22 +177,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     // MARK: - Filter methods
     func setupSearchController() {
         let searchController = UISearchController(searchResultsController: nil)
-        
+        //서치바 설정
+        self.navigationItem.searchController = searchController
         searchController.searchBar.placeholder = "챔피언 검색"
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.backgroundColor = .link
         searchController.searchBar.searchTextField.backgroundColor = UIColor.white
         searchController.searchBar.tintColor = .white
-        //서치바의 라인 삭제
-        //searchController.searchBar.searchBarStyle = .minimal
-        
-        self.navigationItem.searchController = searchController
         //스크롤시에도 서치바 유지되게 하기.
         self.navigationItem.hidesSearchBarWhenScrolling = false
-        
         //텍스트 업데이트 확인하기
         searchController.searchResultsUpdater = self
-        
         
         //먼 훗날 scopebar 사용해보자.
     }
@@ -229,7 +223,7 @@ extension ViewController: UISearchResultsUpdating {
     }
 }
 
-//셀 구성
+//MARK: - Cell Model
 class ChampList: UICollectionViewCell {
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!

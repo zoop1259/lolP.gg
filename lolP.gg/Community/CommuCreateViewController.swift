@@ -65,8 +65,9 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
         let writedateString = formatter.string(from: Date())
         print(writedateString)
         
-        //board다음에 autoid를 넣는것.
+        //board다음에 autoid 생성.
         guard let keyValue = ref.child("board").childByAutoId().key else { return }
+        //값 비어있는지 확인.
         guard let text = self.textLabel.text, !text.isEmpty,
               let title = self.titleLabel.text, !title.isEmpty else {
                   self.view.makeToast("모든 내용을 작성해주세요.", duration: 1.0, position: .center)

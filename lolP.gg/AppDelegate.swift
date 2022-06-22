@@ -23,7 +23,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let user = Auth.auth().currentUser {
             print("당신의 \(user.uid), email: \(user.email ?? "no email")")
         }
-        //uid로 push가 가능한지. 토큰을 써서해야하는지.
+        //애플로그인
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        appleIDProvider.getCredentialState(forUserID: "aa") {
+            (credentialState, error) in
+            switch credentialState {
+            case .authorized:
+                let vc = self.presentingViewController as! LoginDetailView
+                present(vc, animated: true, completion: nil)
+                print("해당 ID는 연동되어 있습니다.")
+                break
+            case .revoked, .notFound:
+                print("해당 ID는 연동되어있지 않습니다.")
+                break
+            default:
+                print("해당 ID를 찾을 수 없습니다.")
+                break
+            }
+        }
         
         //네비게이션 바 색변경.
         let standard = UINavigationBarAppearance()
@@ -51,19 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    // google login handler
-    //인증 절차의 마지막에 받은 URL을 처리하기 위해서 필요한 매서드.
-//    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-//        var handled: Bool
-//          handled = GIDSignIn.sharedInstance.handle(url)
-//          if handled {
-//            return true
-//          }
-//          // Handle other custom URL types.
-//          // If not handled by this app, return false.
-//          return false
-//    }
-
     @available(iOS 9.0, *)
     func application(_ application: UIApplication, open url: URL,
                      options: [UIApplication.OpenURLOptionsKey: Any])
@@ -84,5 +88,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    
 }
 

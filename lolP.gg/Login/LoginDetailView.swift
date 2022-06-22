@@ -13,6 +13,7 @@ import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
 import PhotosUI
+import CryptoKit
 
 class LoginDetailView: UIViewController {
     

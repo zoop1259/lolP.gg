@@ -256,7 +256,6 @@ class CommuDetailViewController : UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         let comment = "댓글"
-
         switch section {
         case 0:
             return comment

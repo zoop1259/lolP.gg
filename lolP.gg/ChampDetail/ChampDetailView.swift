@@ -133,6 +133,7 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
     }
 }
 
+//MARK: - Cell Model
 class ChampSkill: UITableViewCell {
     @IBOutlet var skillImg: UIImageView!
     @IBOutlet var skillName: UILabel!

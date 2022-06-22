@@ -14,6 +14,7 @@ import FirebaseAuth
 import CryptoKit
 import FirebaseDatabase
 
+
 @available(iOS 13.0,*) //IOS13이상 가능하기 떄문에 사용해야 한다.
 class LoginPopupViewController: UIViewController {
     
@@ -32,10 +33,17 @@ class LoginPopupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //13 이상에서만 버튼사용해야한다.
+        if #available(iOS 13.0, *)
+        {
+            appleloginBtn.isHidden = false
+        } else {
+            appleloginBtn.isHidden = true
+        }
+        
         loginBtn.layer.cornerRadius = 3
         googleloginBtn.layer.cornerRadius = 3
         appleloginBtn.cornerRadius = 3
-        
         appleloginBtn.addTarget(self, action: #selector(LoginPopupViewController.appleLogInButtonTapped), for: .touchDown)
 
     }
@@ -127,51 +135,77 @@ class LoginPopupViewController: UIViewController {
 
 //MARK: Apple Login
 @available(iOS 13.0, *)
-//extension LoginPopupViewController: ASAuthorizationControllerDelegate {
-//
-//    //성공적으로 로그인을 완료했을 때
-//    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-//        switch authorization.credential {
-//        case let credential as ASAuthorizationAppleIDCredential:
-//            let firstName = credential.fullName?.givenName
-//            let lastName = credential.fullName?.familyName
-//            let email = credential.email
-//            break
-//        default:
-//            break
-//        }
-//    }
-//    //에러가 있을 때
-//    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-//        print("AppleID Credential failed with error: \(error.localizedDescription)")
-//    }
-//}
 extension LoginPopupViewController: ASAuthorizationControllerDelegate {
-    func startSignInWithAppleFlow() {
 
+        //성공적으로 로그인을 완료했을 때
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        switch authorization.credential {
+        case let credential as ASAuthorizationAppleIDCredential:
+            // 계정 정보 가져오기
+            let userIdentifier = credential.user
+            let fullName = credential.fullName
+            let email = credential.email
+            let idToken = credential.identityToken!
+            let tokeStr = String(data: idToken, encoding: .utf8)
+         
+            print("User ID : \(userIdentifier)")
+            print("User Email : \(email ?? "")")
+            print("User Name : \((fullName?.givenName ?? "") + (fullName?.familyName ?? ""))")
+            print("token : \(String(describing: tokeStr))")
+            
+            guard let nonce = currentNonce else { return }
+            
+            guard let appleIDToken = credential.identityToken else {
+              print("Unable to fetch identity token")
+              return
+            }
+            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+              print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+              return
+            }
+            
+            let credenTial = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
+            
+            Auth.auth().signIn(with: credenTial) {_,_ in
+                // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
+                print("로그인 됨")
+                self.showDetailViewController()
+            }
+            break
+        default:
+            break
+        }
+    }
+
+    //에러가 있을 때
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("AppleID Credential failed with error: \(error.localizedDescription)")
+    }
+//
+    func startSignInWithAppleFlow() {
         let nonce = randomNonceString()
         currentNonce = nonce
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
         request.nonce = sha256(nonce)
-    
+
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
         authorizationController.delegate = self
         authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
     }
-    
+
     private func sha256(_ input: String) -> String {
         let inputData = Data(input.utf8)
         let hashedData = SHA256.hash(data: inputData)
         let hashString = hashedData.compactMap {
             return String(format: "%02x", $0)
         }.joined()
-    
+
         return hashString
     }
-    
+
     // Adapted from https://auth0.com/docs/api-auth/tutorials/nonce#generate-a-cryptographically-random-nonce
     private func randomNonceString(length: Int = 32) -> String {
         precondition(length > 0)
@@ -179,7 +213,7 @@ extension LoginPopupViewController: ASAuthorizationControllerDelegate {
             Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
         var result = ""
         var remainingLength = length
-    
+
         while remainingLength > 0 {
             let randoms: [UInt8] = (0 ..< 16).map { _ in
                 var random: UInt8 = 0
@@ -189,12 +223,12 @@ extension LoginPopupViewController: ASAuthorizationControllerDelegate {
                 }
                 return random
             }
-    
+
             randoms.forEach { random in
                 if remainingLength == 0 {
                     return
                 }
-    
+
                 if random < charset.count {
                     result.append(charset[Int(random)])
                     remainingLength -= 1
@@ -210,5 +244,7 @@ extension LoginPopupViewController: ASAuthorizationControllerDelegate {
 extension LoginPopupViewController: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
+//        let vc = self.presentingViewController as! LoginDetailView
+//        return present(vc, animated: true, completion: nil)
     }
 }

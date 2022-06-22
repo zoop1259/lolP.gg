@@ -32,7 +32,9 @@ class CommuUpdateViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Configure
         configureContentsTextView()
+        //타이틀 text
         self.title = "수정하기"
         //UI등록
         self.navigationItem.rightBarButtonItem = self.updateButton
@@ -59,8 +61,7 @@ class CommuUpdateViewController : UIViewController {
         self.uptextView.layer.cornerRadius = 5.0
     }
     
-    
-    
+    //MARK: - 수정 버튼
     @objc private func updateButton(_ sender: Any) {
         print("수정버튼눌림")
         guard let text = self.uptextView.text, !text.isEmpty else {
@@ -68,9 +69,6 @@ class CommuUpdateViewController : UIViewController {
                                       duration: 1.0, position: .center)
             return
         }
-        
-        //let vc = self.storyboard?.instantiateViewController(withIdentifier: "CommuDetailViewController") as! CommuDetailViewController
-        
         if let commukey = commukey {
             self.ref.child("board").child("create").child(commukey).updateChildValues(["text" : text])
             NotificationCenter.default.post(name: Notification.Name("willDismiss"), object: self.uptextView.text)
