@@ -2,7 +2,7 @@ import UIKit
 import FirebaseAuth
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UIGestureRecognizerDelegate {
-
+    
     var champion: [ChampData] = []
     var champ = [String:String]()
     var newVersion = String()
@@ -35,6 +35,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         guard let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: "champList", for: indexPath) as? ChampList else {
             return UICollectionViewCell()
         }
+        
         let champions: ChampData
         if isFiltering {
             champions = filteredChamp[indexPath.row]
@@ -42,14 +43,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             champions = champion[indexPath.row]
         }
        
-        cell.nameLabel.text = champions.name
-        
-        let url: URL! = URL(string: "http://ddragon.leagueoflegends.com/cdn/\(self.newVersion)/img/champion/\(champions.id).png")
-        // 이미지를 읽어와 Data객체에 저장
-        let imageData = try! Data(contentsOf: url)
-        // UIImage객체를 생성하여 아울렛 변수의 image 속성에 대입
-        cell.imgView.image = UIImage(data: imageData)
-        
+        //이미지를 빠르게 그리기 위해서 global로 돌린다.
+        DispatchQueue.global().async {
+            let url: URL! = URL(string: "http://ddragon.leagueoflegends.com/cdn/\(self.newVersion)/img/champion/\(champions.id).png")
+            // 이미지를 읽어와 Data객체에 저장
+            let imageData = try! Data(contentsOf: url)
+            //ui는 main에서 돌려야 하기 떄문에.
+            DispatchQueue.main.async {
+                cell.nameLabel.text = champions.name
+                // UIImage객체를 생성하여 아울렛 변수의 image 속성에 대입
+                cell.imgView.image = UIImage(data: imageData)
+            }
+        }
         return cell
     }
     
@@ -154,14 +159,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     //MARK: - 로그인창.
     @IBAction func profileBtn(_ sender: Any) {
-//        self.showLoginPopupViewController()
-        if Auth.auth().currentUser != nil {
-            print("유저정보화면")
-            self.showDetailViewController()
-        } else {
-            print("로그인화면")
-            self.showLoginPopupViewController()
-        }
+        self.showLoginPopupViewController()
+//        if Auth.auth().currentUser != nil {
+//            print("유저정보화면")
+//            self.showDetailViewController()
+//        } else {
+//            print("로그인화면")
+//            self.showLoginPopupViewController()
+//        }
     }
     
     private func showDetailViewController() {

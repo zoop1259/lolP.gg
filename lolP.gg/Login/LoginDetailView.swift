@@ -5,6 +5,7 @@
 //  Created by 강대민 on 2021/12/22.
 //
 
+import Foundation
 import UIKit
 import AuthenticationServices
 import GoogleSignIn
@@ -54,12 +55,12 @@ class LoginDetailView: UIViewController {
         userImg.layer.cornerRadius = userImg.frame.height/2
         userImg.layer.borderWidth = 2
         userImg.layer.borderColor = UIColor.white.cgColor
-        
+
         //이미지 눌렀을때
         userImg.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapChangeProfilePic))
         userImg.addGestureRecognizer(gesture)
-        
+
         //로그인 확인.
         if let user = Auth.auth().currentUser {
             print("당신의 \(user.uid), email: \(user.email ?? "no email")")
@@ -69,16 +70,19 @@ class LoginDetailView: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.activityIndicator.startAnimating()
-        
+
         print("디테일화면 나온당")
         //로그인이 이메일로 환영하기 위함
         if let user = Auth.auth().currentUser {
             userId.text = ("\(user.uid)")
             userEmail.text = ("\(user.email ?? "이메일가린 애플유저")")
         }
+        
+    
+        
         getnickName()
         changeuserImg()
-        
+
         //이메일 초기화
         let isEmailSignIn = Auth.auth().currentUser?.providerData[0].providerID == "password"
         //이메일 로그인이 아니라면 비밀번호 변경 버튼은 사라져야 한다.

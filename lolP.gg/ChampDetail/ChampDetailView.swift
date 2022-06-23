@@ -122,12 +122,17 @@ public class ChampDetailView : UIViewController, UITableViewDelegate, UITableVie
         cell.skillDesc.text = self.spell[indexPath.row].description
         //스킬이미지
         // 섬네일 경로를 인자값으로 하는 URL객체를 생성
-        if let vcversion = VCVersion {
-            let url: URL! = URL(string: "https://ddragon.leagueoflegends.com/cdn/\(vcversion)/img/spell/\(self.spell[indexPath.row].id).png")
-            // 이미지를 읽어와 Data객체에 저장
-            let imageData = try! Data(contentsOf: url)
-            // UIImage객체를 생성하여 아울렛 변수의 image 속성에 대입
-            cell.skillImg.image = UIImage(data: imageData)
+        DispatchQueue.global().async {
+            if let vcversion = self.VCVersion {
+                let url: URL! = URL(string: "https://ddragon.leagueoflegends.com/cdn/\(vcversion)/img/spell/\(self.spell[indexPath.row].id).png")
+                // 이미지를 읽어와 Data객체에 저장
+                let imageData = try! Data(contentsOf: url)
+                DispatchQueue.main.async {
+                    // UIImage객체를 생성하여 아울렛 변수의 image 속성에 대입
+                    cell.skillImg.image = UIImage(data: imageData)
+                }
+
+            }
         }
         return cell
     }

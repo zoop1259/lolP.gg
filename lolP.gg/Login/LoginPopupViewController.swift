@@ -14,14 +14,8 @@ import FirebaseAuth
 import CryptoKit
 import FirebaseDatabase
 
-
 @available(iOS 13.0,*) //IOS13이상 가능하기 떄문에 사용해야 한다.
 class LoginPopupViewController: UIViewController {
-    
-    //로그인 에러떄문에 사용하는 임십 ㅕㄴ수
-    var user1 = ""
-    var uid1 = ""
-    
     
     let ref: DatabaseReference! = Database.database().reference()
     
@@ -42,7 +36,6 @@ class LoginPopupViewController: UIViewController {
         googleloginBtn.layer.cornerRadius = 3
         appleloginBtn.cornerRadius = 3
         appleloginBtn.addTarget(self, action: #selector(LoginPopupViewController.appleLogInButtonTapped), for: .touchDown)
-
     }
     
     //MARK: - 이메일 로그인 버튼
@@ -94,18 +87,15 @@ class LoginPopupViewController: UIViewController {
           Auth.auth().signIn(with: credential) {_,_ in
               // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
               print("로그인 됨")
-              
               self.showDetailViewController()
             }
         }
-        
     }
     
     //회원가입 버튼
     @IBAction func signUpBtn(_ sender: UIButton) {
         showSignUpViewController()
     }
-    
     //MARK: - 정보화면 띄우기
     private func showDetailViewController() {
         let mystoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -118,7 +108,6 @@ class LoginPopupViewController: UIViewController {
             pvc.present(detailViewController, animated: true, completion: nil)
         }
     }
-    
     //MARK: - 회원가입창 띄우기
     private func showSignUpViewController() {
         let mystoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -145,9 +134,6 @@ extension LoginPopupViewController: ASAuthorizationControllerDelegate {
             let email = credential.email
             let idToken = credential.identityToken!
             let tokeStr = String(data: idToken, encoding: .utf8)
-         
-            self.user1 = userIdentifier
-            self.uid1 = tokeStr ?? "없다"
             
             print("User ID : \(userIdentifier)")
             print("User Email : \(email ?? "")")
@@ -176,8 +162,12 @@ extension LoginPopupViewController: ASAuthorizationControllerDelegate {
                     DispatchQueue.main.async {
                         Auth.auth().signIn(with: credenTial) {_,_ in
                             // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
+//                            self.showDetailViewController()
+//                            다른화면은 뜬단말이지?
+                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginDetailView") as! LoginDetailView
+                            self.show(vc, sender: nil)
+                            
                             print("로그인 됨")
-                            self.showDetailViewController()
                         }
                     }
                     print("해당 ID는 연동되어 있습니다.")
