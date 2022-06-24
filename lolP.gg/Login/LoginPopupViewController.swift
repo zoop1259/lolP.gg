@@ -37,6 +37,8 @@ class LoginPopupViewController: UIViewController {
         appleloginBtn.cornerRadius = 3
         appleloginBtn.addTarget(self, action: #selector(LoginPopupViewController.appleLogInButtonTapped), for: .touchDown)
     }
+
+    
     
     //MARK: - 이메일 로그인 버튼
     @IBAction func btnActSubmit(_ sender: UIButton) {

@@ -567,6 +567,10 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Znr-pg-CDD">
+                                <rect key="frame" x="87" y="412" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="s84-sj-2p4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -578,6 +582,7 @@
                     <connections>
                         <outlet property="emailLabel" destination="XOG-0r-W97" id="phE-wm-v0f"/>
                         <outlet property="nickLabel" destination="NW9-Z3-XH9" id="bPI-Cs-LtQ"/>
+                        <outlet property="userImg" destination="Znr-pg-CDD" id="VKX-KI-dvF"/>
                         <outlet property="uuidLabel" destination="jFn-ES-AsG" id="4EJ-3G-MG5"/>
                     </connections>
                 </viewController>
@@ -923,7 +928,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EwW-67-qGd">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EwW-67-qGd">
                                 <rect key="frame" x="57" y="198" width="300" height="500"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pPg-xq-ooI" userLabel="프로필 Image">
@@ -1047,7 +1052,7 @@
                         <outlet property="userId" destination="cfz-eb-5ed" id="lTl-Sn-pRp"/>
                         <outlet property="userImg" destination="pPg-xq-ooI" id="4jJ-lU-vQv"/>
                         <outlet property="userName" destination="PKf-xd-PjG" id="LaS-ph-oFw"/>
-                        <outlet property="userView" destination="EwW-67-qGd" id="u3K-Uk-zRa"/>
+                        <outlet property="userView" destination="EwW-67-qGd" id="6yu-gg-nvb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wts-rN-H9w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -159,14 +159,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     //MARK: - 로그인창.
     @IBAction func profileBtn(_ sender: Any) {
-        self.showLoginPopupViewController()
-//        if Auth.auth().currentUser != nil {
-//            print("유저정보화면")
-//            self.showDetailViewController()
-//        } else {
-//            print("로그인화면")
-//            self.showLoginPopupViewController()
-//        }
+//        self.showLoginPopupViewController()
+        if Auth.auth().currentUser != nil {
+            print("유저정보화면")
+            self.showTestViewController()
+        } else {
+            print("로그인화면")
+            self.showLoginPopupViewController()
+        }
     }
     
     private func showDetailViewController() {
@@ -176,6 +176,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     private func showLoginPopupViewController() {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginPopupViewController") as! LoginPopupViewController
+        present(vc, animated: true, completion: nil)
+    }
+    
+    private func showTestViewController() {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "TestLoginView") as! TestLoginView
         present(vc, animated: true, completion: nil)
     }
     

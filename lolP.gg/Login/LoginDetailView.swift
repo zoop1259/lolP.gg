@@ -9,11 +9,12 @@ import Foundation
 import UIKit
 //import AuthenticationServices
 //import GoogleSignIn
-import Firebase
+//import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
 import PhotosUI
+import AVFoundation
 
 class LoginDetailView: UIViewController {
     
@@ -68,14 +69,17 @@ class LoginDetailView: UIViewController {
     //MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        checkCameraPermission()
+        checkAlbumPermission()
+        
         self.activityIndicator.startAnimating()
+        self.userView.isHidden = true
 
         print("디테일화면 나온당")
         //로그인이 이메일로 환영하기 위함
-        if let user = Auth.auth().currentUser {
-            userId.text = ("\(user.uid)")
-            userEmail.text = ("\(user.email ?? "이메일가린 애플유저")")
-        }
+        userEmail.text = Auth.auth().currentUser?.email
+        userName.text = Auth.auth().currentUser?.displayName ?? "별명이없다"
+        userId.text = Auth.auth().currentUser?.uid
         
         getnickName()
         changeuserImg()
@@ -85,7 +89,39 @@ class LoginDetailView: UIViewController {
         //이메일 로그인이 아니라면 비밀번호 변경 버튼은 사라져야 한다.
         passwordReset.isHidden = !isEmailSignIn
     }
-  
+    //MARK: - 권한요청
+    
+    
+    func checkCameraPermission() {
+        let dialog = UIAlertController(title: "주의", message: "일부 기능이 동작하지 않습니다. 설정에서 확인해주세요.", preferredStyle: .alert)
+        let action = UIAlertAction(title: "확인", style: .default)
+        dialog.addAction(action)
+        
+        AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
+            if granted {
+                print("권한 허용")
+            } else {
+                print("권한 거부")
+            }
+        })
+    }
+    
+    func checkAlbumPermission() {
+        PHPhotoLibrary.requestAuthorization({ status in
+            switch status {
+            case .authorized:
+                print("앨범 권한 허용")
+            case .denied:
+                print("앨범 권한 거부")
+            case .restricted, .notDetermined:
+                print("앨범 권한 선택하지 않았거나 강제종료")
+            default:
+                break
+            }
+        })
+    }
+    
+    
     //MARK: - UIConfigure
 //    private func configureContentsTextView() {
 //        let borderColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0)

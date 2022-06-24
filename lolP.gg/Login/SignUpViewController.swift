@@ -35,6 +35,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    
+    
     //취소 버튼
     @IBAction func btnActCancel(_ sender: UIButton) {
         //액션 세그로 이어진 뷰컨트롤러를 사라지게해서 되돌림.

@@ -178,8 +178,8 @@
 			children = (
 				C52177DE2759101600E1BA62 /* LoginPopupViewController.swift */,
 				C5A30C472772F38200B2D4D3 /* LoginDetailView.swift */,
-				C5A30C492773154000B2D4D3 /* SignUpViewController.swift */,
 				C52659CB286549F0005F168A /* TestLoginView.swift */,
+				C5A30C492773154000B2D4D3 /* SignUpViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
