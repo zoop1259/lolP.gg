@@ -7,14 +7,13 @@
 
 import Foundation
 import UIKit
-import AuthenticationServices
-import GoogleSignIn
+//import AuthenticationServices
+//import GoogleSignIn
 import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
 import PhotosUI
-import CryptoKit
 
 class LoginDetailView: UIViewController {
     
@@ -77,8 +76,6 @@ class LoginDetailView: UIViewController {
             userId.text = ("\(user.uid)")
             userEmail.text = ("\(user.email ?? "이메일가린 애플유저")")
         }
-        
-    
         
         getnickName()
         changeuserImg()
@@ -179,11 +176,11 @@ class LoginDetailView: UIViewController {
                 let nicknames = snapshot.value as? [String: Any] ?? [:]
                 //닉네임가져오기
                 if let nickkey = nicknames[user.uid] as? [String:Any] {
-                    let getnick = nickkey.values
-                    if let gettnick = nickkey["nickName"] as? String {
-                        print(gettnick)
+                    //let getnick = nickkey.values
+                    if let getnick = nickkey["nickName"] as? String {
+                        print(getnick)
                         DispatchQueue.main.async {
-                            self.userName.text = gettnick
+                            self.userName.text = getnick
                         }
                     }
                 }

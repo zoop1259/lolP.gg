@@ -18,6 +18,7 @@
 		C52177E02759101600E1BA62 /* CommuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177DD2759101600E1BA62 /* CommuTableViewController.swift */; };
 		C52177E12759101600E1BA62 /* LoginPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52177DE2759101600E1BA62 /* LoginPopupViewController.swift */; };
 		C52178452768215F00E1BA62 /* ChampInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52178442768215F00E1BA62 /* ChampInfo.swift */; };
+		C52659CC286549F0005F168A /* TestLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52659CB286549F0005F168A /* TestLoginView.swift */; };
 		C5730C2527BAED5A00DF2520 /* CommuCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5730C2427BAED5A00DF2520 /* CommuCreateViewController.swift */; };
 		C574C5322858F62700031641 /* CommuCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C574C52E2858F62700031641 /* CommuCommentCell.xib */; };
 		C574C5332858F62700031641 /* CommuDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C574C52F2858F62700031641 /* CommuDetailCell.swift */; };
@@ -48,6 +49,7 @@
 		C52177DE2759101600E1BA62 /* LoginPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPopupViewController.swift; sourceTree = "<group>"; };
 		C52178442768215F00E1BA62 /* ChampInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampInfo.swift; sourceTree = "<group>"; };
 		C52178CA276BB3F300E1BA62 /* lolP.gg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = lolP.gg.entitlements; sourceTree = "<group>"; };
+		C52659CB286549F0005F168A /* TestLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestLoginView.swift; sourceTree = "<group>"; };
 		C5730C2427BAED5A00DF2520 /* CommuCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommuCreateViewController.swift; sourceTree = "<group>"; };
 		C574C52E2858F62700031641 /* CommuCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommuCommentCell.xib; sourceTree = "<group>"; };
 		C574C52F2858F62700031641 /* CommuDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommuDetailCell.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				C52177DE2759101600E1BA62 /* LoginPopupViewController.swift */,
 				C5A30C472772F38200B2D4D3 /* LoginDetailView.swift */,
 				C5A30C492773154000B2D4D3 /* SignUpViewController.swift */,
+				C52659CB286549F0005F168A /* TestLoginView.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 				C52177C827590FAA00E1BA62 /* AppDelegate.swift in Sources */,
 				C52177E12759101600E1BA62 /* LoginPopupViewController.swift in Sources */,
 				C52177E02759101600E1BA62 /* CommuTableViewController.swift in Sources */,
+				C52659CC286549F0005F168A /* TestLoginView.swift in Sources */,
 				C5A30C4A2773154000B2D4D3 /* SignUpViewController.swift in Sources */,
 				C52177CA27590FAA00E1BA62 /* SceneDelegate.swift in Sources */,
 				C59589E22858DB9100AE9CFD /* CommuUpdateViewController.swift in Sources */,

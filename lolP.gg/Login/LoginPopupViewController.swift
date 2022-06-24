@@ -118,6 +118,18 @@ class LoginPopupViewController: UIViewController {
             pvc.present(signUpViewController, animated: true, completion: nil)
         }
     }
+    
+    //임시 메소드
+    private func showimsiViewContollrer() {
+        let mystoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let signUpViewController = mystoryboard.instantiateViewController(identifier: "TestLoginView")
+        //로그인창을 닫으면서 회원가입창 띄우기.
+        guard let pvc = self.presentingViewController else { return }
+        self.dismiss(animated: true) {
+            pvc.present(signUpViewController, animated: true, completion: nil)
+        }
+    }
+    
 }
 
 //MARK: Apple Login
@@ -164,8 +176,8 @@ extension LoginPopupViewController: ASAuthorizationControllerDelegate {
                             // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
 //                            self.showDetailViewController()
 //                            다른화면은 뜬단말이지?
-                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginDetailView") as! LoginDetailView
-                            self.show(vc, sender: nil)
+                            self.showimsiViewContollrer()
+
                             
                             print("로그인 됨")
                         }
