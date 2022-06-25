@@ -103,4 +103,9 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
         //화면 pop
         navigationController?.popViewController(animated: true)
     }
+    
+    //화면 터치시 키보드 내리기.
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }

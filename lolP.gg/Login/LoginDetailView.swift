@@ -89,9 +89,8 @@ class LoginDetailView: UIViewController {
         //이메일 로그인이 아니라면 비밀번호 변경 버튼은 사라져야 한다.
         passwordReset.isHidden = !isEmailSignIn
     }
+    
     //MARK: - 권한요청
-    
-    
     func checkCameraPermission() {
         let dialog = UIAlertController(title: "주의", message: "일부 기능이 동작하지 않습니다. 설정에서 확인해주세요.", preferredStyle: .alert)
         let action = UIAlertAction(title: "확인", style: .default)
@@ -203,26 +202,32 @@ class LoginDetailView: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-//MARK: - 닉네임 가져오기.
+    //MARK: - 닉네임 가져오기.
     func getnickName() {
-        guard let user = Auth.auth().currentUser else { return }
-        DispatchQueue.global().async {
-            self.ref.child("users").observeSingleEvent(of: .value, andPreviousSiblingKeyWith: {
-                (snapshot, error) in
-                let nicknames = snapshot.value as? [String: Any] ?? [:]
-                //닉네임가져오기
-                if let nickkey = nicknames[user.uid] as? [String:Any] {
-                    //let getnick = nickkey.values
-                    if let getnick = nickkey["nickName"] as? String {
-                        print(getnick)
-                        DispatchQueue.main.async {
-                            self.userName.text = getnick
-                        }
-                    }
-                }
-            })
-        }
+         guard let user = Auth.auth().currentUser else { return }
+         DispatchQueue.global().async {
+             self.ref.child("users").observeSingleEvent(of: .value,     andPreviousSiblingKeyWith: {
+                 (snapshot, error) in
+                 let nicknames = snapshot.value as? [String: Any] ?? [:]
+                 //닉네임가져오기
+                 if let nickkey = nicknames[user.uid] as? [String:Any] {
+                     //let getnick = nickkey.values
+                     if let getnick = nickkey["nickName"] as? String {
+                         print(getnick)
+                         DispatchQueue.main.async {
+                             self.userName.text = getnick
+                         }
+                     }
+                 }
+             })
+         }
+     }
+    
+    //빈화면 터치시 키보드내림.
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
+    
 }
 
 

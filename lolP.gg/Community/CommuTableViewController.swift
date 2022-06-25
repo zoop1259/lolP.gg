@@ -139,6 +139,8 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
         present(vc, animated: true, completion: nil)
     }
     
+    
+    
 }
 //MARK: - Cell
 class CommunityCell: UITableViewCell {

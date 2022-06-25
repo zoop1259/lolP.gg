@@ -112,6 +112,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    
+    //빈화면 터치시 키보드 내림
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
 }
 
 //회원가입 에러핸들링.
