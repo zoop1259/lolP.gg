@@ -10,10 +10,6 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
-//수정은 updateChildValue를 쓰면 될거같다.
-//UI리팩토링후 삭제버튼을 추가해보자.
-//삭제는 deleteValue같은게 있는지 찾아보자.
-
 class CommuUpdateViewController : UIViewController {
     
     var commukey: String?
@@ -87,7 +83,7 @@ class CommuUpdateViewController : UIViewController {
 
 
 /*
- 게시글 삭제 구현준비.
+ 게시글 삭제. 그냥 차일드에 맞추고 리무브
  //실시간 db삭제
  //option1 구현
 //            let cardID = creditCardList[indexPath.row].id

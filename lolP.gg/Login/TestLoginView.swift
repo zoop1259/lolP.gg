@@ -4,8 +4,6 @@
 //
 //  Created by 강대민 on 2022/06/24.
 //
-
-import Foundation
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
@@ -20,19 +18,20 @@ class TestLoginView: UIViewController {
     @IBOutlet weak var nickLabel: UILabel!
     @IBOutlet weak var uuidLabel: UILabel!
     @IBOutlet weak var userImg: UIImageView!
+    @IBOutlet weak var imageStackView: UIStackView!
     
     var ref = Database.database().reference() //db
     let storage = Storage.storage().reference() //스토리지 레퍼런스 초기화
     public typealias UploadPictureCompletion = (Result<String, Error>) -> Void
     let imagePickerController = UIImagePickerController()
     var selectedImage: UIImage?
-    
+    let fileManager: FileManager = FileManager.default     //파일매니저 인스턴스 생성
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         emailLabel.text = Auth.auth().currentUser?.email
-        nickLabel.text = Auth.auth().currentUser?.displayName ?? "별명이없다"
+        //nickLabel.text = Auth.auth().currentUser?.displayName ?? "별명이없다"
         uuidLabel.text = Auth.auth().currentUser?.uid
         
         userImg.contentMode = .scaleAspectFill
@@ -92,6 +91,8 @@ class TestLoginView: UIViewController {
     @IBAction func logoutBtn(_ sender: Any) {
         do {
             try FirebaseAuth.Auth.auth().signOut()
+            UserDefaults.standard.removeObject(forKey: "nickName")
+            
             //로그아웃과 동시에 뷰 닫기
             print("로그아웃 성공")
             self.dismiss(animated: true, completion: nil)
@@ -139,7 +140,13 @@ class TestLoginView: UIViewController {
                     if let getnick = nickkey["nickName"] as? String {
                         print(getnick)
                         DispatchQueue.main.async {
-                            self.nickLabel.text = getnick
+                            //self.nickLabel.text = getnick
+                            if getnick != "" {
+                                UserDefaults.standard.set(getnick, forKey: "nickName")
+                                self.nickLabel.text = UserDefaults.standard.string(forKey: "nickName")
+                            } else {
+                                self.nickLabel.text = "별명이없다."
+                            }
                         }
                     }
                 }
@@ -186,21 +193,26 @@ extension TestLoginView: UIImagePickerControllerDelegate, UINavigationController
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
-              let user = Auth.auth().currentUser else { return }
-        
-        
-        //let image = self.userImg.image?.jpegData(compressionQuality: 0.1)
+        guard let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage, let user = Auth.auth().currentUser else { return }
+    
         let image = selectedImage.jpegData(compressionQuality: 0.1)
         Storage.storage().reference().child("userImages").child(user.uid).putData(image!, metadata: nil) { (data, err) in
-            
             print("data fetch")
             Storage.storage().reference().child("userImages").child(user.uid).downloadURL { (url, err) in
-//                print("url fetch")
-                
-                
                 print("url이 db에 저장됨 : \(url)")
                 Database.database().reference().child("users").child(user.uid).updateChildValues(["profileImageUrl":url?.absoluteString])
+                
+                guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) as NSURL else {
+                    return
+                }
+                do {
+                    try image?.write(to: directory.appendingPathComponent("profile.png")!)
+                    return
+                } catch {
+                    print(error.localizedDescription)
+                    return
+                }
+                
                 self.changeuserImg()
             }
         }
@@ -231,3 +243,6 @@ extension TestLoginView: UIImagePickerControllerDelegate, UINavigationController
          })
      }
  */
+
+
+

@@ -19,12 +19,17 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
     //닉네임설정을 안한자를 위한..
     var fbusernickName: String = "별명이없는자"
     
+    var labelcount = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
         configureContentsTextView()
         placeholderSetting()
+
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
     }
+
     
     //MARK: - UIConfigure
     private func configureContentsTextView() {
@@ -34,6 +39,7 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
         self.textLabel.layer.borderWidth = 0.5
         self.textLabel.layer.cornerRadius = 5.0
     }
+
     
     //UILabel Placeholder
     func placeholderSetting() {
@@ -41,23 +47,41 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
         textLabel.text = "내용을 입력해주세요."
         textLabel.textColor = UIColor.lightGray
     }
+    
+    //텍스트뷰를 터치하게되면 플레이스홀더 지우기.
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
             textView.textColor = UIColor.label
         }
     }
+    
+    //글이 비어있거나, 시작부터 " " 면 작성버튼 비활성화.
+    func textViewDidChange(_ textView: UITextView) {
+        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+        } else {
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+        }
+    }
+    
+    //텍스트뷰 플레이스홀더 변경용.
     func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
+        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             textView.text = "내용을 제대로 입력해주세요."
             textView.textColor = UIColor.lightGray
         }
     }
     
     @IBAction func addBtn(_ sender: Any) {
-        
         //로그인정보부터 불러오기.
         guard let user = Auth.auth().currentUser else { return }
+        
+        //유효성 검사. 정규식을 사용하지 않음.
+        guard let titlelabel = titleLabel.text, !titlelabel.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            self.view.makeToast("❌제목을 입력해 주세요.", duration: 1.0, position: .center)
+            return
+        }
         
         //작성날짜 구하기 위해서.
         let formatter = DateFormatter()
@@ -67,12 +91,7 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
         
         //board다음에 autoid 생성.
         guard let keyValue = ref.child("board").childByAutoId().key else { return }
-        //값 비어있는지 확인.
-        guard let text = self.textLabel.text, !text.isEmpty,
-              let title = self.titleLabel.text, !title.isEmpty else {
-                  self.view.makeToast("모든 내용을 작성해주세요.", duration: 1.0, position: .center)
-                  return
-              }
+
         //닉네임 가져오기.
         ref.child("users").observeSingleEvent(of: .value, andPreviousSiblingKeyWith: {
             (snapshot, error) in

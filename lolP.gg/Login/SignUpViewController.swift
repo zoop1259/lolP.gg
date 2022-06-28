@@ -64,13 +64,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         guard let email = txtUserEmail.text, !email.isEmpty,
               let password = txtPassword.text, !password.isEmpty,
               let nickname = txtNickName.text, !nickname.isEmpty else {
-                    self.view.makeToast("비어있는 항목이 있습니다.", duration: 1.0, position: .center)
+                    self.view.makeToast("❌비어있는 항목이 있습니다.", duration: 5.0, position: .center)
                     return
                 }
         
         //이걸 뺄지. 색깔을 뺄지.
         guard let pwRange = txtPassword.text, (pwRange.count >= 8) else {
-            self.view.makeToast("비밀번호는 8자 이상 입력해주세요.", duration: 1.0, position: .center)
+            self.view.makeToast("❌비밀번호는 8자 이상 입력해주세요.", duration: 1.0, position: .center)
             return
         }
         guard password != ""
@@ -93,6 +93,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                if let user = result?.user {
                    
                    self.ref.child("users/\(user.uid)/nickName").setValue(nickName)
+                   UserDefaults.standard.set(nickName, forKey: "nickName")
                    
                     let confirm = UIAlertController(title: "Complete", message: "\(email) 회원가입이     완료되었습니다.", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default) {_ in
@@ -129,15 +130,15 @@ extension AuthErrorCode {
     var errorMessage: String {
         switch self {
         case .emailAlreadyInUse:
-            return "The email is already in use with another account"
+            return "가입되어있는 이메일입니다."
         case .userNotFound:
             return "Account not found for the specified user. Please check and try again"
         case .userDisabled:
             return "Your account has been disabled. Please contact support."
         case .invalidEmail, .invalidSender, .invalidRecipientEmail:
-            return "Please enter a valid email"
+            return "이메일형식이 아닙니다."
         case .networkError:
-            return "Network error. Please try again."
+            return "네트워크 오류입니다."
         case .weakPassword:
             return "Your password is too weak. The password must be 6 characters long or more."
         case .wrongPassword:

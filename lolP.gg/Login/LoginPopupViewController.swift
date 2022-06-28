@@ -23,6 +23,7 @@ class LoginPopupViewController: UIViewController {
     @IBOutlet var loginBtn: UIButton!
     @IBOutlet var googleloginBtn: GIDSignInButton!
     @IBOutlet weak var appleloginBtn: ASAuthorizationAppleIDButton!
+    @IBOutlet weak var signUpBtn: UIButton!
     
     @IBOutlet var txtuserLoginEmail: UITextField!
     @IBOutlet var txtuserLoginPassword: UITextField!
@@ -32,8 +33,9 @@ class LoginPopupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loginBtn.layer.cornerRadius = 3
-        googleloginBtn.layer.cornerRadius = 3
+        [loginBtn, googleloginBtn, signUpBtn].forEach {
+            $0?.layer.cornerRadius = 3
+        }
         appleloginBtn.cornerRadius = 3
         appleloginBtn.addTarget(self, action: #selector(LoginPopupViewController.appleLogInButtonTapped), for: .touchDown)
     }
@@ -181,11 +183,7 @@ extension LoginPopupViewController: ASAuthorizationControllerDelegate {
                     DispatchQueue.main.async {
                         Auth.auth().signIn(with: credenTial) {_,_ in
                             // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
-//                            self.showDetailViewController()
-//                            다른화면은 뜬단말이지?
                             self.showimsiViewContollrer()
-
-                            
                             print("로그인 됨")
                         }
                     }
@@ -205,8 +203,6 @@ extension LoginPopupViewController: ASAuthorizationControllerDelegate {
         }
     }
 
-
-    
     //에러가 있을 때
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print("AppleID Credential failed with error: \(error.localizedDescription)")
@@ -274,7 +270,5 @@ extension LoginPopupViewController: ASAuthorizationControllerDelegate {
 extension LoginPopupViewController: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
-//        let vc = self.presentingViewController as! LoginDetailView
-//        return present(vc, animated: true, completion: nil)
     }
 }

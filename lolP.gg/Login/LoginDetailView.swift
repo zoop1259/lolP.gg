@@ -82,7 +82,7 @@ class LoginDetailView: UIViewController {
         userId.text = Auth.auth().currentUser?.uid
         
         getnickName()
-        changeuserImg()
+        loadUserImg()
 
         //이메일 초기화
         let isEmailSignIn = Auth.auth().currentUser?.providerData[0].providerID == "password"
@@ -138,13 +138,13 @@ class LoginDetailView: UIViewController {
         presentPhotoActionSheet()
     }
     
-    func changeuserImg() {
+    func loadUserImg() {
         guard let user = Auth.auth().currentUser else { return }
         DispatchQueue.global().async {
             self.ref.child("users").observeSingleEvent(of: .value, andPreviousSiblingKeyWith: {
                 (snapshot, error) in
                 let profileimg = snapshot.value as? [String: Any] ?? [:]
-                //닉네임가져오기
+                //프로필가져오기.
                 if let urldata = profileimg[user.uid] as? [String:Any] {
                     //let getimg = geturl.values
                     if let urlstring = urldata["profileImageUrl"] as? String {
@@ -158,6 +158,10 @@ class LoginDetailView: UIViewController {
                                 }
                             }
                         }
+                    //프로필사진이 등록되어있지 않은경우 바로 프로필화면을 보여준다.
+                    } else {
+                        self.activityIndicator.stopAnimating()
+                        self.userView.isHidden = false
                     }
                 }
             })
@@ -280,10 +284,9 @@ extension LoginDetailView: UIImagePickerControllerDelegate, UINavigationControll
             Storage.storage().reference().child("userImages").child(user.uid).downloadURL { (url, err) in
 //                print("url fetch")
                 
-                
                 print("url이 db에 저장됨 : \(url)")
                 Database.database().reference().child("users").child(user.uid).updateChildValues(["profileImageUrl":url?.absoluteString])
-                self.changeuserImg()
+                self.loadUserImg()
             }
         }
         picker.dismiss(animated: true)
