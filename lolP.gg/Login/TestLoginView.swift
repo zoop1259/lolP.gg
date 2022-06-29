@@ -30,6 +30,8 @@ class TestLoginView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        changeuserImg()
+        
         emailLabel.text = Auth.auth().currentUser?.email
         //nickLabel.text = Auth.auth().currentUser?.displayName ?? "별명이없다"
         uuidLabel.text = Auth.auth().currentUser?.uid
@@ -51,7 +53,7 @@ class TestLoginView: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getnickName()
-        changeuserImg()
+        //changeuserImg()
     }
     
     
@@ -72,15 +74,62 @@ class TestLoginView: UIViewController {
                     //let getimg = geturl.values
                     if let urlstring = urldata["profileImageUrl"] as? String {
                         print(urlstring)
-                        if let url = URL(string: urlstring) {
-                            if let data = try? Data(contentsOf: url) {
-                                DispatchQueue.main.async {
-                                    self.userImg.image = UIImage(data: data)
-                                    //self.activityIndicator.stopAnimating()
-                                    //self.userView.isHidden = false
-                                }
+                        
+                        let documentsURL = self.fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+                        let filePath = documentsURL.appendingPathComponent("userImage")
+                        
+                        if !self.fileManager.fileExists(atPath: filePath.path) {
+                        do {
+                            try
+                            self.fileManager.createDirectory(atPath:filePath.path,
+                                                        withIntermediateDirectories: true, attributes: nil)
+                            } catch {
+                                NSLog("Couldn't create document directory")
                             }
                         }
+                        
+                        if let url = URL(string: urlstring) {
+                            if let data = try? Data(contentsOf: url) {
+                                
+                                let image: UIImage = UIImage(data: data) ?? UIImage(systemName: "person") as! UIImage
+                                
+                                let filename = filePath.appendingPathComponent("userImage.png")
+                                try? data.write(to: filename)
+                                print("파일 폴더 url: \(filePath)")
+                                print("파일 url: \(filename)")
+                                //filepath의 image를 불러와서 넣어주면된다.
+                                do {
+                                    let imageData = try Data(contentsOf: filename)
+                                    DispatchQueue.main.async {
+                                        self.userImg.image = UIImage(data: imageData)
+                                    }
+                                    print(imageData)
+                                } catch let err as NSError {
+                                    print(err)
+                                }
+//                                DispatchQueue.main.async {
+//                                    self.userImg.image = UIImage(data: data)
+//                                    //self.activityIndicator.stopAnimating()
+//                                    //self.userView.isHidden = false
+                                
+                            }
+                        }
+                        
+                        /*
+                         guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) as NSURL else {
+                             return
+                         }
+                         do {
+                             print(directory)
+                             try image?.write(to: directory.appendingPathComponent("profile.png")!)
+                             return
+                         } catch {
+                             print(error.localizedDescription)
+                             return
+                         }
+                         */
+                        
+                        
                     }
                 }
             })
@@ -139,7 +188,7 @@ class TestLoginView: UIViewController {
                     //let getnick = nickkey.values
                     if let getnick = nickkey["nickName"] as? String {
                         print(getnick)
-                        DispatchQueue.main.async {
+//                        DispatchQueue.main.async {
                             //self.nickLabel.text = getnick
                             if getnick != "" {
                                 UserDefaults.standard.set(getnick, forKey: "nickName")
@@ -147,7 +196,7 @@ class TestLoginView: UIViewController {
                             } else {
                                 self.nickLabel.text = "별명이없다."
                             }
-                        }
+//                        }
                     }
                 }
             })
@@ -201,17 +250,6 @@ extension TestLoginView: UIImagePickerControllerDelegate, UINavigationController
             Storage.storage().reference().child("userImages").child(user.uid).downloadURL { (url, err) in
                 print("url이 db에 저장됨 : \(url)")
                 Database.database().reference().child("users").child(user.uid).updateChildValues(["profileImageUrl":url?.absoluteString])
-                
-                guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) as NSURL else {
-                    return
-                }
-                do {
-                    try image?.write(to: directory.appendingPathComponent("profile.png")!)
-                    return
-                } catch {
-                    print(error.localizedDescription)
-                    return
-                }
                 
                 self.changeuserImg()
             }
