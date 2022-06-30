@@ -120,19 +120,6 @@ class LoginDetailView: UIViewController {
         })
     }
     
-    
-    //MARK: - UIConfigure
-//    private func configureContentsTextView() {
-//        let borderColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0)
-//        //layer관련 색상을 변경할때에는 .cgColor를 해주어야 한다.
-//        self.nicknameStackView.layer.borderColor = borderColor.cgColor
-//        self.nicknameStackView.layer.borderWidth = 0.5
-//        self.nicknameStackView.layer.cornerRadius = 5.0
-//    }
-    
-    
-    
-    
     //MARK: - 이미지변경
     @objc private func didTapChangeProfilePic() {
         presentPhotoActionSheet()
@@ -194,8 +181,15 @@ class LoginDetailView: UIViewController {
 
         let alert = UIAlertController(title: "닉네임 변경", message: "닉네임을 입력해주세요.",preferredStyle: .alert)
         alert.addTextField()
-        let ok = UIAlertAction(title: "OK", style: .default) { (ok) in
-            self.ref.child("users").child(user.uid).updateChildValues(["nickName" : alert.textFields?[0].text])
+        let ok = UIAlertAction(title: "OK", style: .default) { [weak alert] (ok) in
+            
+            let textField = alert!.textFields![0] as UITextField
+            
+            guard let textRange = textField.text, (textRange.count <= 12) else {
+                self.view.makeToast("❌12자 이하로 입력해주세요..", duration: 1.0, position: .center)
+                return
+            }
+            self.ref.child("users").child(user.uid).updateChildValues(["nickName" : alert?.textFields?[0].text])
             self.getnickName()
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (cancel) in
@@ -232,6 +226,41 @@ class LoginDetailView: UIViewController {
         self.view.endEditing(true)
     }
     
+    //MARK: - 회원탈퇴
+    @IBAction func signOutBtn(_ sender: Any) {
+        guard let user = Auth.auth().currentUser else { return }
+
+        let alert = UIAlertController(title: "회원탈퇴", message: "정말 탈퇴하시겠습니까?",preferredStyle: .alert)
+        
+        let ok = UIAlertAction(title: "OK", style: .default) { (ok) in
+            user.delete { error in
+                if let error = error {
+                    // An error happened.
+                     print("에러 발생: \(error)")
+                } else {
+                     // Account deleted.
+                    print("회원탈퇴완료")
+                    self.ref.child("users").child(user.uid).removeValue()
+                    
+                    //defer
+                    let deleteImg = self.storage.child("userImages").child(user.uid)
+                    deleteImg.delete { error in
+                        if let error = error {
+                            print("이미지 삭제 오류 \(error)")
+                        } else {
+                            print("모든정보 삭제됨")
+                        }
+                    }
+                }
+            }
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (cancel) in
+            //alert.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
+    }
 }
 
 
@@ -250,9 +279,7 @@ extension LoginDetailView: UIImagePickerControllerDelegate, UINavigationControll
         actionSheet.addAction(UIAlertAction(title: "라이브러리", style: .default, handler: {[weak self] _ in
             self?.presentLibrary()
         }))
-
         present(actionSheet, animated: true)
-
     }
 
     func presentCamera() {
@@ -295,24 +322,3 @@ extension LoginDetailView: UIImagePickerControllerDelegate, UINavigationControll
         picker.dismiss(animated: true, completion: nil)
     }
 }
-
-
-//MARK: - 회원탈퇴
-/*
- //회원탈퇴 : 버튼에 연결만 하면된다.
- private func loadDeleteFirebase()
-     {
-         let user = Auth.auth().currentUser
-         user?.delete(completion: { (error) in
-             guard error == nil else
-             {
-                 if let errorCode : AuthErrorCode = AuthErrorCode(rawValue: error!._code)
-                 {
-                     print("delete -> error -> \(errorCode.rawValue)")
-                 }
-                 return
-             }
-             return
-         })
-     }
- */

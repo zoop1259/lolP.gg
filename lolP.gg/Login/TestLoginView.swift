@@ -140,6 +140,7 @@ class TestLoginView: UIViewController {
     @IBAction func logoutBtn(_ sender: Any) {
         do {
             try FirebaseAuth.Auth.auth().signOut()
+            //로그아웃하면 유저디폴트의 닉네임을 제거해준다. 그렇지 않으면 닉네임없는 다른아이디로 로그인하면 전아이디 닉네임이 뜨기 때문.
             UserDefaults.standard.removeObject(forKey: "nickName")
             
             //로그아웃과 동시에 뷰 닫기
@@ -165,6 +166,7 @@ class TestLoginView: UIViewController {
         let alert = UIAlertController(title: "닉네임 변경", message: "닉네임을 입력해주세요.",preferredStyle: .alert)
         alert.addTextField()
         let ok = UIAlertAction(title: "OK", style: .default) { (ok) in
+            
             self.ref.child("users").child(user.uid).updateChildValues(["nickName" : alert.textFields?[0].text])
             self.getnickName()
         }

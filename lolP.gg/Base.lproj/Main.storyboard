@@ -692,7 +692,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9kX-xK-jdk">
                                         <rect key="frame" x="10" y="30" width="240" height="48"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -1014,41 +1014,56 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I7M-Vm-RSl">
-                                        <rect key="frame" x="10" y="459" width="72.666666666666671" height="31"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="로그아웃"/>
-                                        <connections>
-                                            <action selector="logoutBtn:" destination="xRD-og-bWW" eventType="touchUpInside" id="PJV-4t-UKs"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ok-hZ-qd3">
-                                        <rect key="frame" x="189.33333333333334" y="459" width="100.66666666666666" height="31"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="비밀번호 변경"/>
-                                        <connections>
-                                            <action selector="tappasswordResetBtn:" destination="xRD-og-bWW" eventType="touchUpInside" id="a0b-pt-2tN"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="MWp-jZ-EnT">
+                                        <rect key="frame" x="20" y="462" width="260" height="28"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I7M-Vm-RSl">
+                                                <rect key="frame" x="0.0" y="0.0" width="45" height="28"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="로그아웃"/>
+                                                <connections>
+                                                    <action selector="logoutBtn:" destination="xRD-og-bWW" eventType="touchUpInside" id="PJV-4t-UKs"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LsD-cd-gkV">
+                                                <rect key="frame" x="50" y="0.0" width="133" height="28"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="회원탈퇴"/>
+                                                <connections>
+                                                    <action selector="signOutBtn:" destination="xRD-og-bWW" eventType="touchUpInside" id="hBG-T8-OE7"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ok-hZ-qd3">
+                                                <rect key="frame" x="188" y="0.0" width="72" height="28"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="비밀번호 변경"/>
+                                                <connections>
+                                                    <action selector="tappasswordResetBtn:" destination="xRD-og-bWW" eventType="touchUpInside" id="a0b-pt-2tN"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="linkColor"/>
                                 <color key="tintColor" systemColor="systemTealColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="I7M-Vm-RSl" secondAttribute="bottom" constant="10" id="2zN-Cq-Ksm"/>
+                                    <constraint firstItem="MWp-jZ-EnT" firstAttribute="leading" secondItem="EwW-67-qGd" secondAttribute="leading" constant="20" id="3YL-tZ-oov"/>
+                                    <constraint firstAttribute="trailing" secondItem="MWp-jZ-EnT" secondAttribute="trailing" constant="20" id="Nmn-Uu-mVR"/>
                                     <constraint firstItem="pPg-xq-ooI" firstAttribute="top" secondItem="EwW-67-qGd" secondAttribute="top" constant="20" id="Pb9-Gm-dzk"/>
                                     <constraint firstItem="LJG-QN-zFW" firstAttribute="leading" secondItem="EwW-67-qGd" secondAttribute="leading" constant="20" id="Pw0-da-9ZN"/>
-                                    <constraint firstAttribute="trailing" secondItem="2ok-hZ-qd3" secondAttribute="trailing" constant="10" id="QHB-Rn-TBh"/>
-                                    <constraint firstAttribute="bottom" secondItem="2ok-hZ-qd3" secondAttribute="bottom" constant="10" id="QQF-NN-43y"/>
                                     <constraint firstAttribute="width" constant="300" id="W72-HV-yld"/>
                                     <constraint firstItem="LJG-QN-zFW" firstAttribute="top" secondItem="pPg-xq-ooI" secondAttribute="bottom" constant="20" id="awh-RB-jYM"/>
                                     <constraint firstAttribute="trailing" secondItem="LJG-QN-zFW" secondAttribute="trailing" constant="20" id="gAX-og-LDu"/>
-                                    <constraint firstItem="I7M-Vm-RSl" firstAttribute="leading" secondItem="EwW-67-qGd" secondAttribute="leading" constant="10" id="ndt-JL-ZCw"/>
+                                    <constraint firstAttribute="bottom" secondItem="MWp-jZ-EnT" secondAttribute="bottom" constant="10" id="gRA-xt-JTc"/>
                                     <constraint firstItem="pPg-xq-ooI" firstAttribute="top" secondItem="EwW-67-qGd" secondAttribute="top" constant="20" id="oEo-Qx-391"/>
                                     <constraint firstAttribute="height" constant="500" id="rmP-LQ-YaZ"/>
                                     <constraint firstItem="pPg-xq-ooI" firstAttribute="centerX" secondItem="EwW-67-qGd" secondAttribute="centerX" id="uNf-G5-g2j"/>
-                                    <constraint firstItem="2ok-hZ-qd3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="I7M-Vm-RSl" secondAttribute="trailing" constant="8" symbolic="YES" id="wCK-vd-qNv"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1070,7 +1085,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wts-rN-H9w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2032" y="-958"/>
+            <point key="canvasLocation" x="2031.8840579710147" y="-958.25892857142856"/>
         </scene>
     </scenes>
     <color key="tintColor" name="AccentColor"/>
