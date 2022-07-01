@@ -241,7 +241,7 @@ class LoginDetailView: UIViewController {
                      // Account deleted.
                     print("회원탈퇴완료")
                     self.ref.child("users").child(user.uid).removeValue()
-                    
+                    self.dismiss(animated: true, completion: nil)
                     //defer
                     let deleteImg = self.storage.child("userImages").child(user.uid)
                     deleteImg.delete { error in
@@ -249,6 +249,7 @@ class LoginDetailView: UIViewController {
                             print("이미지 삭제 오류 \(error)")
                         } else {
                             print("모든정보 삭제됨")
+                            
                         }
                     }
                 }

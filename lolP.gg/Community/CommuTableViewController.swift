@@ -13,6 +13,7 @@ import FirebaseDatabase
 class CommuTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var commuTableView: UITableView!
+    @IBOutlet weak var writeBtn: UIButton!
     
     var ref = Database.database().reference()
     var titleList = [String]()
@@ -24,6 +25,9 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureContentsTextView()
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,6 +36,16 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
             self.getBoardData()
         }
     }
+    
+    //MARK: - UIConfigure
+    private func configureContentsTextView() {
+        let borderColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0)
+        //layer관련 색상을 변경할때에는 .cgColor를 해주어야 한다.
+        self.writeBtn.layer.borderColor = borderColor.cgColor
+        self.writeBtn.layer.borderWidth = 1
+        self.writeBtn.layer.cornerRadius = 5.0
+    }
+    
     
     //로그인이 되었는지 확인하고 로그인이 되었으면 글쓰기 화면으로.
     @IBAction func tapWriteBtn(_ sender: UIButton) {

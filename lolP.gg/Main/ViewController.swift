@@ -18,12 +18,27 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     let searchController = UISearchController()
     
+    //인디케이터 생성
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        activityIndicator.center = self.view.center
+        activityIndicator.color = UIColor.red
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = UIActivityIndicatorView.Style.medium
+        return activityIndicator
+    } ()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupSearchController()
+        //인디케이터 추가
+        self.view.addSubview(self.activityIndicator)
+        
         champData()
+        setupSearchController()
     }
 
+    
     //MARK: -- 컬렉션뷰 델리게이트
     //셀 수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -42,7 +57,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         } else {
             champions = champion[indexPath.row]
         }
-       
+        
+        //이걸 글로벌하게 하니까. 필터했을떄 이쁘지가 않은것.
         //이미지를 빠르게 그리기 위해서 global로 돌린다.
         DispatchQueue.global().async {
             let url: URL! = URL(string: "http://ddragon.leagueoflegends.com/cdn/\(self.newVersion)/img/champion/\(champions.id).png")
@@ -50,9 +66,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             let imageData = try! Data(contentsOf: url)
             //ui는 main에서 돌려야 하기 떄문에.
             DispatchQueue.main.async {
+                self.activityIndicator.startAnimating()
                 cell.nameLabel.text = champions.name
                 // UIImage객체를 생성하여 아울렛 변수의 image 속성에 대입
                 cell.imgView.image = UIImage(data: imageData)
+                self.activityIndicator.stopAnimating()
             }
         }
         return cell
@@ -101,7 +119,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
   
     //MARK: - 데이터파싱
     func champData() {
-        
         if let urls = URL(string: "https://ddragon.leagueoflegends.com/api/versions.json") {
             var request = URLRequest.init(url: urls)
             request.httpMethod = "GET"
@@ -140,10 +157,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                             }
                             //버전도 담기
                             self.newVersion = newversion
-                            //async하여 데이터 메인에서 돌게
-//                            OperationQueue.main.addOperation {
-//                                self.collectionViewMain.reloadData()
-//                            }
+                            
+                            //main에서 일처리
                             DispatchQueue.main.async {
                                 self.collectionViewMain.reloadData()
                             }
@@ -162,8 +177,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //        self.showLoginPopupViewController()
         if Auth.auth().currentUser != nil {
             print("유저정보화면")
-            //self.showDetailViewController()
-            self.showTestViewController()
+            self.showDetailViewController()
+//            self.showTestViewController()
         } else {
             print("로그인화면")
             self.showLoginPopupViewController()
@@ -186,13 +201,19 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     
-    // MARK: - Filter methods
+    // MARK: - Filter configure & methods
     func setupSearchController() {
         let searchController = UISearchController(searchResultsController: nil)
         //서치바 설정
         self.navigationItem.searchController = searchController
+        
+        self.definesPresentationContext = true
         searchController.searchBar.placeholder = "챔피언 검색"
+        // searchController가 검색하는 동안 네비게이션에 가려지지 않도록
         searchController.hidesNavigationBarDuringPresentation = false
+        // searchBar cancel 버튼의 텍스트를 (cancel을 취소로 텍스트 변경)
+        searchController.searchBar.setValue("취소", forKey: "cancelButtonText")
+        
         searchController.searchBar.backgroundColor = .link
         searchController.searchBar.searchTextField.backgroundColor = UIColor.white
         searchController.searchBar.tintColor = .white
@@ -200,7 +221,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         self.navigationItem.hidesSearchBarWhenScrolling = false
         //텍스트 업데이트 확인하기
         searchController.searchResultsUpdater = self
-        
         //먼 훗날 scopebar 사용해보자.
     }
       
@@ -211,17 +231,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let isSearchBarHasText = searchController?.searchBar.text?.isEmpty == false
         return isActive && isSearchBarHasText
     }
-    
-    func searchBarIsEmpty() -> Bool {
-      return searchController.searchBar.text?.isEmpty ?? true
-    }
       
-    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-      filteredChamp = champion.filter({( champion : ChampData) -> Bool in
-        return champion.name.lowercased().contains(searchText.lowercased())
-      })
-      collectionViewMain.reloadData()
-    }
+    //scope사용하게되면 사용할 것
+//    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+//      filteredChamp = champion.filter({( champion : ChampData) -> Bool in
+//        return champion.name.lowercased().contains(searchText.lowercased())
+//      })
+//    }
+    
 }
 
 //필터링
@@ -234,6 +251,7 @@ extension ViewController: UISearchResultsUpdating {
         self.collectionViewMain.reloadData()
     }
 }
+
 
 //MARK: - Cell Model
 class ChampList: UICollectionViewCell {

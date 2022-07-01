@@ -358,6 +358,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="commuTableView" destination="8BG-Lb-4A2" id="9Ej-jh-HnB"/>
+                        <outlet property="writeBtn" destination="qfZ-3W-L7p" id="0Ry-1S-QRz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9zX-RV-LZV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -10,7 +10,7 @@ import FirebaseDatabase
 import FirebaseAuth
 import Toast_Swift
 
-class CommuCreateViewController : UIViewController, UITextViewDelegate {
+class CommuCreateViewController : UIViewController, UITextViewDelegate, UITextFieldDelegate {
     
     @IBOutlet var titleLabel: UITextField!
     @IBOutlet var textLabel: UITextView!
@@ -21,13 +21,20 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
     
     var labelcount = 0
     
+    var textfieldBool = false
+    var textViewBool = false
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
         configureContentsTextView()
         placeholderSetting()
 
+        
+        titleLabel.delegate = self
         self.navigationItem.rightBarButtonItem?.isEnabled = false
+        
     }
 
     
@@ -59,11 +66,40 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
     //글이 비어있거나, 시작부터 " " 면 작성버튼 비활성화.
     func textViewDidChange(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            self.navigationItem.rightBarButtonItem?.isEnabled = false
+            //self.navigationItem.rightBarButtonItem?.isEnabled = false
+            self.textViewBool = false
         } else {
+            //self.navigationItem.rightBarButtonItem?.isEnabled = true
+            self.textViewBool = true
+        }
+        print(self.textViewBool)
+        
+        if self.textfieldBool && self.textViewBool == true {
             self.navigationItem.rightBarButtonItem?.isEnabled = true
+        } else {
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+        }
+        
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        
+        guard let text = textField.text else { return }
+        
+        if text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            self.textfieldBool = false
+        } else {
+            self.textfieldBool = true
+        }
+        print(self.textfieldBool)
+        
+        if self.textfieldBool && self.textViewBool == true {
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+        } else {
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
         }
     }
+    
     
     //텍스트뷰 플레이스홀더 변경용.
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -78,10 +114,10 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate {
         guard let user = Auth.auth().currentUser else { return }
         
         //유효성 검사. 정규식을 사용하지 않음.
-        guard let titlelabel = titleLabel.text, !titlelabel.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            self.view.makeToast("❌제목을 입력해 주세요.", duration: 1.0, position: .center)
-            return
-        }
+//        guard let titlelabel = titleLabel.text, !titlelabel.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+//            self.view.makeToast("❌제목을 입력해 주세요.", duration: 1.0, position: .center)
+//            return
+//        }
         
         //작성날짜 구하기 위해서.
         let formatter = DateFormatter()
