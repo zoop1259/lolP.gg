@@ -306,7 +306,10 @@ extension LoginDetailView: UIImagePickerControllerDelegate, UINavigationControll
         
         //let image = self.userImg.image?.jpegData(compressionQuality: 0.1)
         let image = selectedImage.jpegData(compressionQuality: 0.1)
-        Storage.storage().reference().child("userImages").child(user.uid).putData(image!, metadata: nil) { (data, err) in
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpeg"
+        
+        Storage.storage().reference().child("userImages").child(user.uid).putData(image!, metadata: metaData) { (data, err) in
             
             print("data fetch")
             Storage.storage().reference().child("userImages").child(user.uid).downloadURL { (url, err) in

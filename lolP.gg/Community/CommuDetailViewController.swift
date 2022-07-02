@@ -10,10 +10,11 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
-class CommuDetailViewController : UITableViewController {
+class CommuDetailViewController : UITableViewController, UITextFieldDelegate {
     
     @IBOutlet var detailcommutableView: UITableView!
     @IBOutlet weak var commenttextField: UITextField!
+    @IBOutlet weak var commentBtn: UIButton!
     
     var ref = Database.database().reference()
     var detailBoard: [DetailBoard] = []
@@ -44,6 +45,11 @@ class CommuDetailViewController : UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "게시글"
+        
+        commenttextField.delegate = self
+        //댓글버튼 꺼놓기
+        commentBtn.isEnabled = false
+        
         let checkUser = Auth.auth().currentUser?.uid
         //이메일 초기화
         if checkUser == detailuid  {
@@ -84,6 +90,16 @@ class CommuDetailViewController : UITableViewController {
          
      }
     
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        guard let text = self.commenttextField.text else { return }
+        if text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            self.commentBtn.isEnabled = false
+        } else {
+            self.commentBtn.isEnabled = true
+        }
+    }
+    
+    
     //MARK: - 댓글쓰기
     @IBAction func writeComment(_ sender: UIButton) {
         //로그인정보부터 불러오기.
@@ -104,10 +120,6 @@ class CommuDetailViewController : UITableViewController {
         
         //board다음에 autoid를 넣는것.
         guard let keyValue = ref.child("board").childByAutoId().key else { return }
-        guard let text = self.commenttextField.text, !text.isEmpty else {
-                  self.view.makeToast("댓글 작성해주세요.", duration: 1.0, position: .center)
-                  return
-              }
         
         //유저닉 얻기.
         ref.child("users").observeSingleEvent(of: .value, andPreviousSiblingKeyWith: {
@@ -125,7 +137,7 @@ class CommuDetailViewController : UITableViewController {
                 self.detailcommutableView.reloadData()
             }
         })
-        //닉네임 가져오기.
+        //댓글 작성.
         ref.child("users").observeSingleEvent(of: .value) { snapshot in
             if let commukey = self.commuKey {
                 self.ref.child("board").child("create").child(commukey).child("comment").child(keyValue).setValue([

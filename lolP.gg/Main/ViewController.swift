@@ -42,7 +42,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     //MARK: -- 컬렉션뷰 델리게이트
     //셀 수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.isFiltering ? self.filteredChamp.count : self.champion.count
+        return isFiltering ? filteredChamp.count : champion.count
     }
     
     //셀 정보 - 어떻게 보여줄 것인가.
@@ -52,6 +52,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         
         let champions: ChampData
+        //필터링 적용
+
         if isFiltering {
             champions = filteredChamp[indexPath.row]
         } else {
@@ -226,7 +228,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
       
     //필터링 파악
     var isFiltering: Bool {
-        let searchController = self.navigationItem.searchController
+        let searchController = navigationItem.searchController
         let isActive = searchController?.isActive ?? false
         let isSearchBarHasText = searchController?.searchBar.text?.isEmpty == false
         return isActive && isSearchBarHasText
@@ -244,11 +246,19 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //필터링
 extension ViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        self.filteredChamp = champion.filter({ (data:ChampData) -> Bool in
-            return data.name.lowercased().contains(searchController.searchBar.text!.lowercased())
+//        self.filteredChamp = champion.filter({ (data:ChampData) -> Bool in
+//            return data.name.lowercased().contains(searchController.searchBar.text!.lowercased())
+//        })
+        
+        self.filteredChamp = champion.filter({ ChampData -> Bool in
+            return ChampData.name.lowercased().contains(searchController.searchBar.text!.lowercased())
         })
+        
+//        guard let text = searchController.searchBar.text else { return }
+//        self.filteredChamp = champion.filter { $0.name.contains(text) }
+        
         dump(filteredChamp)
-        self.collectionViewMain.reloadData()
+        collectionViewMain.reloadData()
     }
 }
 

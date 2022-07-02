@@ -418,6 +418,7 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="commentBtn" destination="VYu-uz-NF3" id="QoZ-TD-7my"/>
                         <outlet property="commenttextField" destination="ih7-rw-dgS" id="YOr-gb-EM2"/>
                         <outlet property="detailcommutableView" destination="8Bz-81-ddI" id="PED-mi-7FK"/>
                     </connections>
