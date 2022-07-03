@@ -306,6 +306,7 @@ extension LoginDetailView: UIImagePickerControllerDelegate, UINavigationControll
         
         //let image = self.userImg.image?.jpegData(compressionQuality: 0.1)
         let image = selectedImage.jpegData(compressionQuality: 0.1)
+        //
         let metaData = StorageMetadata()
         metaData.contentType = "image/jpeg"
         

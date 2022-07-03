@@ -585,6 +585,15 @@
                                     <action selector="logoutBtn:" destination="Yw0-k4-Du4" eventType="touchUpInside" id="Q73-y8-0Pu"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HT4-oD-SdY">
+                                <rect key="frame" x="193" y="628" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="닉변"/>
+                                <connections>
+                                    <action selector="nickNameUpdateBtn:" destination="Yw0-k4-Du4" eventType="touchUpInside" id="4WQ-bw-zX6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="s84-sj-2p4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

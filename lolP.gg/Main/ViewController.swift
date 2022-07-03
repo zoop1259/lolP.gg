@@ -179,8 +179,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //        self.showLoginPopupViewController()
         if Auth.auth().currentUser != nil {
             print("유저정보화면")
-            self.showDetailViewController()
-//            self.showTestViewController()
+//            self.showDetailViewController()
+            self.showTestViewController()
         } else {
             print("로그인화면")
             self.showLoginPopupViewController()

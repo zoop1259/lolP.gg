@@ -33,8 +33,23 @@ class TestLoginView: UIViewController {
         changeuserImg()
         
         emailLabel.text = Auth.auth().currentUser?.email
-        //nickLabel.text = Auth.auth().currentUser?.displayName ?? "별명이없다"
+        nickLabel.text = Auth.auth().currentUser?.displayName ?? "별명이없다"
         uuidLabel.text = Auth.auth().currentUser?.uid
+        
+        if let url = Auth.auth().currentUser?.photoURL {
+            do {
+                let imgData = try Data(contentsOf: url)
+                if let image = UIImage(data: imgData) {
+                    DispatchQueue.main.async {
+                        self.userImg.image = image
+                    }
+                }
+            } catch {
+                debugPrint("From catch block: Image could not be downloaded !!")
+            }
+        }
+
+        
         
         userImg.contentMode = .scaleAspectFill
         userImg.image = UIImage(systemName: "person")
@@ -52,7 +67,7 @@ class TestLoginView: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getnickName()
+        //getnickName()
         //changeuserImg()
     }
     
@@ -168,7 +183,21 @@ class TestLoginView: UIViewController {
         let ok = UIAlertAction(title: "OK", style: .default) { (ok) in
             
             self.ref.child("users").child(user.uid).updateChildValues(["nickName" : alert.textFields?[0].text])
-            self.getnickName()
+            
+            let text = alert.textFields?[0].text
+            
+            if text != nil {
+                var changeRequest = user.createProfileChangeRequest().displayName
+                changeRequest = text!
+                print(changeRequest)
+            }
+            
+            
+            
+            
+
+            
+            //self.getnickName()
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (cancel) in
             //alert.dismiss(animated: true, completion: nil)
@@ -247,9 +276,19 @@ extension TestLoginView: UIImagePickerControllerDelegate, UINavigationController
         guard let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage, let user = Auth.auth().currentUser else { return }
     
         let image = selectedImage.jpegData(compressionQuality: 0.1)
-        Storage.storage().reference().child("userImages").child(user.uid).putData(image!, metadata: nil) { (data, err) in
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpeg"
+        
+        Storage.storage().reference().child("userImages").child(user.uid).putData(image!, metadata: metaData) { (data, err) in
             print("data fetch")
             Storage.storage().reference().child("userImages").child(user.uid).downloadURL { (url, err) in
+                
+                if let url = url {
+                    let changeRequest = user.createProfileChangeRequest()
+//                    changeRequest.displayName = "nickname"
+                    changeRequest.photoURL = url
+                }
+                
                 print("url이 db에 저장됨 : \(url)")
                 Database.database().reference().child("users").child(user.uid).updateChildValues(["profileImageUrl":url?.absoluteString])
                 
