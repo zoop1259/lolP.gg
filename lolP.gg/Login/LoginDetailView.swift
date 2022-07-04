@@ -171,7 +171,8 @@ class LoginDetailView: UIViewController {
 //MARK: - 암호 변경
     @IBAction func tappasswordResetBtn(_ sender: UIButton) {
         let email = Auth.auth().currentUser?.email ?? ""
-        //비밀번호를 재설정할 수 있는 이메일로 넘어간다.
+        Auth.auth().languageCode = "kr"
+        //비밀번호를 재설정할 수 있는 이메일을 보냄
         Auth.auth().sendPasswordReset(withEmail: email, completion: nil)
     }
     

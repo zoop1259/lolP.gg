@@ -69,6 +69,35 @@ class TestLoginView: UIViewController {
         super.viewWillAppear(animated)
         //getnickName()
         //changeuserImg()
+        
+        if Auth.auth().currentUser?.displayName == nil {
+            
+            let alert = UIAlertController(title: "최초 닉네임 설정", message: "닉네임을 입력해주세요.",preferredStyle: .alert)
+            //텍스트필드 속성
+            alert.addTextField() { field in
+                field.placeholder = "닉네임 변경"
+                field.keyboardType = .emailAddress
+                
+            }
+            let ok = UIAlertAction(title: "OK", style: .default) { (ok) in
+                guard let fields = alert.textFields, fields.count == 1 else { return }
+                let nicknameField = fields[0]
+                
+                guard let text = nicknameField.text, !text.isEmpty else { return }
+                let change = Auth.auth().currentUser?.createProfileChangeRequest()
+                change?.displayName = text
+                change?.commitChanges { _ in
+                }
+                print(text)
+                self.nickLabel.text = text
+            }
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (cancel) in
+                //alert.dismiss(animated: true, completion: nil)
+            }
+            alert.addAction(cancel)
+            alert.addAction(ok)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     
@@ -179,22 +208,39 @@ class TestLoginView: UIViewController {
         guard let user = Auth.auth().currentUser else { return }
 
         let alert = UIAlertController(title: "닉네임 변경", message: "닉네임을 입력해주세요.",preferredStyle: .alert)
-        alert.addTextField()
+        //텍스트필드 속성
+        alert.addTextField() { field in
+            field.placeholder = "닉네임 변경"
+            field.keyboardType = .emailAddress
+            
+        }
         let ok = UIAlertAction(title: "OK", style: .default) { (ok) in
+            guard let fields = alert.textFields, fields.count == 1 else { return }
+            let nicknameField = fields[0]
             
-            self.ref.child("users").child(user.uid).updateChildValues(["nickName" : alert.textFields?[0].text])
-            
-            let text = alert.textFields?[0].text
-            
-            if text != nil {
-                var changeRequest = user.createProfileChangeRequest().displayName
-                changeRequest = text!
-                print(changeRequest)
+            guard let text = nicknameField.text, !text.isEmpty else { return }
+            let change = Auth.auth().currentUser?.createProfileChangeRequest()
+            change?.displayName = text
+            change?.commitChanges { _ in
             }
+            print(text)
+            self.nickLabel.text = user.displayName
+            
+            self.ref.child("users").child(user.uid).updateChildValues(["nickName" : alert.textFields?[0].text ?? "별명입력안함"])
+  
+            
+//            var changeRequest = user.createProfileChangeRequest().displayName
+//                changeRequest = text
+            //self.getnickName()
             
             
-            
-            
+//            let text = alert.textFields?[0].text
+//
+//            if text != nil {
+//                var changeRequest = user.createProfileChangeRequest().displayName
+//                changeRequest = text!
+//                print(changeRequest!)
+//            }
 
             
             //self.getnickName()

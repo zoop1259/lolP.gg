@@ -91,6 +91,15 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             } else {
     
                if let user = result?.user {
+                   let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                   changeRequest?.displayName = nickname
+                   changeRequest?.commitChanges { error in
+                       if error == nil {
+                           print("닉네임설정 성공")
+                       } else {
+                           print("닉네임설정 실패")
+                       }
+                   }
                    
                    self.ref.child("users/\(user.uid)/nickName").setValue(nickName)
                    UserDefaults.standard.set(nickName, forKey: "nickName")
