@@ -12,13 +12,17 @@ Main
 - Champion Skill List
 - Champion Search
 
-Community
----------
-- 회원가입, 회원탈퇴
-- 로그인, 로그아웃
-- 프로필 이미지 업로드
-- 프로필 수정
-- 
+User
+----
+- SignIn, SignOut
+- Login, Google Login, Apple Login, Logout
+- Profile Image Upload
+- Profile Update
+
+Community(Board)
+----------------
+- Create, Read, Update
+- Comment Create, Read
 
 
 About Me
