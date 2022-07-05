@@ -1,8 +1,5 @@
 # lolP.gg
-열심히 노력중
-
-lolP.gg
-=======
+MyFirstProject
 
 What is this?
 -------------
