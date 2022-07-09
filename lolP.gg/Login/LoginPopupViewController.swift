@@ -41,6 +41,10 @@ class LoginPopupViewController: UIViewController {
     }
 
     
+    @IBAction func dismissBtn(_ sender: UIButton) {
+        print("버튼눌림")
+        self.dismiss(animated: true, completion: nil)
+    }
     
     //MARK: - 이메일 로그인 버튼
     @IBAction func btnActSubmit(_ sender: UIButton) {

@@ -253,10 +253,8 @@ extension ViewController: UISearchResultsUpdating {
         self.filteredChamp = champion.filter({ ChampData -> Bool in
             return ChampData.name.lowercased().contains(searchController.searchBar.text!.lowercased())
         })
-        
 //        guard let text = searchController.searchBar.text else { return }
 //        self.filteredChamp = champion.filter { $0.name.contains(text) }
-        
         dump(filteredChamp)
         collectionViewMain.reloadData()
     }

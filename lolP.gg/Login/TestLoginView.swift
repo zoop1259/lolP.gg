@@ -158,22 +158,6 @@ class TestLoginView: UIViewController {
                                 
                             }
                         }
-                        
-                        /*
-                         guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) as NSURL else {
-                             return
-                         }
-                         do {
-                             print(directory)
-                             try image?.write(to: directory.appendingPathComponent("profile.png")!)
-                             return
-                         } catch {
-                             print(error.localizedDescription)
-                             return
-                         }
-                         */
-                        
-                        
                     }
                 }
             })
@@ -186,7 +170,6 @@ class TestLoginView: UIViewController {
             try FirebaseAuth.Auth.auth().signOut()
             //로그아웃하면 유저디폴트의 닉네임을 제거해준다. 그렇지 않으면 닉네임없는 다른아이디로 로그인하면 전아이디 닉네임이 뜨기 때문.
             UserDefaults.standard.removeObject(forKey: "nickName")
-            
             //로그아웃과 동시에 뷰 닫기
             print("로그아웃 성공")
             self.dismiss(animated: true, completion: nil)
@@ -221,6 +204,7 @@ class TestLoginView: UIViewController {
             guard let text = nicknameField.text, !text.isEmpty else { return }
             let change = Auth.auth().currentUser?.createProfileChangeRequest()
             change?.displayName = text
+            //커밋을 해주지 않으면 닉네임변경이 완료되지 않음.
             change?.commitChanges { _ in
             }
             print(text)

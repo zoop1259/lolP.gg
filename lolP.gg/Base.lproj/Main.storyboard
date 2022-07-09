@@ -621,6 +621,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E9V-HQ-H1Q">
+                                <rect key="frame" x="0.0" y="44" width="414" height="800"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                                <connections>
+                                    <action selector="dismissBtn:" destination="sHQ-jS-J6h" eventType="touchUpInside" id="g9L-eP-y2t"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Qw-2x-30p">
                                 <rect key="frame" x="77" y="223" width="260" height="450"/>
                                 <subviews>
@@ -739,7 +748,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pxe-pH-4C1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1007" y="-957"/>
+            <point key="canvasLocation" x="1005.7971014492755" y="-957.58928571428567"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="neU-UJ-bAx">
@@ -1077,6 +1086,15 @@
                                     <constraint firstItem="pPg-xq-ooI" firstAttribute="centerX" secondItem="EwW-67-qGd" secondAttribute="centerX" id="uNf-G5-g2j"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kw3-kF-pIN">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="841"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                                <connections>
+                                    <action selector="dismissBtn:" destination="xRD-og-bWW" eventType="touchUpInside" id="lcx-Cq-qbR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="u7c-P7-hMx"/>
                         <constraints>

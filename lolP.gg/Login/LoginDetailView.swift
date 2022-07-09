@@ -90,6 +90,11 @@ class LoginDetailView: UIViewController {
         passwordReset.isHidden = !isEmailSignIn
     }
     
+    @IBAction func dismissBtn(_ sender: UIButton) {
+        print("버튼눌림")
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     //MARK: - 권한요청
     func checkCameraPermission() {
         let dialog = UIAlertController(title: "주의", message: "일부 기능이 동작하지 않습니다. 설정에서 확인해주세요.", preferredStyle: .alert)
