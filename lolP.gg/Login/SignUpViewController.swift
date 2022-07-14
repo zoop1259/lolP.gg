@@ -26,16 +26,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // 각 라이브러리에 대한 델리게이트 연결
         txtUserEmail.delegate = self
         txtPassword.delegate = self
         txtPasswordConfirm.delegate = self
         txtNickName.delegate = self
-        
     }
-    
-    
     
     //취소 버튼
     @IBAction func btnActCancel(_ sender: UIButton) {

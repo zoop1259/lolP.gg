@@ -7,14 +7,14 @@
 
 import Foundation
 import UIKit
-//import AuthenticationServices
-//import GoogleSignIn
-//import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
 import PhotosUI
 import AVFoundation
+//import AuthenticationServices
+//import GoogleSignIn
+//import Firebase
 
 class LoginDetailView: UIViewController {
     
@@ -71,6 +71,7 @@ class LoginDetailView: UIViewController {
         super.viewWillAppear(animated)
         checkCameraPermission()
         checkAlbumPermission()
+        newnickNameSetting()
         
         self.activityIndicator.startAnimating()
         self.userView.isHidden = true
@@ -91,7 +92,7 @@ class LoginDetailView: UIViewController {
     }
     
     @IBAction func dismissBtn(_ sender: UIButton) {
-        print("버튼눌림")
+        print("배경이 터치되어 화면 dismiss")
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -100,7 +101,6 @@ class LoginDetailView: UIViewController {
         let dialog = UIAlertController(title: "주의", message: "일부 기능이 동작하지 않습니다. 설정에서 확인해주세요.", preferredStyle: .alert)
         let action = UIAlertAction(title: "확인", style: .default)
         dialog.addAction(action)
-        
         AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
             if granted {
                 print("권한 허용")
@@ -164,6 +164,10 @@ class LoginDetailView: UIViewController {
     @IBAction func logoutBtn(_ sender: Any) {
         do {
             try FirebaseAuth.Auth.auth().signOut()
+            
+            //로그아웃하면 유저디폴트의 닉네임을 제거해준다. 그렇지 않으면 닉네임없는 다른아이디로 로그인하면 전아이디 닉네임이 뜨기 때문.
+            UserDefaults.standard.removeObject(forKey: "nickName")
+            
             //로그아웃과 동시에 뷰 닫기
             print("로그아웃 성공")
             self.dismiss(animated: true, completion: nil)
@@ -180,6 +184,39 @@ class LoginDetailView: UIViewController {
         //비밀번호를 재설정할 수 있는 이메일을 보냄
         Auth.auth().sendPasswordReset(withEmail: email, completion: nil)
     }
+    
+//MARK: - 타 로그인시 닉네임 새로 설정
+    func newnickNameSetting() {
+        if Auth.auth().currentUser?.displayName == nil {
+            
+            let alert = UIAlertController(title: "최초 닉네임 설정", message: "닉네임을 입력해주세요.",preferredStyle: .alert)
+            //텍스트필드 속성
+            alert.addTextField() { field in
+                field.placeholder = "닉네임 변경"
+                field.keyboardType = .emailAddress
+                
+            }
+            let ok = UIAlertAction(title: "OK", style: .default) { (ok) in
+                guard let fields = alert.textFields, fields.count == 1 else { return }
+                let nicknameField = fields[0]
+                
+                guard let text = nicknameField.text, !text.isEmpty else { return }
+                let change = Auth.auth().currentUser?.createProfileChangeRequest()
+                change?.displayName = text
+                change?.commitChanges { _ in
+                }
+                print(text)
+                self.userName.text = text
+            }
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (cancel) in
+                //alert.dismiss(animated: true, completion: nil)
+            }
+            alert.addAction(cancel)
+            alert.addAction(ok)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+ 
     
 //MARK: - 닉네임 변경
     @IBAction func nickNameUpdateBtn(_ sender: Any) {
@@ -248,14 +285,13 @@ class LoginDetailView: UIViewController {
                     print("회원탈퇴완료")
                     self.ref.child("users").child(user.uid).removeValue()
                     self.dismiss(animated: true, completion: nil)
-                    //defer
+                    //이미지삭제
                     let deleteImg = self.storage.child("userImages").child(user.uid)
                     deleteImg.delete { error in
                         if let error = error {
                             print("이미지 삭제 오류 \(error)")
                         } else {
                             print("모든정보 삭제됨")
-                            
                         }
                     }
                 }
