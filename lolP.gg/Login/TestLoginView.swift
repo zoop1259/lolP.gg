@@ -19,6 +19,7 @@ class TestLoginView: UIViewController {
     @IBOutlet weak var uuidLabel: UILabel!
     @IBOutlet weak var userImg: UIImageView!
     @IBOutlet weak var imageStackView: UIStackView!
+    @IBOutlet weak var imageIndicator: UIActivityIndicatorView!
     
     var ref = Database.database().reference() //db
     let storage = Storage.storage().reference() //스토리지 레퍼런스 초기화
@@ -36,20 +37,7 @@ class TestLoginView: UIViewController {
         nickLabel.text = Auth.auth().currentUser?.displayName ?? "별명이없다"
         uuidLabel.text = Auth.auth().currentUser?.uid
         
-        if let url = Auth.auth().currentUser?.photoURL {
-            do {
-                let imgData = try Data(contentsOf: url)
-                if let image = UIImage(data: imgData) {
-                    DispatchQueue.main.async {
-                        self.userImg.image = image
-                    }
-                }
-            } catch {
-                debugPrint("From catch block: Image could not be downloaded !!")
-            }
-        }
-
-        
+        settingimg()
         
         userImg.contentMode = .scaleAspectFill
         userImg.image = UIImage(systemName: "person")
@@ -63,6 +51,22 @@ class TestLoginView: UIViewController {
         userImg.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapChangeProfilePic))
         userImg.addGestureRecognizer(gesture)
+    }
+    
+    func settingimg() {
+        if let url = Auth.auth().currentUser?.photoURL {
+            do {
+                let imgData = try Data(contentsOf: url)
+                if let image = UIImage(data: imgData) {
+                    DispatchQueue.main.async {
+                        self.userImg.image = image
+                        self.imageIndicator.stopAnimating()
+                    }
+                }
+            } catch {
+                debugPrint("From catch block: Image could not be downloaded !!")
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

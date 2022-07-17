@@ -24,6 +24,7 @@ class LoginDetailView: UIViewController {
     @IBOutlet var userEmail: UILabel!
     @IBOutlet var passwordReset: UIButton!
     @IBOutlet var userImg: UIImageView!
+    @IBOutlet weak var imageIndicator: UIActivityIndicatorView!
     
     var ref = Database.database().reference() //db
     let storage = Storage.storage().reference() //스토리지 레퍼런스 초기화
@@ -31,22 +32,40 @@ class LoginDetailView: UIViewController {
     let imagePickerController = UIImagePickerController()
     var selectedImage: UIImage?
     
-    //인디케이터 생성
-    lazy var activityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView()
-        activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        activityIndicator.center = self.view.center
-        activityIndicator.color = UIColor.red
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.style = UIActivityIndicatorView.Style.medium
-        return activityIndicator
-    } ()
-    
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
- 
-        self.view.addSubview(self.activityIndicator)
+        
+        settingImgView()
+        getnickName()
+        loadUserImg()
+
+        //로그인 확인.
+        if let user = Auth.auth().currentUser {
+            print("당신의 \(user.uid), email: \(user.email ?? "no email")")
+        }
+    }
+    //MARK: - viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkCameraPermission()
+        checkAlbumPermission()
+        newnickNameSetting()
+
+        //self.userView.isHidden = true
+        print("디테일화면 나온당")
+        //로그인이 이메일로 환영하기 위함
+        userEmail.text = Auth.auth().currentUser?.email
+        userName.text = Auth.auth().currentUser?.displayName ?? "별명이없다"
+        userId.text = Auth.auth().currentUser?.uid
+        //이메일 초기화
+        let isEmailSignIn = Auth.auth().currentUser?.providerData[0].providerID == "password"
+        //이메일 로그인이 아니라면 비밀번호 변경 버튼은 사라져야 한다.
+        passwordReset.isHidden = !isEmailSignIn
+    }
+    
+    //MARK: - Image Configure
+    func settingImgView() {
         //프로필 사진 ui설정
         userImg.contentMode = .scaleAspectFill
         userImg.image = UIImage(systemName: "person")
@@ -60,36 +79,8 @@ class LoginDetailView: UIViewController {
         userImg.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapChangeProfilePic))
         userImg.addGestureRecognizer(gesture)
-
-        //로그인 확인.
-        if let user = Auth.auth().currentUser {
-            print("당신의 \(user.uid), email: \(user.email ?? "no email")")
-        }
     }
-    //MARK: - viewWillAppear
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        checkCameraPermission()
-        checkAlbumPermission()
-        newnickNameSetting()
-        
-        self.activityIndicator.startAnimating()
-        self.userView.isHidden = true
-
-        print("디테일화면 나온당")
-        //로그인이 이메일로 환영하기 위함
-        userEmail.text = Auth.auth().currentUser?.email
-        userName.text = Auth.auth().currentUser?.displayName ?? "별명이없다"
-        userId.text = Auth.auth().currentUser?.uid
-        
-        getnickName()
-        loadUserImg()
-
-        //이메일 초기화
-        let isEmailSignIn = Auth.auth().currentUser?.providerData[0].providerID == "password"
-        //이메일 로그인이 아니라면 비밀번호 변경 버튼은 사라져야 한다.
-        passwordReset.isHidden = !isEmailSignIn
-    }
+    
     
     @IBAction func dismissBtn(_ sender: UIButton) {
         print("배경이 터치되어 화면 dismiss")
@@ -145,15 +136,15 @@ class LoginDetailView: UIViewController {
                             if let data = try? Data(contentsOf: url) {
                                 DispatchQueue.main.async {
                                     self.userImg.image = UIImage(data: data)
-                                    self.activityIndicator.stopAnimating()
-                                    self.userView.isHidden = false
+                                    self.imageIndicator.stopAnimating()
                                 }
                             }
                         }
                     //프로필사진이 등록되어있지 않은경우 바로 프로필화면을 보여준다.
                     } else {
-                        self.activityIndicator.stopAnimating()
-                        self.userView.isHidden = false
+                        DispatchQueue.main.async {
+                            self.imageIndicator.stopAnimating()
+                        }
                     }
                 }
             })
