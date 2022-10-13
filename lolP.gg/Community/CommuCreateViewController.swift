@@ -99,8 +99,7 @@ class CommuCreateViewController : UIViewController, UITextViewDelegate, UITextFi
             self.navigationItem.rightBarButtonItem?.isEnabled = false
         }
     }
-    
-    
+        
     //텍스트뷰 플레이스홀더 변경용.
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {

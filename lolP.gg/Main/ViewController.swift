@@ -60,6 +60,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             champions = champion[indexPath.row]
         }
         
+//        cell.nameLabel.text = champion[indexPath.row].key
+        
         //이걸 글로벌하게 하니까. 필터했을떄 이쁘지가 않은것.
         //이미지를 빠르게 그리기 위해서 global로 돌린다.
         DispatchQueue.global().async {
