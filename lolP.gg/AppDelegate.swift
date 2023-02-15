@@ -10,6 +10,7 @@ import Firebase
 import AuthenticationServices
 import GoogleSignIn
 import FirebaseAuth
+import FirebaseMessaging
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,6 +25,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("당신의 \(user.uid), email: \(user.email ?? "no email")")
         }
         
+      //원격 알림 등록.
+      //https://firebase.google.com/docs/cloud-messaging/ios/client?hl=ko
+      UNUserNotificationCenter.current().delegate = self
+
+      let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+      UNUserNotificationCenter.current().requestAuthorization(
+        options: authOptions,
+        completionHandler: { _, _ in }
+      )
+
+      //메세지 델리게이트 설정
+      Messaging.messaging().delegate = self
+      
+      //앱이 열렸을때도 푸시받을수있게(푸시 포그라운드설정)
+      UNUserNotificationCenter.current().delegate = self
+      
+      application.registerForRemoteNotifications()
+      
         //네비게이션 바 색변경.
         let standard = UINavigationBarAppearance()
         standard.configureWithOpaqueBackground()
@@ -49,6 +68,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+  
+  //apnstoken 속성 설정 (fcm 토큰이 등록되었을때 서로 연결해주는?(파베토큰과 애플토큰을))
+  func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    Messaging.messaging().apnsToken = deviceToken
+  }
+  
 
     @available(iOS 9.0, *)
     func application(_ application: UIApplication, open url: URL,
@@ -73,3 +98,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
 }
 
+extension AppDelegate: MessagingDelegate {
+  //fcm 등록 토큰을 받았을 때
+  func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+    print("AppDelegate - 파베 토큰을 받았다.")
+    print("AppDelegate - 등록된 토큰은: \(String(describing: fcmToken))")
+  }
+}
+
+//
+extension AppDelegate: UNUserNotificationCenterDelegate {
+  
+  //푸시 메세지가 앱이 켜진상태로 받을 때
+  func userNotificationCenter(_ center: UNUserNotificationCenter,
+                              willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    //푸쉬로 들어온 데이터가 노티로 들어옴.
+    let userInfo = notification.request.content.userInfo
+    //유저 정보 print
+    print("willPresent userInfo: ", userInfo)
+    
+    //푸쉬 스타일 설정
+    completionHandler([.banner, .sound, .badge])
+  }
+  
+  //푸시 메세지를 받았을 때
+  func userNotificationCenter(_ center: UNUserNotificationCenter,
+                              didReceive response: UNNotificationResponse,
+                              withCompletionHandler completionHandler: @escaping () -> Void) {
+    let userInfo = response.notification.request.content.userInfo
+    print("didReceive userInfo: ", userInfo)
+    completionHandler()
+  }
+  
+}

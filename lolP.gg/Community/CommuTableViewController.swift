@@ -26,8 +26,6 @@ class CommuTableViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         configureContentsTextView()
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

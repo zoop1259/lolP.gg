@@ -79,23 +79,3 @@ class CommuUpdateViewController : UIViewController {
     
 }
 
-
-
-
-/*
- 게시글 삭제. 그냥 차일드에 맞추고 리무브
- //실시간 db삭제
- //option1 구현
-//            let cardID = creditCardList[indexPath.row].id
-//            ref.child("Item\(cardID)").removeValue()
- 
- //option2 구현 .. 특정패스를 모를떄.
-//            ref.queryOrdered(byChild: "id").queryEqual(toValue: cardID).observe(.value) {[weak self] snapshot in
-//                guard let self = self,
-//                      let value = snapshot.value as? [String: [String:Any]],
-//                      //first는 키의 첫번쨰 값을 가져온다.
-//                      let key = value.keys.first else { return }
-//
-//                self.ref.child("\(key)/isSelected").setValue(true)
-//            }
- */
